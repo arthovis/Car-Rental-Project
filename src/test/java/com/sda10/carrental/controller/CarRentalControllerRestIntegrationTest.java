@@ -1,6 +1,7 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
+import com.sda10.carrental.dto.CarRentalOfficeDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,16 @@ public class CarRentalControllerRestIntegrationTest extends RestIntegrationTest 
 
         String relativePath = "/car-rental-offices";
 
-        ResponseEntity<Long> actualResponse = this.restTemplate.postForEntity(url(relativePath), null, Long.class);
+        ResponseEntity<CarRentalOfficeDto> actualResponse = this.restTemplate.postForEntity(url(relativePath), null, CarRentalOfficeDto.class);
 
-        Assertions.assertEquals(1L, actualResponse.getBody());
+        CarRentalOfficeDto expectedResponse = CarRentalOfficeDto.carRentalOfficeDto()
+                .withId(1L)
+                .withName("A")
+                .withInternetDomain("B")
+                .withOwner("C")
+                .withContactAddress("D")
+                .withLogoType("E");
+
+        Assertions.assertEquals(expectedResponse, actualResponse.getBody());
     }
 }
