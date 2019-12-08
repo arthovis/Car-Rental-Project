@@ -65,9 +65,43 @@ public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegratio
         Assertions.assertNotNull(actualResponse.getBody());
         Assertions.assertEquals(HttpStatus.OK,actualResponse.getStatusCode());
 
+    }
+
+    @Test
+    public void updateTest() {
+
+        CarRentalOffice carRentalOffice = new CarRentalOffice();
+
+        carRentalOffice.setName("A");
+        carRentalOffice.setContactAddress("B");
+        carRentalOffice.setInternetDomain("C");
+        carRentalOffice.setOwner("D");
+        carRentalOffice.setLogoType("E");
+
+        carRentalOffice = carRentalOfficeRepository.saveAndFlush(carRentalOffice);
+
+        CarRentalOfficeDto updatedCarRentalOfficeDto = CarRentalOfficeDto.carRentalOfficeDto()
+                .withName("A updated")
+                .withContactAddress("B updated")
+                .withInternetDomain("C updated")
+                .withOwner("D updated")
+                .withLogoType("E updated");
+
+        String relativePath = "/car-rental-offices/" + carRentalOffice.getId();
+
+        this.restTemplate.put(url(relativePath), updatedCarRentalOfficeDto);
+
+        CarRentalOffice updatedEntity = carRentalOfficeRepository.findById(carRentalOffice.getId()).get();
+
+        CarRentalOfficeDto verifyUpdateDto = CarRentalOfficeDto.carRentalOfficeDto()
+                .withName(updatedEntity.getName())
+                .withContactAddress(updatedEntity.getContactAddress())
+                .withInternetDomain(updatedEntity.getInternetDomain())
+                .withOwner(updatedEntity.getOwner())
+                .withLogoType(updatedEntity.getLogoType());
 
 
-
+        Assertions.assertEquals(updatedCarRentalOfficeDto, verifyUpdateDto);
 
     }
 
