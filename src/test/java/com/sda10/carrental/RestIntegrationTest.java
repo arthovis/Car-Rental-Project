@@ -10,6 +10,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations="classpath:application-test.properties")
 public class RestIntegrationTest {
+
+
+
     @LocalServerPort
     private int port;
     protected String url(String relativePath) {

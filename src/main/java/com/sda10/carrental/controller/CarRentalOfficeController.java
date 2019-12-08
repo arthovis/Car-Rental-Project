@@ -4,9 +4,7 @@ import com.sda10.carrental.dto.CarRentalOfficeDto;
 import com.sda10.carrental.model.CarRentalOffice;
 import com.sda10.carrental.service.CarRentalOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CarRentalOfficeController {
@@ -34,6 +32,22 @@ public class CarRentalOfficeController {
                 .withOwner(carRentalOffice.getOwner())
                 .withContactAddress(carRentalOffice.getContactAddress())
                 .withLogoType(carRentalOffice.getLogoType());
+    }
+
+
+    @GetMapping(value="/car-rental-offices/{id}")
+    public CarRentalOfficeDto findCarRentalOfficeById(@PathVariable Long id){
+
+        CarRentalOffice carRentalOfficeById = carRentalOfficeService.getCarRentalOfficeById(id);
+
+        return CarRentalOfficeDto.carRentalOfficeDto()
+                .withId(carRentalOfficeById.getId())
+                .withName(carRentalOfficeById.getName())
+                .withInternetDomain(carRentalOfficeById.getInternetDomain())
+                .withOwner(carRentalOfficeById.getOwner())
+                .withContactAddress(carRentalOfficeById.getContactAddress())
+                .withLogoType(carRentalOfficeById.getLogoType());
+
     }
 
 

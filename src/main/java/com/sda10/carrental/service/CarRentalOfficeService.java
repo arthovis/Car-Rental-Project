@@ -17,5 +17,9 @@ public class CarRentalOfficeService {
 
     }
 
+    public CarRentalOffice getCarRentalOfficeById(Long id){
+        return carRentalOfficeRepository.getOne(id);
+    }
+
 
 }
