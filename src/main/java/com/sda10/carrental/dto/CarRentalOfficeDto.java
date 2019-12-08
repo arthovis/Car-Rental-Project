@@ -55,7 +55,8 @@ public class CarRentalOfficeDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarRentalOfficeDto that = (CarRentalOfficeDto) o;
-        return Objects.equals(name, that.name) &&
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(internetDomain, that.internetDomain) &&
                 Objects.equals(contactAddress, that.contactAddress) &&
                 Objects.equals(owner, that.owner) &&
@@ -64,6 +65,6 @@ public class CarRentalOfficeDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, internetDomain, contactAddress, owner, logoType);
+        return Objects.hash(id, name, internetDomain, contactAddress, owner, logoType);
     }
 }
