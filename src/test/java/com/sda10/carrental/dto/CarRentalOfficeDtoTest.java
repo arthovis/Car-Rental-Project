@@ -14,8 +14,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("C")
                 .withContactAddress("D")
+                .withOwner("C")
                 .withLogoType("E");
 
         CarRentalOfficeDto carRentalOfficeDto2=CarRentalOfficeDto
@@ -23,8 +23,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("C")
                 .withContactAddress("D")
+                .withOwner("C")
                 .withLogoType("E");
 
         boolean comparisonResult=carRentalOfficeDto1.equals(carRentalOfficeDto2);
@@ -39,8 +39,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("B")
                 .withInternetDomain("B")
-                .withOwner("C")
                 .withContactAddress("D")
+                .withOwner("C")
                 .withLogoType("E");
 
         CarRentalOfficeDto carRentalOfficeDto2=CarRentalOfficeDto
@@ -48,8 +48,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("C")
                 .withContactAddress("D")
+                .withOwner("C")
                 .withLogoType("E");
 
         boolean comparisonResult=carRentalOfficeDto1.equals(carRentalOfficeDto2);
@@ -64,8 +64,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("C")
-                .withOwner("C")
                 .withContactAddress("D")
+                .withOwner("C")
                 .withLogoType("E");
 
         CarRentalOfficeDto carRentalOfficeDto2=CarRentalOfficeDto
@@ -73,8 +73,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("C")
                 .withContactAddress("D")
+                .withOwner("C")
                 .withLogoType("E");
 
         boolean comparisonResult=carRentalOfficeDto1.equals(carRentalOfficeDto2);
@@ -89,8 +89,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("D")
                 .withContactAddress("D")
+                .withOwner("D")
                 .withLogoType("E");
 
         CarRentalOfficeDto carRentalOfficeDto2=CarRentalOfficeDto
@@ -98,8 +98,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("C")
                 .withContactAddress("D")
+                .withOwner("C")
                 .withLogoType("E");
 
         boolean comparisonResult=carRentalOfficeDto1.equals(carRentalOfficeDto2);
@@ -114,8 +114,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("C")
                 .withContactAddress("E")
+                .withOwner("C")
                 .withLogoType("E");
 
         CarRentalOfficeDto carRentalOfficeDto2=CarRentalOfficeDto
@@ -123,8 +123,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("C")
                 .withContactAddress("D")
+                .withOwner("C")
                 .withLogoType("E");
 
         boolean comparisonResult=carRentalOfficeDto1.equals(carRentalOfficeDto2);
@@ -139,8 +139,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("C")
                 .withContactAddress("D")
+                .withOwner("C")
                 .withLogoType("F");
 
         CarRentalOfficeDto carRentalOfficeDto2=CarRentalOfficeDto
@@ -148,8 +148,8 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("C")
                 .withContactAddress("D")
+                .withOwner("C")
                 .withLogoType("E");
 
         boolean comparisonResult=carRentalOfficeDto1.equals(carRentalOfficeDto2);
