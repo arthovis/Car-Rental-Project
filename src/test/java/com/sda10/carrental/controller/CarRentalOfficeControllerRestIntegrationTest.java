@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 
-public class CarRentalControllerRestIntegrationTest extends RestIntegrationTest {
+public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -24,8 +24,8 @@ public class CarRentalControllerRestIntegrationTest extends RestIntegrationTest 
                 .withId(1L)
                 .withName("A")
                 .withInternetDomain("B")
-                .withOwner("C")
-                .withContactAddress("D")
+                .withContactAddress("C")
+                .withOwner("D")
                 .withLogoType("E");
 
         Assertions.assertEquals(expectedResponse, actualResponse.getBody());
