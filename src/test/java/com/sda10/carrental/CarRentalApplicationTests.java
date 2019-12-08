@@ -1,4 +1,4 @@
-package com.sda10.carrental.carrental;
+package com.sda10.carrental;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
