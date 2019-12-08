@@ -1,5 +1,4 @@
-
-
+package com.sda10.carrental;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
