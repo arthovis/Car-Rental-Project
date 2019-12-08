@@ -5,6 +5,7 @@ import com.sda10.carrental.model.CarRentalOffice;
 import com.sda10.carrental.service.CarRentalOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,9 +15,17 @@ public class CarRentalOfficeController {
     private CarRentalOfficeService carRentalOfficeService;
 
     @PostMapping(value = "/car-rental-offices")
-    public CarRentalOfficeDto createCarRentalOffice() {
+    public CarRentalOfficeDto createCarRentalOffice(@RequestBody CarRentalOfficeDto carRentalOfficeDetails) {
 
-        CarRentalOffice carRentalOffice = carRentalOfficeService.createCarRentalOffice();
+        CarRentalOffice carRentalOffice = new CarRentalOffice();
+
+        carRentalOffice.setName(carRentalOfficeDetails.name);
+        carRentalOffice.setInternetDomain(carRentalOfficeDetails.internetDomain);
+        carRentalOffice.setOwner(carRentalOfficeDetails.owner);
+        carRentalOffice.setContactAddress(carRentalOfficeDetails.contactAddress);
+        carRentalOffice.setLogoType(carRentalOfficeDetails.logoType);
+
+        carRentalOffice = carRentalOfficeService.createCarRentalOffice(carRentalOffice);
 
         return CarRentalOfficeDto.carRentalOfficeDto()
                 .withId(carRentalOffice.getId())

@@ -11,18 +11,10 @@ public class CarRentalOfficeService {
     @Autowired
     private CarRentalOfficeRepository carRentalOfficeRepository;
 
-    public CarRentalOffice createCarRentalOffice() {
-        CarRentalOffice carRentalOffice = new CarRentalOffice();
+    public CarRentalOffice createCarRentalOffice(CarRentalOffice carRentalOffice) {
 
-        carRentalOffice.setName("A");
-        carRentalOffice.setInternetDomain("B");
-        carRentalOffice.setContactAddress("C");
-        carRentalOffice.setOwner("D");
-        carRentalOffice.setLogoType("E");
+        return carRentalOfficeRepository.save(carRentalOffice);
 
-        carRentalOffice = carRentalOfficeRepository.save(carRentalOffice);
-
-        return carRentalOffice;
     }
 
 

@@ -19,21 +19,23 @@ public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegratio
     private CarRentalOfficeRepository carRentalOfficeRepository;
 
     @Test
-    public void whenAPostRequestReceived_thenCreateCarRentalOffice() {
+    public void givenCarRentalOfficeDetails_whenAPostRequestReceived_thenCreateCarRentalOffice() {
 
-        String relativePath = "/car-rental-offices";
+        CarRentalOfficeDto carRentalOfficeDetails = CarRentalOfficeDto.carRentalOfficeDto();
 
-        ResponseEntity<CarRentalOfficeDto> actualResponse = this.restTemplate.postForEntity(url(relativePath), null, CarRentalOfficeDto.class);
-
-        Long newId = actualResponse.getBody().id;
-
-        CarRentalOfficeDto expectedResponse = CarRentalOfficeDto.carRentalOfficeDto()
-                .withId(newId)
-                .withName("A")
+        carRentalOfficeDetails.withName("AX")
                 .withInternetDomain("B")
                 .withContactAddress("C")
                 .withOwner("D")
                 .withLogoType("E");
+
+        String relativePath = "/car-rental-offices";
+
+        ResponseEntity<CarRentalOfficeDto> actualResponse = this.restTemplate.postForEntity(url(relativePath), carRentalOfficeDetails, CarRentalOfficeDto.class);
+
+        Long newId = actualResponse.getBody().id;
+
+        CarRentalOfficeDto expectedResponse = carRentalOfficeDetails.withId(newId);
 
         CarRentalOffice expectedCarRentalOffice = carRentalOfficeRepository.getOne(newId);
 
