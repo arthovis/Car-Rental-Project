@@ -1,14 +1,32 @@
 package com.sda10.carrental.model;
 
+import com.sun.istack.NotNull;
+
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "car_rental_office")
 public class CarRentalOffice {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column
+    @NotNull
     private String name;
+
+    @NotNull
     private String internetDomain;
+
+    @NotNull
     private String contactAddress;
+
+    @NotNull
     private String owner;
+
+    @NotNull
     private String logoType;
 //    public List<Branch> branches;
 

@@ -2,6 +2,8 @@ package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.CarRentalOfficeDto;
+import com.sda10.carrental.model.CarRentalOffice;
+import com.sda10.carrental.repository.CarRentalOfficeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegratio
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private CarRentalOfficeRepository carRentalOfficeRepository;
+
     @Test
     public void whenAPostRequestReceived_thenCreateCarRentalOffice() {
 
@@ -20,14 +25,21 @@ public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegratio
 
         ResponseEntity<CarRentalOfficeDto> actualResponse = this.restTemplate.postForEntity(url(relativePath), null, CarRentalOfficeDto.class);
 
+        Long newId = actualResponse.getBody().id;
+
         CarRentalOfficeDto expectedResponse = CarRentalOfficeDto.carRentalOfficeDto()
-                .withId(1L)
+                .withId(newId)
                 .withName("A")
                 .withInternetDomain("B")
                 .withContactAddress("C")
                 .withOwner("D")
                 .withLogoType("E");
 
+        CarRentalOffice expectedCarRentalOffice = carRentalOfficeRepository.getOne(newId);
+
+        Assertions.assertNotNull(expectedCarRentalOffice);
         Assertions.assertEquals(expectedResponse, actualResponse.getBody());
+
     }
+
 }
