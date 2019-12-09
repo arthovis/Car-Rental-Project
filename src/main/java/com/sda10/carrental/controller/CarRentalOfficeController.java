@@ -37,8 +37,8 @@ public class CarRentalOfficeController {
     }
 
 
-    @GetMapping(value="/car-rental-offices/{id}")
-    public CarRentalOfficeDto findCarRentalOfficeById(@PathVariable Long id){
+    @GetMapping(value = "/car-rental-offices/{id}")
+    public CarRentalOfficeDto findCarRentalOfficeById(@PathVariable Long id) {
 
         CarRentalOffice carRentalOfficeById = carRentalOfficeService.getCarRentalOfficeById(id);
 
@@ -68,5 +68,11 @@ public class CarRentalOfficeController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/car-rental-offices/{id}")
+    public ResponseEntity deleteCarRentalOffice(@PathVariable Long id) {
 
+        carRentalOfficeService.deleteCarRentalOffice(id);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

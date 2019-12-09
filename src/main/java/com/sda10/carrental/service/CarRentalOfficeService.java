@@ -33,8 +33,11 @@ public class CarRentalOfficeService {
         } else {
             throw new RuntimeException();
         }
-
     }
 
+    public void deleteCarRentalOffice(Long id) {
+        CarRentalOffice existingCarRentalOffice = carRentalOfficeRepository.findById(id).get();
 
+        carRentalOfficeRepository.delete(existingCarRentalOffice);
+    }
 }

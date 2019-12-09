@@ -11,6 +11,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Optional;
+
 public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
@@ -102,6 +104,27 @@ public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegratio
 
 
         Assertions.assertEquals(updatedCarRentalOfficeDto, verifyUpdateDto);
+
+    }
+
+    @Test
+    public void deleteTest() {
+
+        CarRentalOffice existingCarRentalOffice = new CarRentalOffice();
+
+        existingCarRentalOffice.setName("I");
+        existingCarRentalOffice.setContactAddress("II");
+        existingCarRentalOffice.setInternetDomain("III");
+        existingCarRentalOffice.setOwner("IV");
+        existingCarRentalOffice.setLogoType("V");
+        existingCarRentalOffice = carRentalOfficeRepository.save(existingCarRentalOffice);
+
+        String relativePath = "/car-rental-offices/" + existingCarRentalOffice.getId();
+        this.restTemplate.delete(relativePath, existingCarRentalOffice.getId());
+
+        Optional<CarRentalOffice> updatedCarRentalOffice = this.carRentalOfficeRepository.findById(existingCarRentalOffice.getId());
+
+        Assertions.assertFalse(updatedCarRentalOffice.isPresent());
 
     }
 
