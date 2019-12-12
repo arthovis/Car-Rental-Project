@@ -2,7 +2,7 @@ package com.sda10.carrental.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -16,8 +16,9 @@ public class Rental {
     private Long id;
 
     @Column
+    @Temporal(TemporalType.DATE)
     @NotNull
-    private Date rentalDate;
+    private LocalDate rentalDate;
 
     @Column
     @NotNull
@@ -31,11 +32,11 @@ public class Rental {
         this.id = id;
     }
 
-    public Date getRentalDate() {
+    public LocalDate getRentalDate() {
         return rentalDate;
     }
 
-    public void setRentalDate(Date rentalDate) {
+    public void setRentalDate(LocalDate rentalDate) {
         this.rentalDate = rentalDate;
     }
 

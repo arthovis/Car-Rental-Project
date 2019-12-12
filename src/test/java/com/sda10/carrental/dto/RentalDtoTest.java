@@ -4,7 +4,6 @@ import com.sda10.carrental.UnitTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class RentalDtoTest extends UnitTest {
@@ -14,14 +13,14 @@ public class RentalDtoTest extends UnitTest {
         RentalDto rentalDto1 = RentalDto
                 .rentalDto()
                 .withId(1L)
-                .withRentalDate(Date.valueOf(LocalDate.now()))
+                .withRentalDate(LocalDate.now())
                 .withComments("Achitat");
 
 
         RentalDto rentalDto2 = RentalDto
                 .rentalDto()
                 .withId(1L)
-                .withRentalDate(Date.valueOf(LocalDate.now()))
+                .withRentalDate(LocalDate.now())
                 .withComments("Achitat");
 
         boolean comparisonResult = rentalDto1.equals(rentalDto2);
@@ -34,14 +33,14 @@ public class RentalDtoTest extends UnitTest {
         RentalDto rentalDto1 = RentalDto
                 .rentalDto()
                 .withId(1L)
-                .withRentalDate(Date.valueOf(LocalDate.now()))
+                .withRentalDate(LocalDate.now())
                 .withComments("Achitat");
 
 
         RentalDto rentalDto2 = RentalDto
                 .rentalDto()
                 .withId(2L)
-                .withRentalDate(Date.valueOf(LocalDate.now()))
+                .withRentalDate(LocalDate.now())
                 .withComments("Achitat");
 
         boolean comparisonResult = rentalDto1.equals(rentalDto2);
@@ -54,14 +53,14 @@ public class RentalDtoTest extends UnitTest {
         RentalDto rentalDto1 = RentalDto
                 .rentalDto()
                 .withId(1L)
-                .withRentalDate(Date.valueOf(LocalDate.ofYearDay(1995, 5)))
+                .withRentalDate(LocalDate.of(1995, 12, 11))
                 .withComments("Achitat");
 
 
         RentalDto rentalDto2 = RentalDto
                 .rentalDto()
                 .withId(2L)
-                .withRentalDate(Date.valueOf(LocalDate.now()))
+                .withRentalDate(LocalDate.now())
                 .withComments("Achitat");
 
         boolean comparisonResult = rentalDto1.equals(rentalDto2);
@@ -74,14 +73,14 @@ public class RentalDtoTest extends UnitTest {
         RentalDto rentalDto1 = RentalDto
                 .rentalDto()
                 .withId(1L)
-                .withRentalDate(Date.valueOf(LocalDate.now()))
+                .withRentalDate(LocalDate.now())
                 .withComments("Achitat");
 
 
         RentalDto rentalDto2 = RentalDto
                 .rentalDto()
                 .withId(1L)
-                .withRentalDate(Date.valueOf(LocalDate.now()))
+                .withRentalDate(LocalDate.now())
                 .withComments("Nechitat");
 
         boolean comparisonResult = rentalDto1.equals(rentalDto2);

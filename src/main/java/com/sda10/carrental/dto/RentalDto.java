@@ -1,13 +1,13 @@
 package com.sda10.carrental.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class RentalDto {
     // TODO: 09-Dec-19 add employee and booking entries
 
     public Long id;
-    public Date rentalDate;
+    public LocalDate rentalDate;
     public String comments;
 
     private RentalDto() {
@@ -22,7 +22,7 @@ public class RentalDto {
         return this;
     }
 
-    public RentalDto withRentalDate(Date rentalDate) {
+    public RentalDto withRentalDate(LocalDate rentalDate) {
         this.rentalDate = rentalDate;
         return this;
     }

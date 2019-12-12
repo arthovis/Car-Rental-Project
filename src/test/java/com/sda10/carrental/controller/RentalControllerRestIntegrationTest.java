@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class RentalControllerRestIntegrationTest extends RestIntegrationTest {
@@ -26,7 +25,7 @@ public class RentalControllerRestIntegrationTest extends RestIntegrationTest {
 
         RentalDto rentalDetails = RentalDto.rentalDto();
 
-        rentalDetails.withRentalDate(Date.valueOf(LocalDate.now()))
+        rentalDetails.withRentalDate(LocalDate.of(1995, 02, 12))
                 .withComments("Achitat");
 
         String relativePath = "/rental";
