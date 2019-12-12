@@ -24,18 +24,10 @@ public class CarReturnController {
     @PostMapping("/car-return")
     public ResponseEntity<CarReturnDto> createCarReturn(@RequestBody CarReturnDto carReturnDtoDetails) {
 
-        CarReturn newCarReturn = new CarReturn();
-        newCarReturn.setDateOfReturn(carReturnDtoDetails.dateOfReturn);
-        newCarReturn.setAdditionalPayment(carReturnDtoDetails.additionalPayment);
-        newCarReturn.setComments(carReturnDtoDetails.comments);
-
+        CarReturn newCarReturn = toEntityCarReturn(carReturnDtoDetails);
         CarReturn createdCarReturn = carReturnService.createCarReturn(newCarReturn);
 
-        CarReturnDto response = CarReturnDto.carReturnDto()
-                .withId(createdCarReturn.getId())
-                .withDateOfReturn(createdCarReturn.getDateOfReturn())
-                .withAdditionalPayment(createdCarReturn.getAdditionalPayment())
-                .withComments(createdCarReturn.getComments());
+        CarReturnDto response = toCarReturnDto(createdCarReturn);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -46,11 +38,7 @@ public class CarReturnController {
         List<CarReturn> carReturns = carReturnService.findAllCarReturn();
 
         return carReturns.stream()
-                .map(carReturn -> CarReturnDto.carReturnDto()
-                        .withId(carReturn.getId())
-                        .withDateOfReturn(carReturn.getDateOfReturn())
-                        .withAdditionalPayment(carReturn.getAdditionalPayment())
-                        .withComments(carReturn.getComments()))
+                .map(carReturn -> toCarReturnDto(carReturn))
                 .collect(Collectors.toList());
     }
 
@@ -59,11 +47,7 @@ public class CarReturnController {
 
         CarReturn carReturn = carReturnService.findCarReturnById(id);
 
-        CarReturnDto response = CarReturnDto.carReturnDto()
-                .withId(carReturn.getId())
-                .withDateOfReturn(carReturn.getDateOfReturn())
-                .withAdditionalPayment(carReturn.getAdditionalPayment())
-                .withComments(carReturn.getComments());
+        CarReturnDto response = toCarReturnDto(carReturn);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -71,18 +55,10 @@ public class CarReturnController {
     @PutMapping("/car-return/{id}")
     public ResponseEntity<CarReturnDto> updateCarReturn(@PathVariable("id") Long id, @RequestBody CarReturnDto carReturnDtoDetails) {
 
-        CarReturn carReturnToUpdate = new CarReturn();
-        carReturnToUpdate.setDateOfReturn(carReturnDtoDetails.dateOfReturn);
-        carReturnToUpdate.setAdditionalPayment(carReturnDtoDetails.additionalPayment);
-        carReturnToUpdate.setComments(carReturnDtoDetails.comments);
-
+        CarReturn carReturnToUpdate = toEntityCarReturn(carReturnDtoDetails);
         CarReturn updatedCarReturn = carReturnService.updateCarReturn(id, carReturnToUpdate);
 
-        CarReturnDto response = CarReturnDto.carReturnDto()
-                .withId(updatedCarReturn.getId())
-                .withDateOfReturn(updatedCarReturn.getDateOfReturn())
-                .withAdditionalPayment(updatedCarReturn.getAdditionalPayment())
-                .withComments(updatedCarReturn.getComments());
+        CarReturnDto response = toCarReturnDto(updatedCarReturn);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -93,5 +69,21 @@ public class CarReturnController {
         carReturnService.deleteCarReturn(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private CarReturn toEntityCarReturn(CarReturnDto carReturnDtoDetails) {
+        CarReturn carReturn = new CarReturn();
+        carReturn.setDateOfReturn(carReturnDtoDetails.dateOfReturn);
+        carReturn.setAdditionalPayment(carReturnDtoDetails.additionalPayment);
+        carReturn.setComments(carReturnDtoDetails.comments);
+        return carReturn;
+    }
+
+    private CarReturnDto toCarReturnDto(CarReturn carReturn) {
+        return CarReturnDto.carReturnDto()
+                .withId(carReturn.getId())
+                .withDateOfReturn(carReturn.getDateOfReturn())
+                .withAdditionalPayment(carReturn.getAdditionalPayment())
+                .withComments(carReturn.getComments());
     }
 }

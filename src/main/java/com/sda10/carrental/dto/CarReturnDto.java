@@ -40,7 +40,6 @@ public class CarReturnDto {
     }
 
     // equals() si hashCode() trebuie sa includa id
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
