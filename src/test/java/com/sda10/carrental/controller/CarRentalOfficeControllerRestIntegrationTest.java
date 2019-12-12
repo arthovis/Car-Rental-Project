@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegrationTest {
@@ -63,11 +62,6 @@ public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegratio
         ResponseEntity<CarRentalOfficeDto> actualResponse = this.restTemplate.getForEntity(url(relativePath), CarRentalOfficeDto.class);
 
         Assertions.assertNotNull(actualResponse.getBody());
-        Assertions.assertEquals(HttpStatus.OK,actualResponse.getStatusCode());
-
-
-
-
 
     }
 

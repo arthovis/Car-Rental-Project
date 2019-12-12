@@ -4,9 +4,7 @@ import com.sda10.carrental.dto.CustomerDto;
 import com.sda10.carrental.model.Customer;
 import com.sda10.carrental.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CustomerController {
@@ -31,5 +29,17 @@ public class CustomerController {
                 .withLastName(customer.getLastName())
                 .withEmail(customer.getEmail())
                 .withAddress(customer.getAddress());
+    }
+
+    @GetMapping(value = "/customers/{id}")
+    public CustomerDto findById(@PathVariable Long id) {
+        Customer customerById = customerService.findCustomer(id);
+
+        return CustomerDto.customerDto()
+                .withId(customerById.getId())
+                .withFirstName(customerById.getFirstName())
+                .withLastName(customerById.getLastName())
+                .withEmail(customerById.getEmail())
+                .withAddress(customerById.getAddress());
     }
 }

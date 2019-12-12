@@ -49,7 +49,6 @@ public class CarRentalOfficeController {
                 .withOwner(carRentalOfficeById.getOwner())
                 .withContactAddress(carRentalOfficeById.getContactAddress())
                 .withLogoType(carRentalOfficeById.getLogoType());
-
     }
 
     @PutMapping(value = "/car-rental-offices/{id}")
