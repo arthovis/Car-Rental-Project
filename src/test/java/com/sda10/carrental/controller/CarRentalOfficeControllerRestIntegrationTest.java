@@ -11,6 +11,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Optional;
+
 public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
@@ -56,18 +58,74 @@ public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegratio
         carRentalOffice.setOwner("D");
         carRentalOffice.setLogoType("E");
 
-        carRentalOffice=carRentalOfficeRepository.save(carRentalOffice);
+        carRentalOffice = carRentalOfficeRepository.save(carRentalOffice);
 
-        String relativePath="/car-rental-offices/"+carRentalOffice.getId();
+        String relativePath = "/car-rental-offices/" + carRentalOffice.getId();
 
-        ResponseEntity<CarRentalOfficeDto> actualResponse = this.restTemplate.getForEntity(url(relativePath), CarRentalOfficeDto.class);
+        ResponseEntity<CarRentalOfficeDto> actualResponse = this.restTemplate
+                .getForEntity(url(relativePath), CarRentalOfficeDto.class);
 
         Assertions.assertNotNull(actualResponse.getBody());
-        Assertions.assertEquals(HttpStatus.OK,actualResponse.getStatusCode());
+        Assertions.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
+
+    }
+
+    @Test
+    public void updateTest() {
+
+        CarRentalOffice carRentalOffice = new CarRentalOffice();
+
+        carRentalOffice.setName("A");
+        carRentalOffice.setContactAddress("B");
+        carRentalOffice.setInternetDomain("C");
+        carRentalOffice.setOwner("D");
+        carRentalOffice.setLogoType("E");
+
+        carRentalOffice = carRentalOfficeRepository.saveAndFlush(carRentalOffice);
+
+        CarRentalOfficeDto updatedCarRentalOfficeDto = CarRentalOfficeDto.carRentalOfficeDto()
+                .withName("A updated")
+                .withContactAddress("B updated")
+                .withInternetDomain("C updated")
+                .withOwner("D updated")
+                .withLogoType("E updated");
+
+        String relativePath = "/car-rental-offices/" + carRentalOffice.getId();
+
+        this.restTemplate.put(url(relativePath), updatedCarRentalOfficeDto);
+
+        CarRentalOffice updatedEntity = carRentalOfficeRepository.findById(carRentalOffice.getId()).get();
+
+        CarRentalOfficeDto verifyUpdateDto = CarRentalOfficeDto.carRentalOfficeDto()
+                .withName(updatedEntity.getName())
+                .withContactAddress(updatedEntity.getContactAddress())
+                .withInternetDomain(updatedEntity.getInternetDomain())
+                .withOwner(updatedEntity.getOwner())
+                .withLogoType(updatedEntity.getLogoType());
 
 
+        Assertions.assertEquals(updatedCarRentalOfficeDto, verifyUpdateDto);
 
+    }
 
+    @Test
+    public void deleteTest() {
+
+        CarRentalOffice existingCarRentalOffice = new CarRentalOffice();
+
+        existingCarRentalOffice.setName("I");
+        existingCarRentalOffice.setContactAddress("II");
+        existingCarRentalOffice.setInternetDomain("III");
+        existingCarRentalOffice.setOwner("IV");
+        existingCarRentalOffice.setLogoType("V");
+        existingCarRentalOffice = carRentalOfficeRepository.save(existingCarRentalOffice);
+
+        String relativePath = "/car-rental-offices/" + existingCarRentalOffice.getId();
+        this.restTemplate.delete(relativePath, existingCarRentalOffice.getId());
+
+        Optional<CarRentalOffice> updatedCarRentalOffice = this.carRentalOfficeRepository.findById(existingCarRentalOffice.getId());
+
+        Assertions.assertFalse(updatedCarRentalOffice.isPresent());
 
     }
 
