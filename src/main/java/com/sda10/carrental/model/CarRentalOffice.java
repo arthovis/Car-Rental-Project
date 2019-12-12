@@ -28,7 +28,8 @@ public class CarRentalOffice {
 
     @NotNull
     private String logoType;
-//    public List<Branch> branches;
+
+    // TODO: list of branches
 
 
     public Long getId() {
