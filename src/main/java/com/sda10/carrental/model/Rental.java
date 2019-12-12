@@ -16,7 +16,6 @@ public class Rental {
     private Long id;
 
     @Column
-    @Temporal(TemporalType.DATE)
     @NotNull
     private LocalDate rentalDate;
 

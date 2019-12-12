@@ -8,9 +8,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class RentalControllerRestIntegrationTest extends RestIntegrationTest {
 
@@ -41,4 +43,67 @@ public class RentalControllerRestIntegrationTest extends RestIntegrationTest {
         Assertions.assertNotNull(expectedRental);
         Assertions.assertEquals(expectedResponse, actualResponse.getBody());
     }
+
+    @Test
+    public void getByIdTest() {
+
+        Rental rental = new Rental();
+
+        rental.setRentalDate(LocalDate.of(2019, 5, 5));
+        rental.setComments("Done");
+
+        rental = rentalRepository.save(rental);
+
+        String relativePath = "/rental/" + rental.getId();
+
+        ResponseEntity<RentalDto> actualResponse = this.restTemplate.getForEntity(url(relativePath), RentalDto.class);
+
+        Assertions.assertNotNull(actualResponse.getBody());
+        Assertions.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
+    }
+
+    @Test
+    public void updateTest() {
+
+        Rental rental = new Rental();
+
+        rental.setRentalDate(LocalDate.of(2019, 5, 5));
+        rental.setComments("Done");
+
+        rental = rentalRepository.saveAndFlush(rental);
+
+        RentalDto updatedRentalDto = RentalDto.rentalDto()
+                .withRentalDate(LocalDate.of(2019, 6, 12))
+                .withComments("Achitat");
+
+        String relativePath = "/rental/" + rental.getId();
+
+        this.restTemplate.put(url(relativePath), updatedRentalDto);
+
+        Rental updatedEntity = rentalRepository.findById(rental.getId()).get();
+
+        RentalDto verifyUpdateDto = RentalDto.rentalDto()
+                .withRentalDate(updatedEntity.getRentalDate())
+                .withComments(updatedEntity.getComments());
+
+        Assertions.assertEquals(updatedRentalDto, verifyUpdateDto);
+    }
+
+    @Test
+    public void deleteTest() {
+
+        Rental existingRental = new Rental();
+
+        existingRental.setRentalDate(LocalDate.of(2012, 12, 21));
+        existingRental.setComments("Spalat, curatat, gata de inchiriat!");
+        existingRental = rentalRepository.save(existingRental);
+
+        String relativePath = "/rental/" + existingRental.getId();
+        this.restTemplate.delete(relativePath, existingRental.getId());
+
+        Optional<Rental> updatedRental = this.rentalRepository.findById(existingRental.getId());
+
+        Assertions.assertFalse(updatedRental.isPresent());
+    }
+
 }
