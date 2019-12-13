@@ -15,7 +15,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -26,7 +26,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -44,7 +44,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -55,7 +55,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -73,7 +73,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -84,7 +84,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -102,7 +102,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("D")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -113,7 +113,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -131,7 +131,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2000)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -142,7 +142,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -160,7 +160,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("E")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -171,7 +171,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -189,7 +189,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("F")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -200,7 +200,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(101L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -218,7 +218,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("G")
                 .withAmount("G");
 
@@ -229,7 +229,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("G");
 
@@ -247,7 +247,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("F")
                 .withAmount("H");
 
@@ -258,7 +258,7 @@ public class CarDtoTest extends UnitTest {
                 .withBodyType("C")
                 .withYearOfProduction(2005)
                 .withColor("D")
-                .withMileage("E")
+                .withMileage(100L)
                 .withStatus("Z")
                 .withAmount("G");
 

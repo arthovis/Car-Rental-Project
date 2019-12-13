@@ -32,7 +32,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         carDetails.withBodyType("C");
         carDetails.withYearOfProduction(2015);
         carDetails.withColor("D");
-        carDetails.withMileage("E");
+        carDetails.withMileage(100L);
         carDetails.withStatus("F");
         carDetails.withAmount("G");
 
@@ -60,7 +60,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         car.setBodyType("C");
         car.setYearOfProduction(2015);
         car.setColor("D");
-        car.setMileage("E");
+        car.setMileage(100L);
         car.setStatus("F");
         car.setAmount("G");
 
@@ -84,7 +84,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         car.setBodyType("C");
         car.setYearOfProduction(2015);
         car.setColor("D");
-        car.setMileage("E");
+        car.setMileage(100L);
         car.setStatus("F");
         car.setAmount("G");
 
@@ -96,7 +96,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
                 .withBodyType("D")
                 .withYearOfProduction(2005)
                 .withColor("E")
-                .withMileage("F")
+                .withMileage(101L)
                 .withStatus("G")
                 .withAmount("H");
 
@@ -129,7 +129,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         existingCar.setBodyType("C");
         existingCar.setYearOfProduction(2015);
         existingCar.setColor("D");
-        existingCar.setMileage("E");
+        existingCar.setMileage(100L);
         existingCar.setStatus("F");
         existingCar.setAmount("G");
 

@@ -25,13 +25,13 @@ public class Car {
     private String bodyType;
 
     @NotNull
-    private int yearOfProduction;
+    private Integer yearOfProduction;
 
     @NotNull
     private String color;
 
     @NotNull
-    private String mileage;
+    private Long mileage;
 
     @NotNull
     private String status;
@@ -71,11 +71,11 @@ public class Car {
         this.bodyType = bodyType;
     }
 
-    public int getYearOfProduction() {
+    public Integer getYearOfProduction() {
         return yearOfProduction;
     }
 
-    public void setYearOfProduction(int yearOfProduction) {
+    public void setYearOfProduction(Integer yearOfProduction) {
         this.yearOfProduction = yearOfProduction;
     }
 
@@ -87,11 +87,11 @@ public class Car {
         this.color = color;
     }
 
-    public String getMileage() {
+    public Long getMileage() {
         return mileage;
     }
 
-    public void setMileage(String mileage) {
+    public void setMileage(Long mileage) {
         this.mileage = mileage;
     }
 
@@ -116,11 +116,11 @@ public class Car {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return yearOfProduction == car.yearOfProduction &&
-                Objects.equals(id, car.id) &&
+        return Objects.equals(id, car.id) &&
                 Objects.equals(make, car.make) &&
                 Objects.equals(model, car.model) &&
                 Objects.equals(bodyType, car.bodyType) &&
+                Objects.equals(yearOfProduction, car.yearOfProduction) &&
                 Objects.equals(color, car.color) &&
                 Objects.equals(mileage, car.mileage) &&
                 Objects.equals(status, car.status) &&

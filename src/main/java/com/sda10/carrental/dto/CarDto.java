@@ -13,11 +13,11 @@ public class CarDto {
 
     public String bodyType;
 
-    public int yearOfProduction;
+    public Integer yearOfProduction;
 
     public String color;
 
-    public String mileage;
+    public Long mileage;
 
     public String status;
 
@@ -51,8 +51,8 @@ public class CarDto {
         return this;
     }
 
-    public  CarDto withYearOfProduction(int yearOfProduction){
-        this.bodyType=bodyType;
+    public  CarDto withYearOfProduction(Integer yearOfProduction){
+        this.yearOfProduction=yearOfProduction;
         return this;
     }
 
@@ -61,13 +61,13 @@ public class CarDto {
         return this;
     }
 
-    public CarDto withMileage(String  mileage){
+    public CarDto withMileage(Long  mileage){
         this.mileage=mileage;
         return this;
     }
 
     public CarDto withStatus(String status){
-        this.status=mileage;
+        this.status=status;
         return this;
     }
 
@@ -81,11 +81,11 @@ public class CarDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarDto carDto = (CarDto) o;
-        return yearOfProduction == carDto.yearOfProduction &&
-                Objects.equals(id, carDto.id) &&
+        return Objects.equals(id, carDto.id) &&
                 Objects.equals(make, carDto.make) &&
                 Objects.equals(model, carDto.model) &&
                 Objects.equals(bodyType, carDto.bodyType) &&
+                Objects.equals(yearOfProduction, carDto.yearOfProduction) &&
                 Objects.equals(color, carDto.color) &&
                 Objects.equals(mileage, carDto.mileage) &&
                 Objects.equals(status, carDto.status) &&
