@@ -46,7 +46,6 @@ public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegratio
 
     @Test
     public void getByIdTest(){
-        //Given
         CarRentalOffice carRentalOffice=new CarRentalOffice();
 
         carRentalOffice.setName("A");
