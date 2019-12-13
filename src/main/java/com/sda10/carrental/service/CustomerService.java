@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -18,7 +19,25 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public Customer findCustomer(Long id) {
+    public Customer findCustomerById(Long id) {
         return customerRepository.getOne(id);
     }
+
+    public Customer updateCustomer(Long id, Customer customer) {
+        Optional<Customer> customerToUpdate = customerRepository.findById(id);
+
+        if (customerToUpdate.isPresent()) {
+            customer.setId(id);
+            return customerRepository.save(customer);
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    public void deleteCustomer(Long id) {
+        Customer customerToDelete = customerRepository.findById(id).get();
+
+        customerRepository.delete(customerToDelete);
+    }
+
 }

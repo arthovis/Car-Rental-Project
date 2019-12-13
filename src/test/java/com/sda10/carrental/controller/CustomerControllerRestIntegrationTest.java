@@ -11,6 +11,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Optional;
+
 public class CustomerControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
@@ -62,5 +64,58 @@ public class CustomerControllerRestIntegrationTest extends RestIntegrationTest {
 
         Assertions.assertNotNull(actualResponse.getBody());
         Assertions.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
+    }
+
+    @Test
+    public void updateTest() {
+        Customer customer = new Customer();
+
+        customer.setFirstName("A");
+        customer.setLastName("B");
+        customer.setEmail("C");
+        customer.setAddress("D");
+
+        customer = customerRepository.saveAndFlush(customer);
+
+        CustomerDto updatedCustomerDto = CustomerDto.customerDto()
+                .withFirstName("X")
+                .withLastName("Y")
+                .withEmail("Z")
+                .withAddress("Q");
+
+        String relativePath = "/customers/" + customer.getId();
+
+        this.testRestTemplate.put(url(relativePath), updatedCustomerDto);
+
+        Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
+
+        CustomerDto verifyUpdateDto = CustomerDto.customerDto()
+                .withFirstName(updatedCustomer.getFirstName())
+                .withLastName(updatedCustomer.getLastName())
+                .withEmail(updatedCustomer.getEmail())
+                .withAddress(updatedCustomer.getAddress());
+
+        Assertions.assertEquals(updatedCustomerDto, verifyUpdateDto);
+
+    }
+
+    @Test
+    public void deleteTest() {
+        Customer customer = new Customer();
+
+        customer.setFirstName("A");
+        customer.setLastName("B");
+        customer.setEmail("C");
+        customer.setAddress("D");
+
+        customer = customerRepository.save(customer);
+
+        String relativePath = "/customers/" + customer.getId();
+
+        this.testRestTemplate.delete(url(relativePath), customer);
+
+        Optional<Customer> verifyCustomerDelete = this.customerRepository.findById(customer.getId());
+
+        Assertions.assertFalse(verifyCustomerDelete.isPresent());
     }
 }
