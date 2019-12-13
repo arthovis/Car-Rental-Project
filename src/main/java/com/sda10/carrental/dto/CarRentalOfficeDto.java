@@ -10,7 +10,7 @@ public class CarRentalOfficeDto {
     public String contactAddress;
     public String owner;
     public String logoType;
-//    public List<Branch> branches;
+// TODO: list of branches
 
 
     private CarRentalOfficeDto() {

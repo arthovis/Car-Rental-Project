@@ -1,8 +1,8 @@
 package com.sda10.carrental.model;
 
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -28,7 +28,8 @@ public class CarRentalOffice {
 
     @NotNull
     private String logoType;
-//    public List<Branch> branches;
+
+    // TODO: list of branches
 
 
     public Long getId() {
