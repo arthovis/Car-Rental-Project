@@ -98,6 +98,21 @@ public class CarDto {
     public int hashCode() {
         return Objects.hash(id, make, model, bodyType, yearOfProduction, color, mileage, status, amount);
     }
+
+    @Override
+    public String toString() {
+        return "CarDto{" +
+                "id=" + id +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", bodyType='" + bodyType + '\'' +
+                ", yearOfProduction=" + yearOfProduction +
+                ", color='" + color + '\'' +
+                ", mileage=" + mileage +
+                ", status=" + status +
+                ", amount='" + amount + '\'' +
+                '}';
+    }
 }
 
 

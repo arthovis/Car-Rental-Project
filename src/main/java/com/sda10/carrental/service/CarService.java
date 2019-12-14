@@ -23,6 +23,7 @@ public class CarService {
         return carRepository.getOne(id);
     }
 
+    @Transactional
     public Car updateCar(Long id, Car car){
         Optional<Car> carToUpdate=carRepository.findById(id);
         if(carToUpdate.isPresent()){
