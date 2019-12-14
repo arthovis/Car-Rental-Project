@@ -17,9 +17,13 @@ public class Booking {
     private LocalDate dateOfBooking;
 
     @NotNull
+    @OneToOne
+    @JoinColumn(name = "customer_id")
     private String client;
 
     @NotNull
+    @OneToOne
+    @JoinColumn(name = "car_id")
     private String car;
 
     @NotNull
