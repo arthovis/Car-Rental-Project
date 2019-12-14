@@ -106,6 +106,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         Car updateEntity=carRepository.findById(car.getId()).get();
 
         CarDto verifyUpdateDto=CarDto.carDto()
+                .withId(updateEntity.getId())
                 .withMake(updateEntity.getMake())
                 .withModel(updateEntity.getModel())
                 .withBodyType(updateEntity.getBodyType())
@@ -115,7 +116,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
                 .withStatus(updateEntity.getStatus())
                 .withAmount(updateEntity.getAmount());
 
-        Assertions.assertEquals(updatedCarDto, verifyUpdateDto);
+        Assertions.assertEquals(updatedCarDto.withId(updateEntity.getId()), verifyUpdateDto);
 
     }
 

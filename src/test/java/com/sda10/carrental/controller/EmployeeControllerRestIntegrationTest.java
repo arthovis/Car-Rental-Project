@@ -26,6 +26,7 @@ public class EmployeeControllerRestIntegrationTest extends RestIntegrationTest {
     public void givenEmployeeDetails_whenPostRequestReceived_thenCreateEmployee() {
         EmployeeDto employeeDetails = EmployeeDto.employeeDto();
 
+
         employeeDetails.withNameAndSurname("A")
                 .withJobPosition(JobPosition.EMPLOYEE);
 
@@ -64,25 +65,25 @@ public class EmployeeControllerRestIntegrationTest extends RestIntegrationTest {
     }
 
     @Test
-    public void updateTest(){
-        Employee employee=new Employee();
+    public void updateTest() {
+        Employee employee = new Employee();
 
         employee.setNameAndSurname("A");
         employee.setJobPosition(JobPosition.EMPLOYEE);
 
-        employee=employeeRepository.saveAndFlush(employee);
+        employee = employeeRepository.saveAndFlush(employee);
 
-        EmployeeDto updatedEmployeeDto=EmployeeDto.employeeDto()
+        EmployeeDto updatedEmployeeDto = EmployeeDto.employeeDto()
                 .withNameAndSurname("B")
                 .withJobPosition(JobPosition.MANAGER);
 
-        String relativePath="/employees/"+employee.getId();
+        String relativePath = "/employees/" + employee.getId();
 
         this.testRestTemplate.put(url(relativePath), updatedEmployeeDto);
 
-        Employee updatedEntity=employeeRepository.findById(employee.getId()).get();
+        Employee updatedEntity = employeeRepository.findById(employee.getId()).get();
 
-        EmployeeDto verifyUpdateDto=EmployeeDto.employeeDto()
+        EmployeeDto verifyUpdateDto = EmployeeDto.employeeDto()
                 .withNameAndSurname(updatedEntity.getNameAndSurname())
                 .withJobPosition(updatedEntity.getJobPosition());
 
@@ -90,18 +91,18 @@ public class EmployeeControllerRestIntegrationTest extends RestIntegrationTest {
     }
 
     @Test
-    public void deleteTest(){
-        Employee existingEmployee=new Employee();
+    public void deleteTest() {
+        Employee existingEmployee = new Employee();
 
         existingEmployee.setNameAndSurname("A");
         existingEmployee.setJobPosition(JobPosition.EMPLOYEE);
-        existingEmployee=employeeRepository.save(existingEmployee);
+        existingEmployee = employeeRepository.save(existingEmployee);
 
-        String relativePath="/employees/"+existingEmployee.getId();
+        String relativePath = "/employees/" + existingEmployee.getId();
 
         this.testRestTemplate.delete(relativePath, existingEmployee.getId());
 
-        Optional<Employee> updatedEmployee=this.employeeRepository.findById(existingEmployee.getId());
+        Optional<Employee> updatedEmployee = this.employeeRepository.findById(existingEmployee.getId());
 
         Assertions.assertFalse(updatedEmployee.isPresent());
     }
