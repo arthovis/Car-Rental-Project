@@ -51,11 +51,6 @@ public class CarDto {
     }
 
 
-    public  CarDto withYearOfProduction(Integer yearOfProduction){
-        this.yearOfProduction=yearOfProduction;
-        return this;
-    }
-
     public CarDto withColor(String color){
         this.color=color;
         return this;
