@@ -21,10 +21,10 @@ public class Booking {
     @JoinColumn(name = "customer_id")
     private Customer client;
 
-//    @NotNull
-//    @OneToOne
-//    @JoinColumn(name = "car_id")
-//    private CarDto car;
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
 
     @NotNull
     private LocalDate dateFrom;
@@ -65,13 +65,13 @@ public class Booking {
         this.client = client;
     }
 
-//    public CarDto getCar() {
-//        return car;
-//    }
-//
-//    public void setCar(CarDto car) {
-//        this.car = car;
-//    }
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
 
     public LocalDate getDateFrom() {
         return dateFrom;

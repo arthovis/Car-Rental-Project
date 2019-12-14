@@ -2,7 +2,6 @@ package com.sda10.carrental.controller;
 
 import com.sda10.carrental.dto.BookingDto;
 import com.sda10.carrental.dto.BookingMapper;
-import com.sda10.carrental.dto.CustomerMapper;
 import com.sda10.carrental.model.Booking;
 import com.sda10.carrental.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BookingController {
-
-    @Autowired
-    public CustomerMapper customerMapper;
 
     @Autowired
     public BookingMapper bookingMapper;
