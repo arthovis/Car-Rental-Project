@@ -1,6 +1,7 @@
 package com.sda10.carrental.dto;
 
 import com.sda10.carrental.UnitTest;
+import com.sda10.carrental.model.JobPosition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +13,12 @@ public class EmployeeDtoTest extends UnitTest {
                 .employeeDto()
                 .withId(1L)
                 .withNameAndSurname("Mircea Nebunu")
-                .withJobPosition("Manager");
+                .withJobPosition(JobPosition.EMPLOYEE);
         EmployeeDto employeeDto2 = EmployeeDto
                 .employeeDto()
                 .withId(1L)
                 .withNameAndSurname("Mircea Nebunu")
-                .withJobPosition("Manager");
+                .withJobPosition(JobPosition.EMPLOYEE);
 
         boolean comparisonResult = employeeDto1.equals(employeeDto2);
 
@@ -31,12 +32,12 @@ public class EmployeeDtoTest extends UnitTest {
                 .employeeDto()
                 .withId(1L)
                 .withNameAndSurname("Paul Nebunu")
-                .withJobPosition("Manager");
+                .withJobPosition(JobPosition.EMPLOYEE);
         EmployeeDto employeeDto2 = EmployeeDto
                 .employeeDto()
                 .withId(1L)
                 .withNameAndSurname("Mircea Nebunu")
-                .withJobPosition("Manager");
+                .withJobPosition(JobPosition.EMPLOYEE);
 
         boolean comparisonResult = employeeDto1.equals(employeeDto2);
 
@@ -50,12 +51,12 @@ public class EmployeeDtoTest extends UnitTest {
                 .employeeDto()
                 .withId(1L)
                 .withNameAndSurname("Mircea Nebunu")
-                .withJobPosition("Manager");
+                .withJobPosition(JobPosition.EMPLOYEE);
         EmployeeDto employeeDto2 = EmployeeDto
                 .employeeDto()
                 .withId(1L)
                 .withNameAndSurname("Mircea Nebunu")
-                .withJobPosition("Employee");
+                .withJobPosition(JobPosition.MANAGER);
 
         boolean comparisonResult = employeeDto1.equals(employeeDto2);
 

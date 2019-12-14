@@ -3,6 +3,7 @@ package com.sda10.carrental.controller;
 import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.EmployeeDto;
 import com.sda10.carrental.model.Employee;
+import com.sda10.carrental.model.JobPosition;
 import com.sda10.carrental.repository.EmployeeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ public class EmployeeControllerRestIntegrationTest extends RestIntegrationTest {
         EmployeeDto employeeDetails = EmployeeDto.employeeDto();
 
         employeeDetails.withNameAndSurname("A")
-                .withJobPosition("B");
+                .withJobPosition(JobPosition.EMPLOYEE);
 
         String relativePath = "/employees";
 
@@ -49,7 +50,7 @@ public class EmployeeControllerRestIntegrationTest extends RestIntegrationTest {
         Employee employee = new Employee();
 
         employee.setNameAndSurname("A");
-        employee.setJobPosition("B");
+        employee.setJobPosition(JobPosition.EMPLOYEE);
 
         employee = employeeRepository.save(employee);
 
@@ -67,13 +68,13 @@ public class EmployeeControllerRestIntegrationTest extends RestIntegrationTest {
         Employee employee=new Employee();
 
         employee.setNameAndSurname("A");
-        employee.setJobPosition("B");
+        employee.setJobPosition(JobPosition.EMPLOYEE);
 
         employee=employeeRepository.saveAndFlush(employee);
 
         EmployeeDto updatedEmployeeDto=EmployeeDto.employeeDto()
                 .withNameAndSurname("B")
-                .withJobPosition("C");
+                .withJobPosition(JobPosition.MANAGER);
 
         String relativePath="/employees/"+employee.getId();
 
@@ -93,7 +94,7 @@ public class EmployeeControllerRestIntegrationTest extends RestIntegrationTest {
         Employee existingEmployee=new Employee();
 
         existingEmployee.setNameAndSurname("A");
-        existingEmployee.setJobPosition("B");
+        existingEmployee.setJobPosition(JobPosition.EMPLOYEE);
         existingEmployee=employeeRepository.save(existingEmployee);
 
         String relativePath="/employees/"+existingEmployee.getId();
