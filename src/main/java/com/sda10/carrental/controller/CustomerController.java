@@ -68,7 +68,7 @@ public class CustomerController {
     public ResponseEntity deleteCustomer(@PathVariable Long id) {
         try {
             customerService.deleteCustomer(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             throw new RuntimeException("Customer to delete was not found");
         }
