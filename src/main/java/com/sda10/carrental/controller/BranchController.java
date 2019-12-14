@@ -9,6 +9,7 @@ import com.sda10.carrental.model.Car;
 import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.service.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,8 +68,26 @@ public class BranchController {
     public ResponseEntity updateBranch(@PathVariable Long id, @RequestBody BranchDto branchDto) {
 
         Branch branch = new Branch();
-        Car car = new Car();
 
+        List<Car> availableCars = branchMapper.carDtoToEntity(branchDto);
+
+        List<Employee> employees = branchMapper.employeeDtoToEntity(branchDto);
+
+        branch.setAddress(branchDto.address);
+        branch.setEmployeeList(employees);
+        branch.setAvailableCarsList(availableCars);
+
+        branchService.updateBranch(id, branch);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/branch/{id}")
+    public ResponseEntity deleteBranch(@PathVariable Long id) {
+
+        branchService.deleteBranch(id);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 

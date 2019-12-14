@@ -3,7 +3,6 @@ package com.sda10.carrental.dto;
 import com.sda10.carrental.model.Car;
 import com.sda10.carrental.model.Employee;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,8 @@ import java.util.List;
 @Component
 public class BranchMapper {
 
-    public List<Employee> employeeDtoToEntity(@RequestBody BranchDto branchDetails) {
+
+    public List<Employee> employeeDtoToEntity(BranchDto branchDetails) {
         List<Employee> employees = new ArrayList<>();
         for (EmployeeDto employeeDto : branchDetails.employeeList) {
             Employee employee = new Employee();
@@ -23,7 +23,7 @@ public class BranchMapper {
         return employees;
     }
 
-    public List<EmployeeDto> employeeToDto(@RequestBody BranchDto branchDetails) {
+    public List<EmployeeDto> employeeToDto(BranchDto branchDetails) {
         List<EmployeeDto> employeeDtos = new ArrayList<>();
         for (EmployeeDto employeeDto : branchDetails.employeeList) {
             Employee employee = new Employee();
@@ -35,7 +35,7 @@ public class BranchMapper {
         return employeeDtos;
     }
 
-    public List<Car> carDtoToEntity(@RequestBody BranchDto branchDetails) {
+    public List<Car> carDtoToEntity(BranchDto branchDetails) {
         List<Car> cars = new ArrayList<>();
         for (CarDto carDto : branchDetails.availableCarsList) {
             Car car = new Car();
@@ -53,7 +53,7 @@ public class BranchMapper {
         return cars;
     }
 
-    public List<CarDto> carToDto(@RequestBody BranchDto branchDetails) {
+    public List<CarDto> carToDto(BranchDto branchDetails) {
         List<CarDto> carDtos = new ArrayList<>();
         for (CarDto carDto : branchDetails.availableCarsList) {
             Car car = new Car();
@@ -66,6 +66,7 @@ public class BranchMapper {
                     .withMileage(car.getMileage())
                     .withStatus(car.getStatus())
                     .withAmount(car.getAmount());
+
             carDtos.add(carDto);
         }
         return carDtos;
