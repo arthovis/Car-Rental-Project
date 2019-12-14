@@ -2,11 +2,12 @@ package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.BookingDto;
-import com.sda10.carrental.dto.CarDto;
-import com.sda10.carrental.dto.CarRentalOfficeDto;
-import com.sda10.carrental.dto.CustomerDto;
+import com.sda10.carrental.dto.CustomerMapper;
 import com.sda10.carrental.model.Booking;
+import com.sda10.carrental.model.Customer;
 import com.sda10.carrental.repository.BookingRepository;
+import com.sda10.carrental.repository.CustomerRepository;
+import com.sda10.carrental.service.CustomerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +21,42 @@ import java.util.Optional;
 public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
+    CustomerRepository customerRepository;
+
+    @Autowired
+    CustomerService customerService;
+
+    @Autowired
+    CustomerMapper customerMapper;
+
+    @Autowired
     public TestRestTemplate restTemplate;
 
     @Autowired
     public BookingRepository bookingRepository;
 
     @Test
-    public void givenBookingDetails_whenPostRequestReceived_thenCreateCustomer() {
+    public void givenBookingDetails_whenPostRequestReceived_thenCreateBooking() {
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setFirstName("A");
+        customer.setLastName("B");
+        customer.setEmail("C");
+        customer.setAddress("D");
 
+        customer = customerRepository.save(customer);
 
         BookingDto bookingDetails = BookingDto.bookingDto();
 
         bookingDetails
+                .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient(CustomerDto.customerDto())
-                .withCar(CarDto.carDto())
+                .withClient(customerMapper.toDto(customer))
+//                .withCar(CarDto.carDto())
                 .withDateFrom(LocalDate.of(2019, 8, 24))
                 .withDateTo(LocalDate.of(2019, 8, 30))
-                .withRentalBranch(CarRentalOfficeDto.carRentalOfficeDto())
-                .withReturnBranch(CarRentalOfficeDto.carRentalOfficeDto())
+//                .withRentalBranch(CarRentalOfficeDto.carRentalOfficeDto())
+//                .withReturnBranch(CarRentalOfficeDto.carRentalOfficeDto())
                 .withAmount(100L);
 
         String relativePath = "/bookings";
@@ -58,10 +76,19 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Test
     public void findBookingByIdTest() {
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setFirstName("A");
+        customer.setLastName("B");
+        customer.setEmail("C");
+        customer.setAddress("D");
+
+        customer = customerRepository.save(customer);
+
         Booking booking = new Booking();
 
         booking.setDateOfBooking(LocalDate.now());
-//        booking.setClient("A");
+        booking.setClient(customer);
 //        booking.setCar("B");
         booking.setDateFrom(LocalDate.of(2019, 8, 24));
         booking.setDateTo(LocalDate.of(2019, 8, 30));
@@ -82,10 +109,19 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Test
     public void updateTest() {
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setFirstName("A");
+        customer.setLastName("B");
+        customer.setEmail("C");
+        customer.setAddress("D");
+
+        customer = customerRepository.save(customer);
+
         Booking booking = new Booking();
 
         booking.setDateOfBooking(LocalDate.now());
-//        booking.setClient("A");
+        booking.setClient(customer);
 //        booking.setCar("B");
         booking.setDateFrom(LocalDate.of(2019, 8, 24));
         booking.setDateTo(LocalDate.of(2019, 8, 30));
@@ -97,7 +133,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
         BookingDto updatedBookingDto = BookingDto.bookingDto()
                 .withDateOfBooking(LocalDate.of(2019, 12, 25))
-//                .withClient("X")
+                .withClient(customerMapper.toDto(customer))
 //                .withCar("Y")
                 .withDateFrom(LocalDate.of(2019, 3, 16))
                 .withDateTo(LocalDate.of(2019, 4, 27))
@@ -109,11 +145,20 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
         this.restTemplate.put(url(relativePath), updatedBookingDto);
 
+        Customer updatedCustomer = new Customer();
+        updatedCustomer.setId(1L);
+        updatedCustomer.setFirstName("A");
+        updatedCustomer.setLastName("B");
+        updatedCustomer.setEmail("C");
+        updatedCustomer.setAddress("D");
+
+        updatedCustomer = customerRepository.save(updatedCustomer);
+
         Booking updatedBooking = bookingRepository.findById(booking.getId()).get();
 
         BookingDto verifyUpdateDto = BookingDto.bookingDto()
                 .withDateOfBooking(updatedBooking.getDateOfBooking())
-//                .withClient(updatedBooking.getClient())
+                .withClient(customerMapper.toDto(updatedCustomer))
 //                .withCar(updatedBooking.getCar())
                 .withDateFrom(updatedBooking.getDateFrom())
                 .withDateTo(updatedBooking.getDateTo())
@@ -126,10 +171,19 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Test
     public void deleteTest() {
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setFirstName("A");
+        customer.setLastName("B");
+        customer.setEmail("C");
+        customer.setAddress("D");
+
+        customer = customerRepository.save(customer);
+
         Booking booking = new Booking();
 
         booking.setDateOfBooking(LocalDate.now());
-//        booking.setClient("A");
+        booking.setClient(customer);
 //        booking.setCar("B");
         booking.setDateFrom(LocalDate.of(2019, 8, 24));
         booking.setDateTo(LocalDate.of(2019, 8, 30));

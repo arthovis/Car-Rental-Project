@@ -29,27 +29,17 @@ public class CustomerController {
 
     @GetMapping(value = "/customers/{id}")
     public CustomerDto findById(@PathVariable Long id) {
+
         Customer customerById = customerService.findCustomerById(id);
 
-        return CustomerDto.customerDto()
-                .withId(customerById.getId())
-                .withFirstName(customerById.getFirstName())
-                .withLastName(customerById.getLastName())
-                .withEmail(customerById.getEmail())
-                .withAddress(customerById.getAddress());
+        return customerMapper.toDto(customerById);
     }
 
     @PutMapping(value = "/customers/{id}")
     public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody CustomerDto customerDetails) {
 
         try {
-            Customer customer = new Customer();
-
-            customer.setFirstName(customerDetails.firstName);
-            customer.setLastName(customerDetails.lastName);
-            customer.setEmail(customerDetails.email);
-            customer.setAddress(customerDetails.address);
-
+            Customer customer = customerMapper.toEntity(customerDetails);
             customerService.updateCustomer(id, customer);
 
             return new ResponseEntity(HttpStatus.OK);

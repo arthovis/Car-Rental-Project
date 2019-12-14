@@ -21,10 +21,10 @@ public class Booking {
     @JoinColumn(name = "customer_id")
     private Customer client;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "car_id")
-    private Car car;
+//    @NotNull
+//    @OneToOne
+//    @JoinColumn(name = "car_id")
+//    private CarDto car;
 
     @NotNull
     private LocalDate dateFrom;
@@ -65,13 +65,13 @@ public class Booking {
         this.client = client;
     }
 
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
+//    public CarDto getCar() {
+//        return car;
+//    }
+//
+//    public void setCar(CarDto car) {
+//        this.car = car;
+//    }
 
     public LocalDate getDateFrom() {
         return dateFrom;
@@ -96,7 +96,7 @@ public class Booking {
 //    public void setRentalBranch(CarRentalOffice rentalBranch) {
 //        this.rentalBranch = rentalBranch;
 //    }
-//
+
 //    public CarRentalOffice getReturnBranch() {
 //        return returnBranch;
 //    }
@@ -121,7 +121,7 @@ public class Booking {
         return Objects.equals(id, booking.id) &&
                 Objects.equals(dateOfBooking, booking.dateOfBooking) &&
                 Objects.equals(client, booking.client) &&
-                Objects.equals(car, booking.car) &&
+//                Objects.equals(car, booking.car) &&
                 Objects.equals(dateFrom, booking.dateFrom) &&
                 Objects.equals(dateTo, booking.dateTo) &&
 //                Objects.equals(rentalBranch, booking.rentalBranch) &&
@@ -131,7 +131,7 @@ public class Booking {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, dateTo, amount);
+        return Objects.hash(id, dateOfBooking, client, dateFrom, dateTo, amount);
     }
-//    rentalBranch, returnBranch,
+//    rentalBranch, returnBranch, car
 }

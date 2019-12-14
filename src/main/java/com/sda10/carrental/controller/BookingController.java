@@ -1,6 +1,8 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.dto.BookingDto;
+import com.sda10.carrental.dto.BookingMapper;
+import com.sda10.carrental.dto.CustomerMapper;
 import com.sda10.carrental.model.Booking;
 import com.sda10.carrental.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,33 +14,21 @@ import org.springframework.web.bind.annotation.*;
 public class BookingController {
 
     @Autowired
+    public CustomerMapper customerMapper;
+
+    @Autowired
+    public BookingMapper bookingMapper;
+
+    @Autowired
     public BookingService bookingService;
 
     @PostMapping(value = "/bookings")
     private BookingDto createBooking(@RequestBody BookingDto bookingDetails) {
-        Booking booking = new Booking();
-
-        booking.setDateOfBooking(bookingDetails.dateOfBooking);
-//        booking.setClient(bookingDetails.client);
-//        booking.setCar(bookingDetails.car);
-        booking.setDateFrom(bookingDetails.dateFrom);
-        booking.setDateTo(bookingDetails.dateTo);
-//        booking.setRentalBranch(bookingDetails.rentalBranch);
-//        booking.setReturnBranch(bookingDetails.returnBranch);
-        booking.setAmount(bookingDetails.amount);
+        Booking booking = bookingMapper.toEntity(bookingDetails);
 
         booking = bookingService.createBooking(booking);
 
-        return BookingDto.bookingDto()
-                .withId(booking.getId())
-                .withDateOfBooking(booking.getDateOfBooking())
-//                .withClient(booking.getClient())
-//                .withCar(booking.getCar())
-                .withDateFrom(booking.getDateFrom())
-                .withDateTo(booking.getDateTo())
-//                .withRentalBranch(booking.getRentalBranch())
-//                .withReturnBranch(booking.getReturnBranch())
-                .withAmount(booking.getAmount());
+        return bookingMapper.toDto(booking);
 
     }
 
@@ -46,30 +36,13 @@ public class BookingController {
     public BookingDto findById(@PathVariable Long id) {
         Booking bookingById = bookingService.findBookingById(id);
 
-        return BookingDto.bookingDto()
-                .withDateOfBooking(bookingById.getDateOfBooking())
-//                .withClient(bookingById.getClient())
-//                .withCar(bookingById.getCar())
-                .withDateFrom(bookingById.getDateFrom())
-                .withDateTo(bookingById.getDateTo())
-//                .withRentalBranch(bookingById.getRentalBranch())
-//                .withReturnBranch(bookingById.getReturnBranch())
-                .withAmount(bookingById.getAmount());
+        return bookingMapper.toDto(bookingById);
     }
 
     @PutMapping(value = "/bookings/{id}")
     public ResponseEntity updateBooking(@PathVariable Long id, @RequestBody BookingDto bookingDetails) {
         try {
-            Booking booking = new Booking();
-
-            booking.setDateOfBooking(bookingDetails.dateOfBooking);
-//            booking.setClient(bookingDetails.client);
-//            booking.setCar(bookingDetails.car);
-            booking.setDateFrom(bookingDetails.dateFrom);
-            booking.setDateTo(bookingDetails.dateTo);
-//            booking.setRentalBranch(bookingDetails.rentalBranch);
-//            booking.setReturnBranch(bookingDetails.returnBranch);
-            booking.setAmount(bookingDetails.amount);
+            Booking booking = bookingMapper.toEntity(bookingDetails);
 
             bookingService.updateBooking(id, booking);
 
