@@ -18,7 +18,7 @@ public class Employee {
     private String nameAndSurname;
 
     @NotNull
-    private String jobPosition;
+    private JobPosition jobPosition;
 
     @Column
     @ManyToOne
@@ -42,11 +42,11 @@ public class Employee {
         this.nameAndSurname = nameAndSurname;
     }
 
-    public String getJobPosition() {
+    public JobPosition getJobPosition() {
         return jobPosition;
     }
 
-    public void setJobPosition(String jobPosition) {
+    public void setJobPosition(JobPosition jobPosition) {
         this.jobPosition = jobPosition;
     }
 
