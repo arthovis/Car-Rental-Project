@@ -20,9 +20,10 @@ public class Employee {
     @NotNull
     private JobPosition jobPosition;
 
-//    @Column
-//    private Branch branch;
-//
+    @Column
+    @ManyToOne
+    @JoinColumn(name = "branch_id", referencedColumnName = "id")
+    private Branch branch;
 
 
     public Long getId() {
