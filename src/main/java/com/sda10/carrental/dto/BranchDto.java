@@ -27,7 +27,7 @@ public class BranchDto {
         return this;
     }
 
-    public BranchDto withEmployee(List<EmployeeDto> employeeList) {
+    public BranchDto withEmployees(List<EmployeeDto> employeeList) {
         this.employeeList = employeeList;
         return this;
     }
