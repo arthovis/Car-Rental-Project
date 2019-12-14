@@ -73,6 +73,7 @@ public class CarReturnController {
 
     private CarReturn toEntityCarReturn(CarReturnDto carReturnDtoDetails) {
         CarReturn carReturn = new CarReturn();
+        carReturn.setEmployee(carReturnDtoDetails.employee);
         carReturn.setDateOfReturn(carReturnDtoDetails.dateOfReturn);
         carReturn.setAdditionalPayment(carReturnDtoDetails.additionalPayment);
         carReturn.setComments(carReturnDtoDetails.comments);
@@ -82,6 +83,7 @@ public class CarReturnController {
     private CarReturnDto toCarReturnDto(CarReturn carReturn) {
         return CarReturnDto.carReturnDto()
                 .withId(carReturn.getId())
+                .withEmployee(carReturn.getEmployee())
                 .withDateOfReturn(carReturn.getDateOfReturn())
                 .withAdditionalPayment(carReturn.getAdditionalPayment())
                 .withComments(carReturn.getComments());

@@ -3,10 +3,12 @@ package com.sda10.carrental.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
 public class Employee {
 
     @Id
@@ -24,6 +26,8 @@ public class Employee {
 //    private Branch branch;
 //
 
+    @OneToMany(mappedBy = "employee")
+    private List<CarReturn> carReturns = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -49,19 +53,33 @@ public class Employee {
         this.jobPosition = jobPosition;
     }
 
+    public List<CarReturn> getCarReturns() {
+        return carReturns;
+    }
+
+    public void addCarReturn(CarReturn carReturn) {
+        carReturns.add(carReturn);
+        carReturn.setEmployee(this);
+    }
+
+    public void removeCarReturn(CarReturn carReturn) {
+        carReturns.remove(carReturn);
+        carReturn.setEmployee(null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(id, employee.id) &&
-                Objects.equals(nameAndSurname, employee.nameAndSurname) &&
-                Objects.equals(jobPosition, employee.jobPosition);
+        return nameAndSurname.equals(employee.nameAndSurname) &&
+                jobPosition.equals(employee.jobPosition) &&
+                Objects.equals(carReturns, employee.carReturns);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameAndSurname, jobPosition);
+        return Objects.hash(nameAndSurname, jobPosition, carReturns);
     }
 
     @Override

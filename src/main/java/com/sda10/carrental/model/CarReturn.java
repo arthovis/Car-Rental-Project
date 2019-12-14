@@ -1,8 +1,7 @@
 package com.sda10.carrental.model;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -13,10 +12,6 @@ public class CarReturn {
     @Id
     @GeneratedValue
     private Long id;
-
-//    @Column
-//    @NotNull
-//    private Employee employee;
 
     @Column
     @NotNull
@@ -32,12 +27,24 @@ public class CarReturn {
     @Column
     private String comments;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public LocalDate getDateOfReturn() {
@@ -64,26 +71,27 @@ public class CarReturn {
         this.comments = comments;
     }
 
-    // equals() si hashCode() nu trebuie sa includa id
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CarReturn)) return false;
         CarReturn carReturn = (CarReturn) o;
         return Double.compare(carReturn.additionalPayment, additionalPayment) == 0 &&
+                employee.equals(carReturn.employee) &&
                 dateOfReturn.equals(carReturn.dateOfReturn) &&
                 Objects.equals(comments, carReturn.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dateOfReturn, additionalPayment, comments);
+        return Objects.hash(employee, dateOfReturn, additionalPayment, comments);
     }
 
     @Override
     public String toString() {
         return "CarReturn{" +
                 "id=" + id +
+                ", employee=" + employee +
                 ", dateOfReturn=" + dateOfReturn +
                 ", additionalPayment=" + additionalPayment +
                 ", comments='" + comments + '\'' +

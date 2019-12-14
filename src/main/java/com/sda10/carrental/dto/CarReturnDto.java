@@ -1,12 +1,14 @@
 package com.sda10.carrental.dto;
 
+import com.sda10.carrental.model.Employee;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class CarReturnDto {
 
     public Long id;
-    //    public Employee employee;
+    public Employee employee;
     public LocalDate dateOfReturn;
     //    public Booking booking;
     public double additionalPayment;
@@ -21,6 +23,11 @@ public class CarReturnDto {
 
     public CarReturnDto withId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public CarReturnDto withEmployee(Employee employee) {
+        this.employee = employee;
         return this;
     }
 
@@ -39,7 +46,6 @@ public class CarReturnDto {
         return this;
     }
 
-    // equals() si hashCode() trebuie sa includa id
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,12 +53,24 @@ public class CarReturnDto {
         CarReturnDto that = (CarReturnDto) o;
         return Double.compare(that.additionalPayment, additionalPayment) == 0 &&
                 Objects.equals(id, that.id) &&
+                Objects.equals(employee, that.employee) &&
                 Objects.equals(dateOfReturn, that.dateOfReturn) &&
                 Objects.equals(comments, that.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfReturn, additionalPayment, comments);
+        return Objects.hash(id, employee, dateOfReturn, additionalPayment, comments);
+    }
+
+    @Override
+    public String toString() {
+        return "CarReturnDto{" +
+                "id=" + id +
+                ", employee=" + employee +
+                ", dateOfReturn=" + dateOfReturn +
+                ", additionalPayment=" + additionalPayment +
+                ", comments='" + comments + '\'' +
+                '}';
     }
 }
