@@ -77,14 +77,14 @@ public class CarReturn {
         if (!(o instanceof CarReturn)) return false;
         CarReturn carReturn = (CarReturn) o;
         return Double.compare(carReturn.additionalPayment, additionalPayment) == 0 &&
-                employee.equals(carReturn.employee) &&
                 dateOfReturn.equals(carReturn.dateOfReturn) &&
-                Objects.equals(comments, carReturn.comments);
+                Objects.equals(comments, carReturn.comments) &&
+                employee.equals(carReturn.employee);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employee, dateOfReturn, additionalPayment, comments);
+        return Objects.hash(dateOfReturn, additionalPayment, comments, employee);
     }
 
     @Override

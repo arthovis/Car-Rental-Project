@@ -19,7 +19,7 @@ public class CarRentalApplication {
 		SpringApplication.run(CarRentalApplication.class, args);
 	}
 
-	@Autowired
+/*	@Autowired
 	private EmployeeRepository employeeRepository;
 
 	@Autowired
@@ -48,7 +48,7 @@ public class CarRentalApplication {
 		carReturn.setAdditionalPayment(22.0);
 		carReturn.setComments("first car");
 		return carReturn;
-	}
+	}*/
 
 
 }

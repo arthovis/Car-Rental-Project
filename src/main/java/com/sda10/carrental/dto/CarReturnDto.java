@@ -1,14 +1,12 @@
 package com.sda10.carrental.dto;
 
-import com.sda10.carrental.model.Employee;
-
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class CarReturnDto {
 
     public Long id;
-    public Employee employee;
+    public EmployeeDto employeeDto;
     public LocalDate dateOfReturn;
     //    public Booking booking;
     public double additionalPayment;
@@ -26,8 +24,8 @@ public class CarReturnDto {
         return this;
     }
 
-    public CarReturnDto withEmployee(Employee employee) {
-        this.employee = employee;
+    public CarReturnDto withEmployeeDto(EmployeeDto employeeDto) {
+        this.employeeDto = employeeDto;
         return this;
     }
 
@@ -53,21 +51,21 @@ public class CarReturnDto {
         CarReturnDto that = (CarReturnDto) o;
         return Double.compare(that.additionalPayment, additionalPayment) == 0 &&
                 Objects.equals(id, that.id) &&
-                Objects.equals(employee, that.employee) &&
+                Objects.equals(employeeDto, that.employeeDto) &&
                 Objects.equals(dateOfReturn, that.dateOfReturn) &&
                 Objects.equals(comments, that.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, employee, dateOfReturn, additionalPayment, comments);
+        return Objects.hash(id, employeeDto, dateOfReturn, additionalPayment, comments);
     }
 
     @Override
     public String toString() {
         return "CarReturnDto{" +
                 "id=" + id +
-                ", employee=" + employee +
+                ", employeeDto=" + employeeDto +
                 ", dateOfReturn=" + dateOfReturn +
                 ", additionalPayment=" + additionalPayment +
                 ", comments='" + comments + '\'' +

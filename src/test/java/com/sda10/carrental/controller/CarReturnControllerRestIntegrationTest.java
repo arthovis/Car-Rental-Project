@@ -2,6 +2,8 @@ package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.CarReturnDto;
+import com.sda10.carrental.dto.CarReturnMapper;
+import com.sda10.carrental.dto.EmployeeDto;
 import com.sda10.carrental.model.CarReturn;
 import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.repository.CarReturnRepository;
@@ -26,34 +28,8 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
     @Autowired
     private CarReturnRepository carReturnRepository;
 
-    private Employee newEmployee = buildEmployee();
-
-    private Employee buildEmployee() {
-        Employee employee = new Employee();
-        employee.setNameAndSurname("popescu ion");
-        employee.setJobPosition("manager");
-        return employee;
-    }
-
-    private CarReturn newCarReturn = buildCarReturn();
-
-    private CarReturn buildCarReturn() {
-        CarReturn carReturn = new CarReturn();
-        carReturn.setEmployee(this.newEmployee);
-        carReturn.setDateOfReturn(LocalDate.of(2019, 11, 11));
-        carReturn.setAdditionalPayment(22.0);
-        carReturn.setComments("first car");
-        return carReturn;
-    }
-
-    private Employee createdEmployee;
-    private CarReturn createdCarReturn;
-
-    @BeforeEach
-    public void beforeEach() {
-        createdEmployee = this.employeeRepository.saveAndFlush(newEmployee);
-        createdCarReturn = this.carReturnRepository.saveAndFlush(newCarReturn);
-    }
+    @Autowired
+    private CarReturnMapper carReturnMapper;
 
     @AfterEach
     public void afterEach() {
@@ -61,19 +37,16 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
         this.employeeRepository.deleteAll();
     }
 
-/*
-    @Test
-    public void testEnt(){
-        Assertions.assertEquals("first car", newCarReturn.getComments());
-        Assertions.assertEquals("manager", createdEmployee.getJobPosition());
-    }
-*/
-
     @Test
     public void givenCarReturnDetails_whenAPostRequestReceived_thenCreateCarReturn() {
 
+        Employee employee = saveEmployee();
+
         CarReturnDto carReturnDetails = CarReturnDto.carReturnDto()
-                .withEmployee(this.createdEmployee)
+                .withEmployeeDto(EmployeeDto.employeeDto()
+                        .withId(employee.getId())
+                        .withNameAndSurname(employee.getNameAndSurname())
+                        .withJobPosition(employee.getJobPosition()))
                 .withDateOfReturn(LocalDate.of(2019, 11, 11))
                 .withAdditionalPayment(22.0)
                 .withComments("second car");
@@ -93,11 +66,15 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
     @Test
     public void givenExistingId_whenGetCarReturnById_thenReturnCarReturn() {
 
-        CarReturn savedCarReturn = this.createdCarReturn;
+        Employee employee = saveEmployee();
+        CarReturn savedCarReturn = saveCarReturn(employee);
 
         CarReturnDto expectedResponse = CarReturnDto.carReturnDto()
                 .withId(savedCarReturn.getId())
-                .withEmployee(savedCarReturn.getEmployee())
+                .withEmployeeDto(EmployeeDto.employeeDto()
+                        .withId(employee.getId())
+                        .withNameAndSurname(employee.getNameAndSurname())
+                        .withJobPosition(employee.getJobPosition()))
                 .withDateOfReturn(savedCarReturn.getDateOfReturn())
                 .withAdditionalPayment(savedCarReturn.getAdditionalPayment())
                 .withComments(savedCarReturn.getComments());
@@ -112,21 +89,28 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
     @Test
     public void givenNewCarReturnDetails_WhenPutRequestIsReceived_ThenUpdateCarReturn() {
 
-        CarReturn savedCarReturn = this.createdCarReturn;
+        Employee employee = saveEmployee();
+        CarReturn carReturn = saveCarReturn(employee);
 
         CarReturnDto newCarReturnDetails = CarReturnDto.carReturnDto()
-                .withEmployee(this.createdEmployee)
+                .withEmployeeDto(EmployeeDto.employeeDto()
+                        .withId(employee.getId())
+                        .withJobPosition(employee.getJobPosition())
+                        .withNameAndSurname(employee.getNameAndSurname()))
                 .withDateOfReturn(LocalDate.of(2020, 11, 11))
                 .withAdditionalPayment(33.0)
-                .withComments("first car updated");
+                .withComments("my comments");
 
-        String relativePath = "/car-return/" + savedCarReturn.getId();
+        String relativePath = "/car-return/" + carReturn.getId();
         this.restTemplate.put(url(relativePath), newCarReturnDetails);
 
-        CarReturn updatedCarReturn = this.carReturnRepository.findById(savedCarReturn.getId()).get();
+        CarReturn updatedCarReturn = this.carReturnRepository.findById(carReturn.getId()).get();
 
         CarReturnDto verifyUpdateDto = CarReturnDto.carReturnDto()
-                .withEmployee(updatedCarReturn.getEmployee())
+                .withEmployeeDto(EmployeeDto.employeeDto()
+                        .withId(updatedCarReturn.getEmployee().getId())
+                        .withJobPosition(updatedCarReturn.getEmployee().getJobPosition())
+                        .withNameAndSurname(updatedCarReturn.getEmployee().getNameAndSurname()))
                 .withDateOfReturn(updatedCarReturn.getDateOfReturn())
                 .withAdditionalPayment(updatedCarReturn.getAdditionalPayment())
                 .withComments(updatedCarReturn.getComments());
@@ -137,7 +121,8 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
     @Test
     public void givenExistingCarReturn_WhenDeleteRequestIsReceived_ThenCarRetuenIsDeleted() {
 
-        CarReturn savedCarReturn = this.createdCarReturn;
+        Employee savedEmployee = saveEmployee();
+        CarReturn savedCarReturn = saveCarReturn(savedEmployee);
 
         String relativePath = "/car-return/" + savedCarReturn.getId();
         this.restTemplate.delete(relativePath, savedCarReturn.getId());
@@ -145,5 +130,32 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
         Optional<CarReturn> deletedCarReturn = this.carReturnRepository.findById(savedCarReturn.getId());
 
         Assertions.assertFalse(deletedCarReturn.isPresent());
+    }
+
+    private Employee buildEmployee() {
+        Employee employee = new Employee();
+        employee.setNameAndSurname("popescu ion");
+        employee.setJobPosition("manager");
+        return employee;
+    }
+
+    public Employee saveEmployee() {
+        return this.employeeRepository.saveAndFlush(buildEmployee());
+    }
+
+    private CarReturn buildCarReturn(Employee savedEmployee) {
+        CarReturn carReturn = new CarReturn();
+        carReturn.setEmployee(savedEmployee);
+        carReturn.setDateOfReturn(LocalDate.of(2019, 11, 11));
+        carReturn.setAdditionalPayment(22.0);
+        carReturn.setComments("first car");
+        return carReturn;
+    }
+
+    public CarReturn saveCarReturn(Employee savedEmployee) {
+
+        CarReturn newCarReturn = buildCarReturn(savedEmployee);
+
+        return this.carReturnRepository.saveAndFlush(newCarReturn);
     }
 }
