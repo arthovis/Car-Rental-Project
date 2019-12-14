@@ -87,7 +87,7 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
         System.out.println(expectedResponse);
         Assertions.assertTrue(expectedCarReturn.isPresent());
         System.out.println(actualResponse.getBody());
-//        Assertions.assertEquals(expectedResponse, actualResponse.getBody());
+        Assertions.assertEquals(expectedResponse, actualResponse.getBody());
     }
 
     @Test

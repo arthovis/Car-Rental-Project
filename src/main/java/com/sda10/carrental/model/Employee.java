@@ -26,7 +26,7 @@ public class Employee {
 //    private Branch branch;
 //
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
     private List<CarReturn> carReturns = new ArrayList<>();
 
     public Long getId() {
@@ -73,13 +73,12 @@ public class Employee {
         if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
         return nameAndSurname.equals(employee.nameAndSurname) &&
-                jobPosition.equals(employee.jobPosition) &&
-                Objects.equals(carReturns, employee.carReturns);
+                jobPosition.equals(employee.jobPosition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nameAndSurname, jobPosition, carReturns);
+        return Objects.hash(nameAndSurname, jobPosition);
     }
 
     @Override
