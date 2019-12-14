@@ -3,7 +3,6 @@ package com.sda10.carrental.controller;
 import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.CarReturnDto;
 import com.sda10.carrental.dto.CarReturnMapper;
-import com.sda10.carrental.dto.EmployeeDto;
 import com.sda10.carrental.model.CarReturn;
 import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.repository.CarReturnRepository;
@@ -43,10 +42,7 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
         Employee employee = saveEmployee();
 
         CarReturnDto carReturnDetails = CarReturnDto.carReturnDto()
-                .withEmployeeDto(EmployeeDto.employeeDto()
-                        .withId(employee.getId())
-                        .withNameAndSurname(employee.getNameAndSurname())
-                        .withJobPosition(employee.getJobPosition()))
+                .withEmployeeDto(carReturnMapper.fakeEmployeeDtoMapper(employee))
                 .withDateOfReturn(LocalDate.of(2019, 11, 11))
                 .withAdditionalPayment(22.0)
                 .withComments("second car");
@@ -71,10 +67,7 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
 
         CarReturnDto expectedResponse = CarReturnDto.carReturnDto()
                 .withId(savedCarReturn.getId())
-                .withEmployeeDto(EmployeeDto.employeeDto()
-                        .withId(employee.getId())
-                        .withNameAndSurname(employee.getNameAndSurname())
-                        .withJobPosition(employee.getJobPosition()))
+                .withEmployeeDto(carReturnMapper.fakeEmployeeDtoMapper(savedCarReturn.getEmployee()))
                 .withDateOfReturn(savedCarReturn.getDateOfReturn())
                 .withAdditionalPayment(savedCarReturn.getAdditionalPayment())
                 .withComments(savedCarReturn.getComments());
@@ -90,32 +83,22 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
     public void givenNewCarReturnDetails_WhenPutRequestIsReceived_ThenUpdateCarReturn() {
 
         Employee employee = saveEmployee();
-        CarReturn carReturn = saveCarReturn(employee);
+        CarReturn newCarReturn = saveCarReturn(employee);
 
         CarReturnDto newCarReturnDetails = CarReturnDto.carReturnDto()
-                .withEmployeeDto(EmployeeDto.employeeDto()
-                        .withId(employee.getId())
-                        .withJobPosition(employee.getJobPosition())
-                        .withNameAndSurname(employee.getNameAndSurname()))
+                .withEmployeeDto(carReturnMapper.fakeEmployeeDtoMapper(newCarReturn.getEmployee()))
                 .withDateOfReturn(LocalDate.of(2020, 11, 11))
                 .withAdditionalPayment(33.0)
                 .withComments("my comments");
 
-        String relativePath = "/car-return/" + carReturn.getId();
+        String relativePath = "/car-return/" + newCarReturn.getId();
         this.restTemplate.put(url(relativePath), newCarReturnDetails);
 
-        CarReturn updatedCarReturn = this.carReturnRepository.findById(carReturn.getId()).get();
+        CarReturn updatedCarReturn = this.carReturnRepository.findById(newCarReturn.getId()).get();
 
-        CarReturnDto verifyUpdateDto = CarReturnDto.carReturnDto()
-                .withEmployeeDto(EmployeeDto.employeeDto()
-                        .withId(updatedCarReturn.getEmployee().getId())
-                        .withJobPosition(updatedCarReturn.getEmployee().getJobPosition())
-                        .withNameAndSurname(updatedCarReturn.getEmployee().getNameAndSurname()))
-                .withDateOfReturn(updatedCarReturn.getDateOfReturn())
-                .withAdditionalPayment(updatedCarReturn.getAdditionalPayment())
-                .withComments(updatedCarReturn.getComments());
+        CarReturnDto verifyUpdateDto = carReturnMapper.toDto(updatedCarReturn);
 
-        Assertions.assertEquals(newCarReturnDetails, verifyUpdateDto);
+        Assertions.assertEquals(newCarReturnDetails.withId(updatedCarReturn.getId()), verifyUpdateDto);
     }
 
     @Test

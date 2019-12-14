@@ -9,29 +9,34 @@ public class CarReturnMapper {
 
     public CarReturn toEntity(CarReturnDto carReturnDtoDetails) {
         CarReturn carReturn = new CarReturn();
-        Employee employee = new Employee();
-
-        employee.setId(carReturnDtoDetails.employeeDto.id);
-        employee.setJobPosition(carReturnDtoDetails.employeeDto.jobPosition);
-        employee.setNameAndSurname(carReturnDtoDetails.employeeDto.nameAndSurname);
-        employee.setId(carReturnDtoDetails.employeeDto.id);
-
-        carReturn.setEmployee(employee);
+        carReturn.setEmployee(fakeEmployeeMapper(carReturnDtoDetails.employeeDto));
         carReturn.setDateOfReturn(carReturnDtoDetails.dateOfReturn);
         carReturn.setAdditionalPayment(carReturnDtoDetails.additionalPayment);
         carReturn.setComments(carReturnDtoDetails.comments);
         return carReturn;
     }
 
+    public Employee fakeEmployeeMapper(EmployeeDto employeeDto) {
+        Employee employee = new Employee();
+        employee.setId(employeeDto.id);
+        employee.setJobPosition(employeeDto.jobPosition);
+        employee.setNameAndSurname(employeeDto.nameAndSurname);
+        return employee;
+    }
+
     public CarReturnDto toDto(CarReturn carReturn) {
         return CarReturnDto.carReturnDto()
                 .withId(carReturn.getId())
-                .withEmployeeDto(EmployeeDto.employeeDto()
-                        .withId(carReturn.getEmployee().getId())
-                        .withNameAndSurname(carReturn.getEmployee().getNameAndSurname())
-                        .withJobPosition(carReturn.getEmployee().getJobPosition()))
+                .withEmployeeDto(fakeEmployeeDtoMapper(carReturn.getEmployee()))
                 .withDateOfReturn(carReturn.getDateOfReturn())
                 .withAdditionalPayment(carReturn.getAdditionalPayment())
                 .withComments(carReturn.getComments());
+    }
+
+    public EmployeeDto fakeEmployeeDtoMapper(Employee employee) {
+        return EmployeeDto.employeeDto()
+                .withId(employee.getId())
+                .withNameAndSurname(employee.getNameAndSurname())
+                .withJobPosition(employee.getJobPosition());
     }
 }
