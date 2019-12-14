@@ -1,6 +1,7 @@
 package com.sda10.carrental.dto;
 
 import com.sda10.carrental.UnitTest;
+import com.sda10.carrental.model.Status;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         CarDto carDto2= CarDto.carDto()
@@ -27,7 +28,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         boolean comparisonResult=carDto1.equals(carDto2);
@@ -45,7 +46,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         CarDto carDto2= CarDto.carDto()
@@ -56,7 +57,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         boolean comparisonResult=carDto1.equals(carDto2);
@@ -74,7 +75,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         CarDto carDto2= CarDto.carDto()
@@ -85,7 +86,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         boolean comparisonResult=carDto1.equals(carDto2);
@@ -103,7 +104,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         CarDto carDto2= CarDto.carDto()
@@ -114,7 +115,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         boolean comparisonResult=carDto1.equals(carDto2);
@@ -132,7 +133,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2000)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         CarDto carDto2= CarDto.carDto()
@@ -143,7 +144,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         boolean comparisonResult=carDto1.equals(carDto2);
@@ -161,7 +162,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("E")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         CarDto carDto2= CarDto.carDto()
@@ -172,7 +173,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         boolean comparisonResult=carDto1.equals(carDto2);
@@ -190,7 +191,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         CarDto carDto2= CarDto.carDto()
@@ -201,7 +202,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(101L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         boolean comparisonResult=carDto1.equals(carDto2);
@@ -219,7 +220,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("G")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         CarDto carDto2= CarDto.carDto()
@@ -230,7 +231,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.UNAVAILABLE)
                 .withAmount("G");
 
         boolean comparisonResult=carDto1.equals(carDto2);
@@ -248,7 +249,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("F")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("H");
 
         CarDto carDto2= CarDto.carDto()
@@ -259,7 +260,7 @@ public class CarDtoTest extends UnitTest {
                 .withYearOfProduction(2005)
                 .withColor("D")
                 .withMileage(100L)
-                .withStatus("Z")
+                .withStatus(Status.AVAILABLE)
                 .withAmount("G");
 
         boolean comparisonResult=carDto1.equals(carDto2);

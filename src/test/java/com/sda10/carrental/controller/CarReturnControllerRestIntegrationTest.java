@@ -4,7 +4,10 @@ import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.CarReturnDto;
 import com.sda10.carrental.model.CarReturn;
 import com.sda10.carrental.repository.CarReturnRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
@@ -17,26 +20,8 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
 
     @Autowired
     private TestRestTemplate restTemplate;
-
     @Autowired
     private CarReturnRepository carReturnRepository;
-
-    CarReturn newCarReturn = buildCarReturn();
-
-    private CarReturn buildCarReturn() {
-        CarReturn carReturn = new CarReturn();
-        carReturn.setDateOfReturn(LocalDate.of(2019, 11, 11));
-        carReturn.setAdditionalPayment(22.0);
-        carReturn.setComments("first car");
-        return carReturn;
-    }
-
-    CarReturn createdCarReturn;
-
-    @BeforeEach
-    public void beforeEach() {
-        createdCarReturn = this.carReturnRepository.saveAndFlush(newCarReturn);
-    }
 
     @AfterEach
     public void afterEach() {
@@ -65,7 +50,7 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
     @Test
     public void givenExistingId_whenGetCarReturnById_thenReturnCarReturn() {
 
-        CarReturn savedCarReturn = this.createdCarReturn;
+        CarReturn savedCarReturn = createAndSaveCarReturn();
 
         CarReturnDto expectedResponse = CarReturnDto.carReturnDto()
                 .withId(savedCarReturn.getId())
@@ -83,7 +68,7 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
     @Test
     public void givenNewCarReturnDetails_WhenPutRequestIsReceived_ThenUpdateCarReturn() {
 
-        CarReturn savedCarReturn = this.createdCarReturn;
+        CarReturn savedCarReturn = createAndSaveCarReturn();
 
         CarReturnDto newCarReturnDetails = CarReturnDto.carReturnDto()
                 .withDateOfReturn(LocalDate.of(2020, 11, 11))
@@ -106,7 +91,7 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
     @Test
     public void givenExistingCarReturn_WhenDeleteRequestIsReceived_ThenCarRetuenIsDeleted() {
 
-        CarReturn savedCarReturn = this.createdCarReturn;
+        CarReturn savedCarReturn = createAndSaveCarReturn();
 
         String relativePath = "/car-return/" + savedCarReturn.getId();
         this.restTemplate.delete(relativePath, savedCarReturn.getId());
@@ -114,5 +99,22 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
         Optional<CarReturn> deletedCarReturn = this.carReturnRepository.findById(savedCarReturn.getId());
 
         Assertions.assertFalse(deletedCarReturn.isPresent());
+    }
+
+    private CarReturn createAndSaveCarReturn() {
+        CarReturn carReturn = this.createCarReturn();
+
+        return carReturnRepository.saveAndFlush(carReturn);
+    }
+
+    private CarReturn createCarReturn() {
+
+        CarReturn carReturn = new CarReturn();
+        carReturn.setDateOfReturn(LocalDate.of(2019, 11, 11));
+        carReturn.setAdditionalPayment(22.0);
+        carReturn.setComments("first car");
+
+        return carReturn;
+
     }
 }

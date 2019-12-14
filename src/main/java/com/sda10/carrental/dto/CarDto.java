@@ -1,6 +1,7 @@
 package com.sda10.carrental.dto;
 
-import java.time.LocalDate;
+import com.sda10.carrental.model.Status;
+
 import java.util.Objects;
 
 public class CarDto {
@@ -19,7 +20,7 @@ public class CarDto {
 
     public Long mileage;
 
-    public String status;
+    public Status status;
 
     public String amount;
 
@@ -51,10 +52,11 @@ public class CarDto {
         return this;
     }
 
-    public  CarDto withYearOfProduction(Integer yearOfProduction){
-        this.yearOfProduction=yearOfProduction;
+    public CarDto withYearOfProduction(Integer yearOfProduction) {
+        this.yearOfProduction = yearOfProduction;
         return this;
     }
+
 
     public CarDto withColor(String color){
         this.color=color;
@@ -66,7 +68,7 @@ public class CarDto {
         return this;
     }
 
-    public CarDto withStatus(String status){
+    public CarDto withStatus(Status status) {
         this.status=status;
         return this;
     }
