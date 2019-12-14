@@ -3,7 +3,6 @@ package com.sda10.carrental.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -34,7 +33,7 @@ public class Car {
     private Long mileage;
 
     @NotNull
-    private String status;
+    private Status status;
 
     @NotNull
     private String amount;
@@ -95,11 +94,11 @@ public class Car {
         this.mileage = mileage;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
