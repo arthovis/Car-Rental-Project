@@ -13,10 +13,13 @@ public class Branch {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "branch")
     List<Employee> employeeList;
+
     @OneToMany
+    @JoinColumn(name = "branch_id")
     List<Car> availableCarsList;
+
     @Column
     @NotNull
     private String address;
