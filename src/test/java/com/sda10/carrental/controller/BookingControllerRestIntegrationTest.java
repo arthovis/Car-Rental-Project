@@ -2,6 +2,9 @@ package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.BookingDto;
+import com.sda10.carrental.dto.CarDto;
+import com.sda10.carrental.dto.CarRentalOfficeDto;
+import com.sda10.carrental.dto.CustomerDto;
 import com.sda10.carrental.model.Booking;
 import com.sda10.carrental.repository.BookingRepository;
 import org.junit.jupiter.api.Assertions;
@@ -24,16 +27,18 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Test
     public void givenBookingDetails_whenPostRequestReceived_thenCreateCustomer() {
+
+
         BookingDto bookingDetails = BookingDto.bookingDto();
 
         bookingDetails
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+                .withClient(CustomerDto.customerDto())
+                .withCar(CarDto.carDto())
                 .withDateFrom(LocalDate.of(2019, 8, 24))
                 .withDateTo(LocalDate.of(2019, 8, 30))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+                .withRentalBranch(CarRentalOfficeDto.carRentalOfficeDto())
+                .withReturnBranch(CarRentalOfficeDto.carRentalOfficeDto())
                 .withAmount(100L);
 
         String relativePath = "/bookings";
@@ -55,13 +60,13 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
     public void findBookingByIdTest() {
         Booking booking = new Booking();
 
-        booking.setDateofBooking(LocalDate.now());
-        booking.setClient("A");
-        booking.setCar("B");
+        booking.setDateOfBooking(LocalDate.now());
+//        booking.setClient("A");
+//        booking.setCar("B");
         booking.setDateFrom(LocalDate.of(2019, 8, 24));
         booking.setDateTo(LocalDate.of(2019, 8, 30));
-        booking.setRentalBranch("C");
-        booking.setReturnBranch("D");
+//        booking.setRentalBranch("C");
+//        booking.setReturnBranch("D");
         booking.setAmount(100L);
 
         booking = bookingRepository.save(booking);
@@ -79,25 +84,25 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
     public void updateTest() {
         Booking booking = new Booking();
 
-        booking.setDateofBooking(LocalDate.now());
-        booking.setClient("A");
-        booking.setCar("B");
+        booking.setDateOfBooking(LocalDate.now());
+//        booking.setClient("A");
+//        booking.setCar("B");
         booking.setDateFrom(LocalDate.of(2019, 8, 24));
         booking.setDateTo(LocalDate.of(2019, 8, 30));
-        booking.setRentalBranch("C");
-        booking.setReturnBranch("D");
+//        booking.setRentalBranch("C");
+//        booking.setReturnBranch("D");
         booking.setAmount(100L);
 
         booking = bookingRepository.saveAndFlush(booking);
 
         BookingDto updatedBookingDto = BookingDto.bookingDto()
                 .withDateOfBooking(LocalDate.of(2019, 12, 25))
-                .withClient("X")
-                .withCar("Y")
+//                .withClient("X")
+//                .withCar("Y")
                 .withDateFrom(LocalDate.of(2019, 3, 16))
                 .withDateTo(LocalDate.of(2019, 4, 27))
-                .withRentalBranch("Z")
-                .withReturnBranch("Q")
+//                .withRentalBranch("Z")
+//                .withReturnBranch("Q")
                 .withAmount(1000L);
 
         String relativePath = "/bookings/" + booking.getId();
@@ -107,13 +112,13 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         Booking updatedBooking = bookingRepository.findById(booking.getId()).get();
 
         BookingDto verifyUpdateDto = BookingDto.bookingDto()
-                .withDateOfBooking(updatedBooking.getDateofBooking())
-                .withClient(updatedBooking.getClient())
-                .withCar(updatedBooking.getCar())
+                .withDateOfBooking(updatedBooking.getDateOfBooking())
+//                .withClient(updatedBooking.getClient())
+//                .withCar(updatedBooking.getCar())
                 .withDateFrom(updatedBooking.getDateFrom())
                 .withDateTo(updatedBooking.getDateTo())
-                .withRentalBranch(updatedBooking.getRentalBranch())
-                .withReturnBranch(updatedBooking.getReturnBranch())
+//                .withRentalBranch(updatedBooking.getRentalBranch())
+//                .withReturnBranch(updatedBooking.getReturnBranch())
                 .withAmount(updatedBooking.getAmount());
 
         Assertions.assertEquals(updatedBookingDto, verifyUpdateDto);
@@ -123,13 +128,13 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
     public void deleteTest() {
         Booking booking = new Booking();
 
-        booking.setDateofBooking(LocalDate.now());
-        booking.setClient("A");
-        booking.setCar("B");
+        booking.setDateOfBooking(LocalDate.now());
+//        booking.setClient("A");
+//        booking.setCar("B");
         booking.setDateFrom(LocalDate.of(2019, 8, 24));
         booking.setDateTo(LocalDate.of(2019, 8, 30));
-        booking.setRentalBranch("C");
-        booking.setReturnBranch("D");
+//        booking.setRentalBranch("C");
+//        booking.setReturnBranch("D");
         booking.setAmount(100L);
 
         booking = bookingRepository.save(booking);

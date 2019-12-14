@@ -18,26 +18,26 @@ public class BookingController {
     private BookingDto createBooking(@RequestBody BookingDto bookingDetails) {
         Booking booking = new Booking();
 
-        booking.setDateofBooking(bookingDetails.dateOfBooking);
-        booking.setClient(bookingDetails.client);
-        booking.setCar(bookingDetails.car);
+        booking.setDateOfBooking(bookingDetails.dateOfBooking);
+//        booking.setClient(bookingDetails.client);
+//        booking.setCar(bookingDetails.car);
         booking.setDateFrom(bookingDetails.dateFrom);
         booking.setDateTo(bookingDetails.dateTo);
-        booking.setRentalBranch(bookingDetails.rentalBranch);
-        booking.setReturnBranch(bookingDetails.returnBranch);
+//        booking.setRentalBranch(bookingDetails.rentalBranch);
+//        booking.setReturnBranch(bookingDetails.returnBranch);
         booking.setAmount(bookingDetails.amount);
 
         booking = bookingService.createBooking(booking);
 
         return BookingDto.bookingDto()
                 .withId(booking.getId())
-                .withDateOfBooking(booking.getDateofBooking())
-                .withClient(booking.getClient())
-                .withCar(booking.getCar())
+                .withDateOfBooking(booking.getDateOfBooking())
+//                .withClient(booking.getClient())
+//                .withCar(booking.getCar())
                 .withDateFrom(booking.getDateFrom())
                 .withDateTo(booking.getDateTo())
-                .withRentalBranch(booking.getRentalBranch())
-                .withReturnBranch(booking.getReturnBranch())
+//                .withRentalBranch(booking.getRentalBranch())
+//                .withReturnBranch(booking.getReturnBranch())
                 .withAmount(booking.getAmount());
 
     }
@@ -47,13 +47,13 @@ public class BookingController {
         Booking bookingById = bookingService.findBookingById(id);
 
         return BookingDto.bookingDto()
-                .withDateOfBooking(bookingById.getDateofBooking())
-                .withClient(bookingById.getClient())
-                .withCar(bookingById.getCar())
+                .withDateOfBooking(bookingById.getDateOfBooking())
+//                .withClient(bookingById.getClient())
+//                .withCar(bookingById.getCar())
                 .withDateFrom(bookingById.getDateFrom())
                 .withDateTo(bookingById.getDateTo())
-                .withRentalBranch(bookingById.getRentalBranch())
-                .withReturnBranch(bookingById.getReturnBranch())
+//                .withRentalBranch(bookingById.getRentalBranch())
+//                .withReturnBranch(bookingById.getReturnBranch())
                 .withAmount(bookingById.getAmount());
     }
 
@@ -62,13 +62,13 @@ public class BookingController {
         try {
             Booking booking = new Booking();
 
-            booking.setDateofBooking(bookingDetails.dateOfBooking);
-            booking.setClient(bookingDetails.client);
-            booking.setCar(bookingDetails.car);
+            booking.setDateOfBooking(bookingDetails.dateOfBooking);
+//            booking.setClient(bookingDetails.client);
+//            booking.setCar(bookingDetails.car);
             booking.setDateFrom(bookingDetails.dateFrom);
             booking.setDateTo(bookingDetails.dateTo);
-            booking.setRentalBranch(bookingDetails.rentalBranch);
-            booking.setReturnBranch(bookingDetails.returnBranch);
+//            booking.setRentalBranch(bookingDetails.rentalBranch);
+//            booking.setReturnBranch(bookingDetails.returnBranch);
             booking.setAmount(bookingDetails.amount);
 
             bookingService.updateBooking(id, booking);

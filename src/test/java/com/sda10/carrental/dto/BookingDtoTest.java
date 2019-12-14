@@ -14,24 +14,24 @@ public class BookingDtoTest extends UnitTest {
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         BookingDto bookingDto2 = BookingDto
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -45,24 +45,24 @@ public class BookingDtoTest extends UnitTest {
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         BookingDto bookingDto2 = BookingDto
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.of(2018, 12, 13))
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -76,24 +76,24 @@ public class BookingDtoTest extends UnitTest {
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("B")
-                .withCar("B")
+//                .withClient("B")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         BookingDto bookingDto2 = BookingDto
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -107,24 +107,24 @@ public class BookingDtoTest extends UnitTest {
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("A")
+//                .withClient("A")
+//                .withCar("A")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         BookingDto bookingDto2 = BookingDto
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -138,24 +138,24 @@ public class BookingDtoTest extends UnitTest {
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 19))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         BookingDto bookingDto2 = BookingDto
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -169,24 +169,24 @@ public class BookingDtoTest extends UnitTest {
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 24))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         BookingDto bookingDto2 = BookingDto
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -200,24 +200,24 @@ public class BookingDtoTest extends UnitTest {
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("D")
-                .withReturnBranch("D")
+//                .withRentalBranch("D")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         BookingDto bookingDto2 = BookingDto
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -231,24 +231,24 @@ public class BookingDtoTest extends UnitTest {
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("C")
+//                .withRentalBranch("C")
+//                .withReturnBranch("C")
                 .withAmount(100L);
 
         BookingDto bookingDto2 = BookingDto
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -262,24 +262,24 @@ public class BookingDtoTest extends UnitTest {
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(100L);
 
         BookingDto bookingDto2 = BookingDto
                 .bookingDto()
                 .withId(1L)
                 .withDateOfBooking(LocalDate.now())
-                .withClient("A")
-                .withCar("B")
+//                .withClient("A")
+//                .withCar("B")
                 .withDateFrom(LocalDate.of(2019, 12, 20))
                 .withDateTo(LocalDate.of(2019, 12, 25))
-                .withRentalBranch("C")
-                .withReturnBranch("D")
+//                .withRentalBranch("C")
+//                .withReturnBranch("D")
                 .withAmount(1000L);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
