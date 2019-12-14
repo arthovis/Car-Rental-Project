@@ -1,6 +1,5 @@
 package com.sda10.carrental.dto;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class CarDto {
@@ -50,6 +49,7 @@ public class CarDto {
         this.bodyType=bodyType;
         return this;
     }
+
 
     public  CarDto withYearOfProduction(Integer yearOfProduction){
         this.yearOfProduction=yearOfProduction;
