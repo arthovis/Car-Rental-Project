@@ -20,7 +20,6 @@ public class Employee {
     @NotNull
     private JobPosition jobPosition;
 
-
     @ManyToOne
     @JoinColumn(name = "branch_id", referencedColumnName = "id")
     private Branch branch;
