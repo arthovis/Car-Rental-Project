@@ -3,7 +3,6 @@ package com.sda10.carrental.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,9 +24,6 @@ public class Employee {
 //    @Column
 //    private Branch branch;
 //
-
-    @OneToMany(mappedBy = "employee")
-    private List<CarReturn> carReturns = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -53,33 +49,27 @@ public class Employee {
         this.jobPosition = jobPosition;
     }
 
-    public List<CarReturn> getCarReturns() {
-        return carReturns;
-    }
-
-    public void addCarReturn(CarReturn carReturn) {
-        carReturns.add(carReturn);
-        carReturn.setEmployee(this);
-    }
-
-    public void removeCarReturn(CarReturn carReturn) {
-        carReturns.remove(carReturn);
-        carReturn.setEmployee(null);
-    }
+//    public Branch getBranch() {
+//        return branch;
+//    }
+//
+//    public void setBranch(Branch branch) {
+//        this.branch = branch;
+//    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return nameAndSurname.equals(employee.nameAndSurname) &&
-                jobPosition.equals(employee.jobPosition) &&
-                Objects.equals(carReturns, employee.carReturns);
+        return Objects.equals(id, employee.id) &&
+                Objects.equals(nameAndSurname, employee.nameAndSurname) &&
+                jobPosition.equals(employee.jobPosition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nameAndSurname, jobPosition, carReturns);
+        return Objects.hash(id, nameAndSurname, jobPosition);
     }
 
     @Override
@@ -88,7 +78,6 @@ public class Employee {
                 "id=" + id +
                 ", nameAndSurname='" + nameAndSurname + '\'' +
                 ", jobPosition='" + jobPosition + '\'' +
-                ", carReturns=" + carReturns +
                 '}';
     }
 }

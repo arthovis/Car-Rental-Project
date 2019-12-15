@@ -1,7 +1,10 @@
 package com.sda10.carrental.dto;
 
 import com.sda10.carrental.UnitTest;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.sda10.carrental.model.Employee;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -13,12 +16,14 @@ public class CarReturnDtoTest extends UnitTest {
 
         CarReturnDto carReturnDto1 = CarReturnDto.carReturnDto()
                 .withId(1L)
+                .withEmployeeDto(buildEmployeeDto(1L, "popescu ion", "manager"))
                 .withDateOfReturn(LocalDate.of(2019, 11, 11))
                 .withAdditionalPayment(33)
                 .withComments("car");
 
         CarReturnDto carReturnDto2 = CarReturnDto.carReturnDto()
                 .withId(1L)
+                .withEmployeeDto(buildEmployeeDto(1L, "popescu ion", "manager"))
                 .withDateOfReturn(LocalDate.of(2019, 11, 11))
                 .withAdditionalPayment(33)
                 .withComments("car");
@@ -32,6 +37,20 @@ public class CarReturnDtoTest extends UnitTest {
     public void givenTwoCarReturnDtoWithDifferentIds_whenCompared_theResultIsFalse() {
 
         CarReturnDto carReturnDto1 = CarReturnDto.carReturnDto()
+                .withEmployeeDto(buildEmployeeDto(1L, "popescu ion", "manager"));
+
+        CarReturnDto carReturnDto2 = CarReturnDto.carReturnDto()
+                .withEmployeeDto(buildEmployeeDto(2L, "popescu vasile", "manager"));
+
+        boolean comparisonResult = carReturnDto1.equals(carReturnDto2);
+
+        assertFalse(comparisonResult);
+    }
+
+    @Test
+    public void givenTwoCarReturnDtoWithDifferentEmployees_whenCompared_theResultIsFalse() {
+
+        CarReturnDto carReturnDto1 = CarReturnDto.carReturnDto()
                 .withId(1L);
 
         CarReturnDto carReturnDto2 = CarReturnDto.carReturnDto()
@@ -40,8 +59,10 @@ public class CarReturnDtoTest extends UnitTest {
         boolean comparisonResult = carReturnDto1.equals(carReturnDto2);
 
         assertFalse(comparisonResult);
-
     }
+
+
+
     @Test
     public void givenTwoCarReturnDtoWithDifferentDateOfReturn_whenCompared_theResultIsFalse() {
 
@@ -82,5 +103,12 @@ public class CarReturnDtoTest extends UnitTest {
         boolean comparisonResult = carReturnDto1.equals(carReturnDto2);
 
         assertFalse(comparisonResult);
+    }
+
+    public EmployeeDto buildEmployeeDto(Long id, String nameAndSurname, String jobPosition) {
+        return EmployeeDto.employeeDto()
+                .withId(id)
+                .withNameAndSurname(nameAndSurname)
+                .withJobPosition(jobPosition);
     }
 }

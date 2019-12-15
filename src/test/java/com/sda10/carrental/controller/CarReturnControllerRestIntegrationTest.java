@@ -130,7 +130,7 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
         CarReturn carReturn = new CarReturn();
         carReturn.setEmployee(savedEmployee);
         carReturn.setDateOfReturn(LocalDate.of(2019, 11, 11));
-        carReturn.setAdditionalPayment(22.0);
+        carReturn.setAdditionalPayment(0.0);
         carReturn.setComments("first car");
         return carReturn;
     }

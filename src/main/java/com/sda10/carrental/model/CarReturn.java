@@ -1,5 +1,7 @@
 package com.sda10.carrental.model;
 
+import org.dom4j.Branch;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -13,23 +15,23 @@ public class CarReturn {
     @GeneratedValue
     private Long id;
 
-    @Column
     @NotNull
     private LocalDate dateOfReturn;
 
-//    @Column
-//    @NotNull
-//    private Booking booking;
-
-    @Column
     private double additionalPayment;
 
-    @Column
     private String comments;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
+
+    public CarReturn() {
+    }
 
     public Long getId() {
         return id;
@@ -37,14 +39,6 @@ public class CarReturn {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 
     public LocalDate getDateOfReturn() {
@@ -71,6 +65,22 @@ public class CarReturn {
         this.comments = comments;
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,22 +89,24 @@ public class CarReturn {
         return Double.compare(carReturn.additionalPayment, additionalPayment) == 0 &&
                 dateOfReturn.equals(carReturn.dateOfReturn) &&
                 Objects.equals(comments, carReturn.comments) &&
-                employee.equals(carReturn.employee);
+                employee.equals(carReturn.employee) &&
+                branch.equals(carReturn.branch);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dateOfReturn, additionalPayment, comments, employee);
+        return Objects.hash(dateOfReturn, additionalPayment, comments, employee, branch);
     }
 
     @Override
     public String toString() {
         return "CarReturn{" +
                 "id=" + id +
-                ", employee=" + employee +
                 ", dateOfReturn=" + dateOfReturn +
                 ", additionalPayment=" + additionalPayment +
                 ", comments='" + comments + '\'' +
+                ", employee=" + employee +
+                ", branch=" + branch +
                 '}';
     }
 }
