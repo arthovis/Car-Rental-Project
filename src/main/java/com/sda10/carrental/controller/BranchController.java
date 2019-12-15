@@ -39,14 +39,7 @@ public class BranchController {
 
         branch = branchService.createBranch(branch);
 
-        List<EmployeeDto> employeeDtos = branchMapper.employeeToDto(branchDetails);
-        List<CarDto> carDtos = branchMapper.carToDto(branchDetails);
-
-        return BranchDto.branchDto()
-                .withId(branch.getId())
-                .withAddress(branch.getAddress())
-                .withEmployees(employeeDtos)
-                .withCar(carDtos);
+        return branchMapper.toDto(branch);
     }
 
     @GetMapping(value = "/branch/{id}")

@@ -1,25 +1,26 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
-import com.sda10.carrental.dto.BranchDto;
-import com.sda10.carrental.dto.CarDto;
-import com.sda10.carrental.dto.EmployeeDto;
+import com.sda10.carrental.dto.*;
 import com.sda10.carrental.model.*;
 import com.sda10.carrental.repository.BranchRepository;
 import com.sda10.carrental.repository.CarRepository;
 import com.sda10.carrental.repository.EmployeeRepository;
 import com.sda10.carrental.service.CarService;
+import com.sda10.carrental.service.EmployeeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.transaction.TestContextTransactionUtils;
+import org.springframework.test.context.transaction.TestTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-@Transactional
 public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
@@ -35,9 +36,12 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
     private CarRepository carRepository;
 
     @Autowired
-    private CarService carService;
+    private EmployeeMapper employeeMapper;
 
-    private Car createCar() {
+    @Autowired
+    private CarMapper carMapper;
+
+    public Car createCar() {
         Car car = new Car();
 
         car.setMake("A");
@@ -49,16 +53,16 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
         car.setStatus(Status.AVAILABLE);
         car.setAmount("G");
 
-        return carService.createCar(car);
+        return carRepository.save(car);
     }
 
-    private Employee createEmployee() {
+    public Employee createEmployee() {
         Employee employee = new Employee();
 
         employee.setNameAndSurname("A");
         employee.setJobPosition(JobPosition.EMPLOYEE);
 
-        return employeeRepository.saveAndFlush(employee);
+        return employeeRepository.save(employee);
     }
 
     private List<CarDto> createCarDtoList() {
@@ -122,13 +126,12 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
         Car car = createCar();
         Employee employee = createEmployee();
 
-        List<EmployeeDto> employeeDtoList = createEmployeeDtoList();
-        List<CarDto> carDtoList = createCarDtoList();
+        List<EmployeeDto> employeeDtoList = Arrays.asList(employeeMapper.toDto(employee));
+        List<CarDto> carDtoList = Arrays.asList(carMapper.toDto(car));
 
-        BranchDto branchDetails = BranchDto.branchDto();
-
-        branchDetails.withAddress("Calea Victoriei")
-//                .withEmployees(employeeDtoList)
+        BranchDto branchDetails = BranchDto.branchDto()
+                .withAddress("Calea Victoriei")
+                .withEmployees(employeeDtoList)
                 .withCar(carDtoList);
 
         String relativePath = "/branch";
@@ -139,19 +142,10 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
 
         BranchDto expectedResponse = branchDetails.withId(newId);
 
-        Branch expectedBranch = getBranch(newId);
+        Branch expectedBranch = branchRepository.getOne(newId);
 
         Assertions.assertNotNull(expectedBranch);
         Assertions.assertEquals(expectedResponse, actualResponse.getBody());
-    }
-
-    @Transactional
-    private Branch getBranch(Long id) {
-        Branch expectedBranch = branchRepository.findById(id).get();
-
-        expectedBranch.toString();
-
-        return expectedBranch;
     }
 
 }
