@@ -6,9 +6,9 @@ import java.util.Objects;
 public class CarReturnDto {
 
     public Long id;
-    //    public Employee employee;
+    public EmployeeDto employeeDto;
     public LocalDate dateOfReturn;
-    //    public Booking booking;
+    public BranchDto branchDto;
     public double additionalPayment;
     public String comments;
 
@@ -21,6 +21,16 @@ public class CarReturnDto {
 
     public CarReturnDto withId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public CarReturnDto withEmployeeDto(EmployeeDto employeeDto) {
+        this.employeeDto = employeeDto;
+        return this;
+    }
+
+    public CarReturnDto withBranchDto(BranchDto branchDto) {
+        this.branchDto = branchDto;
         return this;
     }
 
@@ -39,7 +49,6 @@ public class CarReturnDto {
         return this;
     }
 
-    // equals() si hashCode() trebuie sa includa id
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,12 +56,26 @@ public class CarReturnDto {
         CarReturnDto that = (CarReturnDto) o;
         return Double.compare(that.additionalPayment, additionalPayment) == 0 &&
                 Objects.equals(id, that.id) &&
+                Objects.equals(employeeDto, that.employeeDto) &&
                 Objects.equals(dateOfReturn, that.dateOfReturn) &&
+                Objects.equals(branchDto, that.branchDto) &&
                 Objects.equals(comments, that.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfReturn, additionalPayment, comments);
+        return Objects.hash(id, employeeDto, dateOfReturn, branchDto, additionalPayment, comments);
+    }
+
+    @Override
+    public String toString() {
+        return "CarReturnDto{" +
+                "id=" + id +
+                ", employeeDto=" + employeeDto +
+                ", dateOfReturn=" + dateOfReturn +
+                ", branchDto=" + branchDto +
+                ", additionalPayment=" + additionalPayment +
+                ", comments='" + comments + '\'' +
+                '}';
     }
 }

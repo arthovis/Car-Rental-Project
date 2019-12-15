@@ -1,8 +1,7 @@
 package com.sda10.carrental.model;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -14,23 +13,23 @@ public class CarReturn {
     @GeneratedValue
     private Long id;
 
-//    @Column
-//    @NotNull
-//    private Employee employee;
-
-    @Column
     @NotNull
     private LocalDate dateOfReturn;
 
-//    @Column
-//    @NotNull
-//    private Booking booking;
-
-    @Column
     private double additionalPayment;
 
-    @Column
     private String comments;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
+
+    public CarReturn() {
+    }
 
     public Long getId() {
         return id;
@@ -64,7 +63,22 @@ public class CarReturn {
         this.comments = comments;
     }
 
-    // equals() si hashCode() nu trebuie sa includa id
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,12 +86,14 @@ public class CarReturn {
         CarReturn carReturn = (CarReturn) o;
         return Double.compare(carReturn.additionalPayment, additionalPayment) == 0 &&
                 dateOfReturn.equals(carReturn.dateOfReturn) &&
-                Objects.equals(comments, carReturn.comments);
+                Objects.equals(comments, carReturn.comments) &&
+                employee.equals(carReturn.employee) &&
+                branch.equals(carReturn.branch);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dateOfReturn, additionalPayment, comments);
+        return Objects.hash(dateOfReturn, additionalPayment, comments, employee, branch);
     }
 
     @Override
@@ -87,6 +103,8 @@ public class CarReturn {
                 ", dateOfReturn=" + dateOfReturn +
                 ", additionalPayment=" + additionalPayment +
                 ", comments='" + comments + '\'' +
+                ", employee=" + employee +
+                ", branch=" + branch +
                 '}';
     }
 }
