@@ -1,6 +1,7 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.dto.EmployeeDto;
+import com.sda10.carrental.dto.EmployeeMapper;
 import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,39 +15,28 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private EmployeeMapper employeeMapper;
+
     @PostMapping(value = "/employees")
     public EmployeeDto createEmployee(@RequestBody EmployeeDto employeeDetails) {
-        Employee employee = new Employee();
-
-        employee.setNameAndSurname(employeeDetails.nameAndSurname);
-        employee.setJobPosition(employeeDetails.jobPosition);
-
+        Employee employee = employeeMapper.toEntity(employeeDetails);
         employee = employeeService.createEmployee(employee);
 
-        return EmployeeDto.employeeDto()
-                .withId(employee.getId())
-                .withNameAndSurname(employee.getNameAndSurname())
-                .withJobPosition(employee.getJobPosition());
+        return employeeMapper.toDto(employee);
     }
 
     @GetMapping(value = "/employees/{id}")
     public EmployeeDto findEmployeeById(@PathVariable Long id) {
         Employee employeeById = employeeService.getEmployeeById(id);
 
-        return EmployeeDto.employeeDto()
-                .withId(employeeById.getId())
-                .withNameAndSurname(employeeById.getNameAndSurname())
-                .withJobPosition(employeeById.getJobPosition());
+        return employeeMapper.toDto(employeeById);
     }
 
     @PutMapping(value = "/employees/{id}")
     public ResponseEntity updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDetails) {
 
-        Employee employee = new Employee();
-
-        employee.setNameAndSurname(employeeDetails.nameAndSurname);
-        employee.setJobPosition(employeeDetails.jobPosition);
-
+        Employee employee = employeeMapper.toEntity(employeeDetails);
         employeeService.updateEmployee(id, employee);
 
         return new ResponseEntity(HttpStatus.OK);
