@@ -10,9 +10,13 @@ public class CarReturnMapper {
     @Autowired
     private EmployeeMapper employeeMapper;
 
+    @Autowired
+    private BranchMapper branchMapper;
+
     public CarReturn toEntity(CarReturnDto carReturnDtoDetails) {
         CarReturn carReturn = new CarReturn();
         carReturn.setEmployee(employeeMapper.toEntity(carReturnDtoDetails.employeeDto));
+        carReturn.setBranch(branchMapper.toEntity(carReturnDtoDetails.branchDto));
         carReturn.setDateOfReturn(carReturnDtoDetails.dateOfReturn);
         carReturn.setAdditionalPayment(carReturnDtoDetails.additionalPayment);
         carReturn.setComments(carReturnDtoDetails.comments);
