@@ -13,47 +13,9 @@ public class BranchDtoTest extends UnitTest {
 
     @Test
     public void givenTwoEqualBranchDtos_whenCompared_theResultIsTrue() {
-        EmployeeDto employeeDto = EmployeeDto
-                .employeeDto()
-                .withId(1L)
-                .withNameAndSurname("Mircea Nebunu")
-                .withJobPosition(JobPosition.EMPLOYEE);
+        List<EmployeeDto> employeeDtos = createEmployeeDtoList();
 
-        EmployeeDto employeeDto1 = EmployeeDto
-                .employeeDto()
-                .withId(2L)
-                .withNameAndSurname("Paul Nebunu")
-                .withJobPosition(JobPosition.EMPLOYEE);
-
-        List<EmployeeDto> employeeDtos = new ArrayList<>();
-        employeeDtos.add(employeeDto);
-        employeeDtos.add(employeeDto1);
-
-        CarDto carDto1 = CarDto.carDto()
-                .withId(1L)
-                .withMake("A")
-                .withModel("B")
-                .withBodyType("C")
-                .withYearOfProduction(2005)
-                .withColor("D")
-                .withMileage(100L)
-                .withStatus(Status.AVAILABLE)
-                .withAmount("G");
-
-        CarDto carDto2 = CarDto.carDto()
-                .withId(2L)
-                .withMake("B")
-                .withModel("B")
-                .withBodyType("C")
-                .withYearOfProduction(2005)
-                .withColor("D")
-                .withMileage(100L)
-                .withStatus(Status.AVAILABLE)
-                .withAmount("G");
-
-        List<CarDto> carDtos = new ArrayList<>();
-        carDtos.add(carDto1);
-        carDtos.add(carDto2);
+        List<CarDto> carDtos = createCarDtoList();
 
         BranchDto branchDto1 = BranchDto.branchDto()
                 .withId(1L)
@@ -75,47 +37,9 @@ public class BranchDtoTest extends UnitTest {
 
     @Test
     public void givenTwoDifferentBranchIds_whenCompared_theResultIsFalse() {
-        EmployeeDto employeeDto = EmployeeDto
-                .employeeDto()
-                .withId(1L)
-                .withNameAndSurname("Mircea Nebunu")
-                .withJobPosition(JobPosition.EMPLOYEE);
+        List<EmployeeDto> employeeDtos = createEmployeeDtoList();
 
-        EmployeeDto employeeDto1 = EmployeeDto
-                .employeeDto()
-                .withId(2L)
-                .withNameAndSurname("Paul Nebunu")
-                .withJobPosition(JobPosition.EMPLOYEE);
-
-        List<EmployeeDto> employeeDtos = new ArrayList<>();
-        employeeDtos.add(employeeDto);
-        employeeDtos.add(employeeDto1);
-
-        CarDto carDto1 = CarDto.carDto()
-                .withId(1L)
-                .withMake("A")
-                .withModel("B")
-                .withBodyType("C")
-                .withYearOfProduction(2005)
-                .withColor("D")
-                .withMileage(100L)
-                .withStatus(Status.AVAILABLE)
-                .withAmount("G");
-
-        CarDto carDto2 = CarDto.carDto()
-                .withId(2L)
-                .withMake("B")
-                .withModel("B")
-                .withBodyType("C")
-                .withYearOfProduction(2005)
-                .withColor("D")
-                .withMileage(100L)
-                .withStatus(Status.AVAILABLE)
-                .withAmount("G");
-
-        List<CarDto> carDtos = new ArrayList<>();
-        carDtos.add(carDto1);
-        carDtos.add(carDto2);
+        List<CarDto> carDtos = createCarDtoList();
 
         BranchDto branchDto1 = BranchDto.branchDto()
                 .withId(1L)
@@ -137,47 +61,9 @@ public class BranchDtoTest extends UnitTest {
     @Test
     public void givenTwoDifferentBranchAddresses_whenCompared_theResultIsFalse() {
 
-        EmployeeDto employeeDto = EmployeeDto
-                .employeeDto()
-                .withId(1L)
-                .withNameAndSurname("Mircea Nebunu")
-                .withJobPosition(JobPosition.EMPLOYEE);
+        List<EmployeeDto> employeeDtos = createEmployeeDtoList();
 
-        EmployeeDto employeeDto1 = EmployeeDto
-                .employeeDto()
-                .withId(2L)
-                .withNameAndSurname("Paul Nebunu")
-                .withJobPosition(JobPosition.EMPLOYEE);
-
-        List<EmployeeDto> employeeDtos = new ArrayList<>();
-        employeeDtos.add(employeeDto);
-        employeeDtos.add(employeeDto1);
-
-        CarDto carDto1 = CarDto.carDto()
-                .withId(1L)
-                .withMake("A")
-                .withModel("B")
-                .withBodyType("C")
-                .withYearOfProduction(2005)
-                .withColor("D")
-                .withMileage(100L)
-                .withStatus(Status.AVAILABLE)
-                .withAmount("G");
-
-        CarDto carDto2 = CarDto.carDto()
-                .withId(2L)
-                .withMake("B")
-                .withModel("B")
-                .withBodyType("C")
-                .withYearOfProduction(2005)
-                .withColor("D")
-                .withMileage(100L)
-                .withStatus(Status.AVAILABLE)
-                .withAmount("G");
-
-        List<CarDto> carDtos = new ArrayList<>();
-        carDtos.add(carDto1);
-        carDtos.add(carDto2);
+        List<CarDto> carDtos = createCarDtoList();
 
         BranchDto branchDto1 = BranchDto.branchDto()
                 .withId(1L)
@@ -205,7 +91,7 @@ public class BranchDtoTest extends UnitTest {
                 .withNameAndSurname("Mircea Nebunu")
                 .withJobPosition(JobPosition.EMPLOYEE);
 
-        EmployeeDto employeeDto1 = EmployeeDto
+        EmployeeDto employeeDto2 = EmployeeDto
                 .employeeDto()
                 .withId(1L)
                 .withNameAndSurname("Paul Nebunu")
@@ -214,34 +100,11 @@ public class BranchDtoTest extends UnitTest {
         List<EmployeeDto> employeeDtos = new ArrayList<>();
         employeeDtos.add(employeeDto);
 
+
         List<EmployeeDto> employeeDtos1 = new ArrayList<>();
-        employeeDtos1.add(employeeDto1);
+        employeeDtos1.add(employeeDto2);
 
-        CarDto carDto1 = CarDto.carDto()
-                .withId(1L)
-                .withMake("A")
-                .withModel("B")
-                .withBodyType("C")
-                .withYearOfProduction(2005)
-                .withColor("D")
-                .withMileage(100L)
-                .withStatus(Status.AVAILABLE)
-                .withAmount("G");
-
-        CarDto carDto2 = CarDto.carDto()
-                .withId(2L)
-                .withMake("B")
-                .withModel("B")
-                .withBodyType("C")
-                .withYearOfProduction(2005)
-                .withColor("D")
-                .withMileage(100L)
-                .withStatus(Status.AVAILABLE)
-                .withAmount("G");
-
-        List<CarDto> carDtos = new ArrayList<>();
-        carDtos.add(carDto1);
-        carDtos.add(carDto2);
+        List<CarDto> carDtos = createCarDtoList();
 
         BranchDto branchDto1 = BranchDto.branchDto()
                 .withId(1L)
@@ -262,21 +125,7 @@ public class BranchDtoTest extends UnitTest {
 
     @Test
     public void givenTwoEqualBranchCarLists_whenCompared_theResultIsTrue() {
-        EmployeeDto employeeDto = EmployeeDto
-                .employeeDto()
-                .withId(1L)
-                .withNameAndSurname("Mircea Nebunu")
-                .withJobPosition(JobPosition.EMPLOYEE);
-
-        EmployeeDto employeeDto1 = EmployeeDto
-                .employeeDto()
-                .withId(2L)
-                .withNameAndSurname("Paul Nebunu")
-                .withJobPosition(JobPosition.EMPLOYEE);
-
-        List<EmployeeDto> employeeDtos = new ArrayList<>();
-        employeeDtos.add(employeeDto);
-        employeeDtos.add(employeeDto1);
+        List<EmployeeDto> employeeDtos = createEmployeeDtoList();
 
         CarDto carDto1 = CarDto.carDto()
                 .withId(1L)
@@ -322,5 +171,35 @@ public class BranchDtoTest extends UnitTest {
 
         Assertions.assertFalse(comparisonResult);
 
+    }
+
+    private List<CarDto> createCarDtoList() {
+        CarDto carDto1 = CarDto.carDto()
+                .withId(1L)
+                .withMake("A")
+                .withModel("B")
+                .withBodyType("C")
+                .withYearOfProduction(2005)
+                .withColor("D")
+                .withMileage(100L)
+                .withStatus(Status.AVAILABLE)
+                .withAmount("G");
+
+
+        List<CarDto> carDtos = new ArrayList<>();
+        carDtos.add(carDto1);
+        return carDtos;
+    }
+
+    private List<EmployeeDto> createEmployeeDtoList() {
+        EmployeeDto employeeDto = EmployeeDto
+                .employeeDto()
+                .withId(1L)
+                .withNameAndSurname("Mircea Nebunu")
+                .withJobPosition(JobPosition.EMPLOYEE);
+
+        List<EmployeeDto> employeeDtos = new ArrayList<>();
+        employeeDtos.add(employeeDto);
+        return employeeDtos;
     }
 }
