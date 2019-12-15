@@ -1,7 +1,5 @@
 package com.sda10.carrental.model;
 
-import org.dom4j.Branch;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -26,9 +24,9 @@ public class CarReturn {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "branch_id")
-    private Branch branch;
+//    @ManyToOne(optional = false)
+//    @JoinColumn(name = "branch_id")
+//    private Branch branch;
 
     public CarReturn() {
     }
@@ -73,13 +71,13 @@ public class CarReturn {
         this.employee = employee;
     }
 
-    public Branch getBranch() {
-        return branch;
-    }
-
-    public void setBranch(Branch branch) {
-        this.branch = branch;
-    }
+//    public Branch getBranch() {
+//        return branch;
+//    }
+//
+//    public void setBranch(Branch branch) {
+//        this.branch = branch;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -89,13 +87,13 @@ public class CarReturn {
         return Double.compare(carReturn.additionalPayment, additionalPayment) == 0 &&
                 dateOfReturn.equals(carReturn.dateOfReturn) &&
                 Objects.equals(comments, carReturn.comments) &&
-                employee.equals(carReturn.employee) &&
-                branch.equals(carReturn.branch);
+                employee.equals(carReturn.employee);
+//                branch.equals(carReturn.branch);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dateOfReturn, additionalPayment, comments, employee, branch);
+        return Objects.hash(dateOfReturn, additionalPayment, comments, employee);
     }
 
     @Override
@@ -106,7 +104,7 @@ public class CarReturn {
                 ", additionalPayment=" + additionalPayment +
                 ", comments='" + comments + '\'' +
                 ", employee=" + employee +
-                ", branch=" + branch +
+//                ", branch=" + branch +
                 '}';
     }
 }

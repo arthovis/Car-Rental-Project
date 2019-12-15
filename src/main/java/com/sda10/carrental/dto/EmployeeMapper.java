@@ -1,7 +1,9 @@
 package com.sda10.carrental.dto;
 
 import com.sda10.carrental.model.Employee;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmployeeMapper {
 
     public Employee toEntity(EmployeeDto dto) {
