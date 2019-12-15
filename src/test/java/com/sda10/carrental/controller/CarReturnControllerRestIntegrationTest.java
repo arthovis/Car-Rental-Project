@@ -3,6 +3,7 @@ package com.sda10.carrental.controller;
 import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.CarReturnDto;
 import com.sda10.carrental.dto.CarReturnMapper;
+import com.sda10.carrental.dto.EmployeeMapper;
 import com.sda10.carrental.model.CarReturn;
 import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.model.JobPosition;
@@ -33,6 +34,9 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
     @Autowired
     private CarReturnMapper carReturnMapper;
 
+    @Autowired
+    private EmployeeMapper employeeMapper;
+
     @AfterEach
     public void afterEach() {
         this.carReturnRepository.deleteAll();
@@ -41,11 +45,10 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
 
     @Test
     public void givenCarReturnDetails_whenAPostRequestReceived_thenCreateCarReturn() {
-
         Employee employee = saveEmployee();
 
         CarReturnDto carReturnDetails = CarReturnDto.carReturnDto()
-                .withEmployeeDto(carReturnMapper.fakeEmployeeDtoMapper(employee))
+                .withEmployeeDto(employeeMapper.toDto(employee))
                 .withDateOfReturn(LocalDate.of(2019, 11, 11))
                 .withAdditionalPayment(22.0)
                 .withComments("second car");
@@ -70,7 +73,7 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
 
         CarReturnDto expectedResponse = CarReturnDto.carReturnDto()
                 .withId(savedCarReturn.getId())
-                .withEmployeeDto(carReturnMapper.fakeEmployeeDtoMapper(savedCarReturn.getEmployee()))
+                .withEmployeeDto(employeeMapper.toDto(savedCarReturn.getEmployee()))
                 .withDateOfReturn(savedCarReturn.getDateOfReturn())
                 .withAdditionalPayment(savedCarReturn.getAdditionalPayment())
                 .withComments(savedCarReturn.getComments());
@@ -89,7 +92,7 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
         CarReturn newCarReturn = saveCarReturn(employee);
 
         CarReturnDto newCarReturnDetails = CarReturnDto.carReturnDto()
-                .withEmployeeDto(carReturnMapper.fakeEmployeeDtoMapper(newCarReturn.getEmployee()))
+                .withEmployeeDto(employeeMapper.toDto(newCarReturn.getEmployee()))
                 .withDateOfReturn(LocalDate.of(2020, 11, 11))
                 .withAdditionalPayment(33.0)
                 .withComments("my comments");
