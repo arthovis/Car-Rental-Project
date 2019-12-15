@@ -3,11 +3,10 @@ package com.sda10.carrental.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "employee")
+@Table(name="employee")
 public class Employee {
 
     @Id
@@ -19,11 +18,12 @@ public class Employee {
     private String nameAndSurname;
 
     @NotNull
-    private String jobPosition;
+    private JobPosition jobPosition;
 
-//    @Column
-//    private Branch branch;
-//
+    @ManyToOne
+    @JoinColumn(name = "branch_id", referencedColumnName = "id")
+    private Branch branch;
+
 
     public Long getId() {
         return id;
@@ -41,11 +41,11 @@ public class Employee {
         this.nameAndSurname = nameAndSurname;
     }
 
-    public String getJobPosition() {
+    public JobPosition getJobPosition() {
         return jobPosition;
     }
 
-    public void setJobPosition(String jobPosition) {
+    public void setJobPosition(JobPosition jobPosition) {
         this.jobPosition = jobPosition;
     }
 
@@ -60,11 +60,11 @@ public class Employee {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
         return Objects.equals(id, employee.id) &&
                 Objects.equals(nameAndSurname, employee.nameAndSurname) &&
-                jobPosition.equals(employee.jobPosition);
+                jobPosition == employee.jobPosition;
     }
 
     @Override

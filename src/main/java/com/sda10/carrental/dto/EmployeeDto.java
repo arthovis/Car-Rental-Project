@@ -1,5 +1,7 @@
 package com.sda10.carrental.dto;
 
+import com.sda10.carrental.model.JobPosition;
+
 import java.util.Objects;
 
 public class EmployeeDto {
@@ -8,9 +10,7 @@ public class EmployeeDto {
 
     public String nameAndSurname;
 
-    public String jobPosition;
-
-//    public Branch branch;
+    public JobPosition jobPosition;
 
     private EmployeeDto(){
 
@@ -30,10 +30,11 @@ public class EmployeeDto {
         return this;
     }
 
-    public EmployeeDto withJobPosition(String jobPosition){
+    public EmployeeDto withJobPosition(JobPosition jobPosition) {
         this.jobPosition=jobPosition;
         return this;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -42,7 +43,7 @@ public class EmployeeDto {
         EmployeeDto that = (EmployeeDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(nameAndSurname, that.nameAndSurname) &&
-                Objects.equals(jobPosition, that.jobPosition);
+                jobPosition == that.jobPosition;
     }
 
     @Override

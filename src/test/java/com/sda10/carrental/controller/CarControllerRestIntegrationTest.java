@@ -3,6 +3,7 @@ package com.sda10.carrental.controller;
 import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.CarDto;
 import com.sda10.carrental.model.Car;
+import com.sda10.carrental.model.Status;
 import com.sda10.carrental.repository.CarRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,8 +12,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import javax.xml.ws.Response;
-import java.time.LocalDate;
 import java.util.Optional;
 
 public class CarControllerRestIntegrationTest extends RestIntegrationTest {
@@ -33,7 +32,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         carDetails.withYearOfProduction(2015);
         carDetails.withColor("D");
         carDetails.withMileage(100L);
-        carDetails.withStatus("F");
+        carDetails.withStatus(Status.AVAILABLE);
         carDetails.withAmount("G");
 
         String relativePath = "/cars";
@@ -61,7 +60,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         car.setYearOfProduction(2015);
         car.setColor("D");
         car.setMileage(100L);
-        car.setStatus("F");
+        car.setStatus(Status.AVAILABLE);
         car.setAmount("G");
 
         car = carRepository.save(car);
@@ -85,7 +84,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         car.setYearOfProduction(2015);
         car.setColor("D");
         car.setMileage(100L);
-        car.setStatus("F");
+        car.setStatus(Status.AVAILABLE);
         car.setAmount("G");
 
         car = carRepository.saveAndFlush(car);
@@ -97,7 +96,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
                 .withYearOfProduction(2005)
                 .withColor("E")
                 .withMileage(101L)
-                .withStatus("G")
+                .withStatus(Status.UNAVAILABLE)
                 .withAmount("H");
 
         String relativePath="/cars/"+car.getId();
@@ -107,6 +106,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         Car updateEntity=carRepository.findById(car.getId()).get();
 
         CarDto verifyUpdateDto=CarDto.carDto()
+                .withId(updateEntity.getId())
                 .withMake(updateEntity.getMake())
                 .withModel(updateEntity.getModel())
                 .withBodyType(updateEntity.getBodyType())
@@ -116,7 +116,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
                 .withStatus(updateEntity.getStatus())
                 .withAmount(updateEntity.getAmount());
 
-        Assertions.assertEquals(updatedCarDto, verifyUpdateDto);
+        Assertions.assertEquals(updatedCarDto.withId(updateEntity.getId()), verifyUpdateDto);
 
     }
 
@@ -130,7 +130,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         existingCar.setYearOfProduction(2015);
         existingCar.setColor("D");
         existingCar.setMileage(100L);
-        existingCar.setStatus("F");
+        existingCar.setStatus(Status.AVAILABLE);
         existingCar.setAmount("G");
 
         existingCar=carRepository.save(existingCar);
