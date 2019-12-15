@@ -12,25 +12,25 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
     @NotNull
     private LocalDate dateOfBooking;
 
     @NotNull
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer client;
 
     @NotNull
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
 
     @NotNull
-    private LocalDate dateFrom;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Rental dateFrom;
 
-    @NotNull
-    private LocalDate dateTo;
+//    @NotNull
+//    private LocalDate dateTo;
 
 //    @NotNull
 //    private CarRentalOffice rentalBranch;
@@ -73,21 +73,21 @@ public class Booking {
         this.car = car;
     }
 
-    public LocalDate getDateFrom() {
+    public Rental getDateFrom() {
         return dateFrom;
     }
 
-    public void setDateFrom(LocalDate dateFrom) {
+    public void setDateFrom(Rental dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public LocalDate getDateTo() {
-        return dateTo;
-    }
-
-    public void setDateTo(LocalDate dateTo) {
-        this.dateTo = dateTo;
-    }
+//    public LocalDate getDateTo() {
+//        return dateTo;
+//    }
+//
+//    public void setDateTo(LocalDate dateTo) {
+//        this.dateTo = dateTo;
+//    }
 
 //    public CarRentalOffice getRentalBranch() {
 //        return rentalBranch;
@@ -121,9 +121,9 @@ public class Booking {
         return Objects.equals(id, booking.id) &&
                 Objects.equals(dateOfBooking, booking.dateOfBooking) &&
                 Objects.equals(client, booking.client) &&
-//                Objects.equals(car, booking.car) &&
+                Objects.equals(car, booking.car) &&
                 Objects.equals(dateFrom, booking.dateFrom) &&
-                Objects.equals(dateTo, booking.dateTo) &&
+//                Objects.equals(dateTo, booking.dateTo) &&
 //                Objects.equals(rentalBranch, booking.rentalBranch) &&
 //                Objects.equals(returnBranch, booking.returnBranch) &&
                 Objects.equals(amount, booking.amount);
@@ -131,7 +131,7 @@ public class Booking {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, dateFrom, dateTo, amount);
+        return Objects.hash(id, dateOfBooking, client, car, dateFrom, amount);
     }
-//    rentalBranch, returnBranch, car
+//    rentalBranch, returnBranch, dateTo,
 }

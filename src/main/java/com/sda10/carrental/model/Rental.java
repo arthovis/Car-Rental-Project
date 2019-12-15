@@ -15,11 +15,9 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
     @NotNull
     private LocalDate rentalDate;
 
-    @Column
     @NotNull
     private String comments;
 
