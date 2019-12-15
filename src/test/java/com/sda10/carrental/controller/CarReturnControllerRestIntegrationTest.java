@@ -5,9 +5,12 @@ import com.sda10.carrental.dto.CarReturnDto;
 import com.sda10.carrental.dto.CarReturnMapper;
 import com.sda10.carrental.model.CarReturn;
 import com.sda10.carrental.model.Employee;
+import com.sda10.carrental.model.JobPosition;
 import com.sda10.carrental.repository.CarReturnRepository;
 import com.sda10.carrental.repository.EmployeeRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
@@ -118,7 +121,7 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
     private Employee buildEmployee() {
         Employee employee = new Employee();
         employee.setNameAndSurname("popescu ion");
-        employee.setJobPosition("manager");
+        employee.setJobPosition(JobPosition.MANAGER);
         return employee;
     }
 
