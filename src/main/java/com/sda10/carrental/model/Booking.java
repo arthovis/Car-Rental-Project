@@ -19,12 +19,12 @@ public class Booking {
     @NotNull
     @OneToOne
     @JoinColumn(name = "customer_id")
-    private String client;
+    private Customer client;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "car_id")
-    private String car;
+    private Car car;
 
     @NotNull
     private LocalDate dateFrom;
@@ -32,11 +32,11 @@ public class Booking {
     @NotNull
     private LocalDate dateTo;
 
-    @NotNull
-    private String rentalBranch;
+//    @NotNull
+//    private CarRentalOffice rentalBranch;
 
-    @NotNull
-    private String returnBranch;
+//    @NotNull
+//    private CarRentalOffice returnBranch;
 
     @NotNull
     private Long amount;
@@ -49,27 +49,27 @@ public class Booking {
         this.id = id;
     }
 
-    public LocalDate getDateofBooking() {
+    public LocalDate getDateOfBooking() {
         return dateOfBooking;
     }
 
-    public void setDateofBooking(LocalDate dateOfBooking) {
+    public void setDateOfBooking(LocalDate dateOfBooking) {
         this.dateOfBooking = dateOfBooking;
     }
 
-    public String getClient() {
+    public Customer getClient() {
         return client;
     }
 
-    public void setClient(String client) {
+    public void setClient(Customer client) {
         this.client = client;
     }
 
-    public String getCar() {
+    public Car getCar() {
         return car;
     }
 
-    public void setCar(String car) {
+    public void setCar(Car car) {
         this.car = car;
     }
 
@@ -89,21 +89,21 @@ public class Booking {
         this.dateTo = dateTo;
     }
 
-    public String getRentalBranch() {
-        return rentalBranch;
-    }
+//    public CarRentalOffice getRentalBranch() {
+//        return rentalBranch;
+//    }
+//
+//    public void setRentalBranch(CarRentalOffice rentalBranch) {
+//        this.rentalBranch = rentalBranch;
+//    }
 
-    public void setRentalBranch(String rentalBranch) {
-        this.rentalBranch = rentalBranch;
-    }
-
-    public String getReturnBranch() {
-        return returnBranch;
-    }
-
-    public void setReturnBranch(String returnBranch) {
-        this.returnBranch = returnBranch;
-    }
+//    public CarRentalOffice getReturnBranch() {
+//        return returnBranch;
+//    }
+//
+//    public void setReturnBranch(CarRentalOffice returnBranch) {
+//        this.returnBranch = returnBranch;
+//    }
 
     public Long getAmount() {
         return amount;
@@ -121,16 +121,17 @@ public class Booking {
         return Objects.equals(id, booking.id) &&
                 Objects.equals(dateOfBooking, booking.dateOfBooking) &&
                 Objects.equals(client, booking.client) &&
-                Objects.equals(car, booking.car) &&
+//                Objects.equals(car, booking.car) &&
                 Objects.equals(dateFrom, booking.dateFrom) &&
                 Objects.equals(dateTo, booking.dateTo) &&
-                Objects.equals(rentalBranch, booking.rentalBranch) &&
-                Objects.equals(returnBranch, booking.returnBranch) &&
+//                Objects.equals(rentalBranch, booking.rentalBranch) &&
+//                Objects.equals(returnBranch, booking.returnBranch) &&
                 Objects.equals(amount, booking.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, dateTo, rentalBranch, returnBranch, amount);
+        return Objects.hash(id, dateOfBooking, client, dateFrom, dateTo, amount);
     }
+//    rentalBranch, returnBranch, car
 }
