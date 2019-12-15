@@ -8,7 +8,7 @@ public class CarReturnDto {
     public Long id;
     public EmployeeDto employeeDto;
     public LocalDate dateOfReturn;
-    //    public Booking booking;
+    public BranchDto branchDto;
     public double additionalPayment;
     public String comments;
 
@@ -26,6 +26,11 @@ public class CarReturnDto {
 
     public CarReturnDto withEmployeeDto(EmployeeDto employeeDto) {
         this.employeeDto = employeeDto;
+        return this;
+    }
+
+    public CarReturnDto withBranchDto(BranchDto branchDto) {
+        this.branchDto = branchDto;
         return this;
     }
 
@@ -53,12 +58,13 @@ public class CarReturnDto {
                 Objects.equals(id, that.id) &&
                 Objects.equals(employeeDto, that.employeeDto) &&
                 Objects.equals(dateOfReturn, that.dateOfReturn) &&
+                Objects.equals(branchDto, that.branchDto) &&
                 Objects.equals(comments, that.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, employeeDto, dateOfReturn, additionalPayment, comments);
+        return Objects.hash(id, employeeDto, dateOfReturn, branchDto, additionalPayment, comments);
     }
 
     @Override
@@ -67,6 +73,7 @@ public class CarReturnDto {
                 "id=" + id +
                 ", employeeDto=" + employeeDto +
                 ", dateOfReturn=" + dateOfReturn +
+                ", branchDto=" + branchDto +
                 ", additionalPayment=" + additionalPayment +
                 ", comments='" + comments + '\'' +
                 '}';

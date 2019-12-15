@@ -23,6 +23,7 @@ public class CarReturnMapper {
         return CarReturnDto.carReturnDto()
                 .withId(carReturn.getId())
                 .withEmployeeDto(employeeMapper.toDto(carReturn.getEmployee()))
+                .withBranchDto(branchMapper.toLightDto(carReturn.getBranch()))
                 .withDateOfReturn(carReturn.getDateOfReturn())
                 .withAdditionalPayment(carReturn.getAdditionalPayment())
                 .withComments(carReturn.getComments());

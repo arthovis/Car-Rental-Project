@@ -94,6 +94,12 @@ public class BranchMapper {
                         .collect(Collectors.toList()));
     }
 
+    public BranchDto toLightDto(Branch branch) {
+        return BranchDto.branchDto()
+                .withId(branch.getId())
+                .withAddress(branch.getAddress());
+    }
+
     public Branch toEntity(BranchDto branchDto) {
         Branch branch = new Branch();
 
