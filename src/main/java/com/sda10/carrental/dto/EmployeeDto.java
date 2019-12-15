@@ -12,8 +12,6 @@ public class EmployeeDto {
 
     public JobPosition jobPosition;
 
-//    public Branch branch;
-
     private EmployeeDto(){
 
     }
@@ -45,7 +43,7 @@ public class EmployeeDto {
         EmployeeDto that = (EmployeeDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(nameAndSurname, that.nameAndSurname) &&
-                Objects.equals(jobPosition, that.jobPosition);
+                jobPosition == that.jobPosition;
     }
 
     @Override

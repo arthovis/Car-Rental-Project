@@ -20,7 +20,7 @@ public class Employee {
     @NotNull
     private JobPosition jobPosition;
 
-    @Column
+
     @ManyToOne
     @JoinColumn(name = "branch_id", referencedColumnName = "id")
     private Branch branch;
@@ -50,6 +50,14 @@ public class Employee {
         this.jobPosition = jobPosition;
     }
 
+//    public Branch getBranch() {
+//        return branch;
+//    }
+//
+//    public void setBranch(Branch branch) {
+//        this.branch = branch;
+//    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,7 +65,7 @@ public class Employee {
         Employee employee = (Employee) o;
         return Objects.equals(id, employee.id) &&
                 Objects.equals(nameAndSurname, employee.nameAndSurname) &&
-                Objects.equals(jobPosition, employee.jobPosition);
+                jobPosition == employee.jobPosition;
     }
 
     @Override

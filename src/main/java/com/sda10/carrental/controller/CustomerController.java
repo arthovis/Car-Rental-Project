@@ -1,6 +1,7 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.dto.CustomerDto;
+import com.sda10.carrental.dto.CustomerMapper;
 import com.sda10.carrental.model.Customer;
 import com.sda10.carrental.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,50 +13,33 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     @Autowired
+    public CustomerMapper customerMapper;
+
+    @Autowired
     public CustomerService customerService;
 
     @PostMapping(value = "/customers")
     public CustomerDto createCustomer(@RequestBody CustomerDto customerDetails) {
-        Customer customer = new Customer();
-
-        customer.setFirstName(customerDetails.firstName);
-        customer.setLastName(customerDetails.lastName);
-        customer.setEmail(customerDetails.email);
-        customer.setAddress(customerDetails.address);
+        Customer customer = customerMapper.toEntity(customerDetails);
 
         customer = customerService.createCustomer(customer);
 
-        return CustomerDto.customerDto()
-                .withId(customer.getId())
-                .withFirstName(customer.getFirstName())
-                .withLastName(customer.getLastName())
-                .withEmail(customer.getEmail())
-                .withAddress(customer.getAddress());
+        return customerMapper.toDto(customer);
     }
 
     @GetMapping(value = "/customers/{id}")
     public CustomerDto findById(@PathVariable Long id) {
+
         Customer customerById = customerService.findCustomerById(id);
 
-        return CustomerDto.customerDto()
-                .withId(customerById.getId())
-                .withFirstName(customerById.getFirstName())
-                .withLastName(customerById.getLastName())
-                .withEmail(customerById.getEmail())
-                .withAddress(customerById.getAddress());
+        return customerMapper.toDto(customerById);
     }
 
     @PutMapping(value = "/customers/{id}")
     public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody CustomerDto customerDetails) {
 
         try {
-            Customer customer = new Customer();
-
-            customer.setFirstName(customerDetails.firstName);
-            customer.setLastName(customerDetails.lastName);
-            customer.setEmail(customerDetails.email);
-            customer.setAddress(customerDetails.address);
-
+            Customer customer = customerMapper.toEntity(customerDetails);
             customerService.updateCustomer(id, customer);
 
             return new ResponseEntity(HttpStatus.OK);
