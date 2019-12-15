@@ -1,6 +1,7 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.dto.CarRentalOfficeDto;
+import com.sda10.carrental.dto.CarRentalOfficeMapper;
 import com.sda10.carrental.model.CarRentalOffice;
 import com.sda10.carrental.service.CarRentalOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,26 +15,17 @@ public class CarRentalOfficeController {
     @Autowired
     private CarRentalOfficeService carRentalOfficeService;
 
+    @Autowired
+    private CarRentalOfficeMapper carRentalOfficeMapper;
+
     @PostMapping(value = "/car-rental-offices")
     public CarRentalOfficeDto createCarRentalOffice(@RequestBody CarRentalOfficeDto carRentalOfficeDetails) {
 
-        CarRentalOffice carRentalOffice = new CarRentalOffice();
-
-        carRentalOffice.setName(carRentalOfficeDetails.name);
-        carRentalOffice.setInternetDomain(carRentalOfficeDetails.internetDomain);
-        carRentalOffice.setOwner(carRentalOfficeDetails.owner);
-        carRentalOffice.setContactAddress(carRentalOfficeDetails.contactAddress);
-        carRentalOffice.setLogoType(carRentalOfficeDetails.logoType);
+        CarRentalOffice carRentalOffice = carRentalOfficeMapper.toEntity(carRentalOfficeDetails);
 
         carRentalOffice = carRentalOfficeService.createCarRentalOffice(carRentalOffice);
 
-        return CarRentalOfficeDto.carRentalOfficeDto()
-                .withId(carRentalOffice.getId())
-                .withName(carRentalOffice.getName())
-                .withInternetDomain(carRentalOffice.getInternetDomain())
-                .withOwner(carRentalOffice.getOwner())
-                .withContactAddress(carRentalOffice.getContactAddress())
-                .withLogoType(carRentalOffice.getLogoType());
+        return carRentalOfficeMapper.toDto(carRentalOffice);
     }
 
 
@@ -42,25 +34,13 @@ public class CarRentalOfficeController {
 
         CarRentalOffice carRentalOfficeById = carRentalOfficeService.getCarRentalOfficeById(id);
 
-        return CarRentalOfficeDto.carRentalOfficeDto()
-                .withId(carRentalOfficeById.getId())
-                .withName(carRentalOfficeById.getName())
-                .withInternetDomain(carRentalOfficeById.getInternetDomain())
-                .withOwner(carRentalOfficeById.getOwner())
-                .withContactAddress(carRentalOfficeById.getContactAddress())
-                .withLogoType(carRentalOfficeById.getLogoType());
+        return carRentalOfficeMapper.toDto(carRentalOfficeById);
     }
 
     @PutMapping(value = "/car-rental-offices/{id}")
     public ResponseEntity updateCarRentalOffice(@PathVariable Long id, @RequestBody CarRentalOfficeDto carRentalOfficeDetails) {
 
-        CarRentalOffice carRentalOffice = new CarRentalOffice();
-
-        carRentalOffice.setName(carRentalOfficeDetails.name);
-        carRentalOffice.setInternetDomain(carRentalOfficeDetails.internetDomain);
-        carRentalOffice.setOwner(carRentalOfficeDetails.owner);
-        carRentalOffice.setContactAddress(carRentalOfficeDetails.contactAddress);
-        carRentalOffice.setLogoType(carRentalOfficeDetails.logoType);
+        CarRentalOffice carRentalOffice = carRentalOfficeMapper.toEntity(carRentalOfficeDetails);
 
         carRentalOfficeService.updateCarRentalOffice(id, carRentalOffice);
 

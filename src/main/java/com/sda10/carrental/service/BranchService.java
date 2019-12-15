@@ -2,7 +2,6 @@ package com.sda10.carrental.service;
 
 import com.sda10.carrental.model.Branch;
 import com.sda10.carrental.model.Car;
-import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.model.Status;
 import com.sda10.carrental.repository.BranchRepository;
 import com.sda10.carrental.repository.CarRepository;
@@ -11,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class BranchService {
