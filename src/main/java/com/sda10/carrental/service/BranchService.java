@@ -29,17 +29,6 @@ public class BranchService {
 
     @Transactional
     public Branch createBranch(Branch branch) {
-
-        List<Car> cars = carRepository
-                .findAllById(branch.getAvailableCarsList().stream()
-                        .map(Car::getId).collect(Collectors.toList()));
-        List<Employee> employees = employeeRepository
-                .findAllById(branch.getEmployeeList().stream()
-                        .map(Employee::getId).collect(Collectors.toList()));
-
-        branch.setAvailableCarsList(cars);
-        branch.setEmployeeList(employees);
-
         return branchRepository.save(branch);
     }
 

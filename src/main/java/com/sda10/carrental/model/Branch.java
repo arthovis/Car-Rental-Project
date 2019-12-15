@@ -16,7 +16,7 @@ public class Branch {
     @OneToMany(mappedBy = "branch")
     List<Employee> employeeList;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     @JoinColumn(name = "branch_id")
     List<Car> availableCarsList;
 

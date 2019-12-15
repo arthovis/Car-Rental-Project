@@ -1,25 +1,23 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
-import com.sda10.carrental.dto.BranchDto;
-import com.sda10.carrental.dto.CarDto;
-import com.sda10.carrental.dto.EmployeeDto;
+import com.sda10.carrental.dto.*;
 import com.sda10.carrental.model.*;
 import com.sda10.carrental.repository.BranchRepository;
 import com.sda10.carrental.repository.CarRepository;
 import com.sda10.carrental.repository.EmployeeRepository;
-import com.sda10.carrental.service.CarService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-@Transactional
 public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
@@ -35,9 +33,12 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
     private CarRepository carRepository;
 
     @Autowired
-    private CarService carService;
+    private EmployeeMapper employeeMapper;
 
-    private Car createCar() {
+    @Autowired
+    private CarMapper carMapper;
+
+    public Car createCar() {
         Car car = new Car();
 
         car.setMake("A");
@@ -49,20 +50,29 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
         car.setStatus(Status.AVAILABLE);
         car.setAmount("G");
 
-        return carService.createCar(car);
+        return carRepository.save(car);
     }
 
-    private Employee createEmployee() {
+    public Employee createEmployee() {
         Employee employee = new Employee();
 
         employee.setNameAndSurname("A");
         employee.setJobPosition(JobPosition.EMPLOYEE);
 
-        return employeeRepository.saveAndFlush(employee);
+        return employeeRepository.save(employee);
     }
 
     private List<CarDto> createCarDtoList() {
-        CarDto carDto1 = CarDto.carDto()
+        CarDto carDto = createCarDto();
+
+
+        List<CarDto> carDtos = new ArrayList<>();
+        carDtos.add(carDto);
+        return carDtos;
+    }
+
+    private CarDto createCarDto() {
+        return CarDto.carDto()
                 .withId(1L)
                 .withMake("A")
                 .withModel("B")
@@ -72,23 +82,22 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
                 .withMileage(100L)
                 .withStatus(Status.AVAILABLE)
                 .withAmount("G");
-
-
-        List<CarDto> carDtos = new ArrayList<>();
-        carDtos.add(carDto1);
-        return carDtos;
     }
 
     private List<EmployeeDto> createEmployeeDtoList() {
-        EmployeeDto employeeDto = EmployeeDto
-                .employeeDto()
-                .withId(1L)
-                .withNameAndSurname("Mircea Nebunu")
-                .withJobPosition(JobPosition.EMPLOYEE);
+        EmployeeDto employeeDto = createEmployeeDto();
 
         List<EmployeeDto> employeeDtos = new ArrayList<>();
         employeeDtos.add(employeeDto);
         return employeeDtos;
+    }
+
+    private EmployeeDto createEmployeeDto() {
+        return EmployeeDto
+                .employeeDto()
+                .withId(1L)
+                .withNameAndSurname("Mircea Nebunu")
+                .withJobPosition(JobPosition.EMPLOYEE);
     }
 
     private List<Employee> createEmployeeList() {
@@ -122,13 +131,12 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
         Car car = createCar();
         Employee employee = createEmployee();
 
-        List<EmployeeDto> employeeDtoList = createEmployeeDtoList();
-        List<CarDto> carDtoList = createCarDtoList();
+        List<EmployeeDto> employeeDtoList = Arrays.asList(employeeMapper.toDto(employee));
+        List<CarDto> carDtoList = Arrays.asList(carMapper.toDto(car));
 
-        BranchDto branchDetails = BranchDto.branchDto();
-
-        branchDetails.withAddress("Calea Victoriei")
-//                .withEmployees(employeeDtoList)
+        BranchDto branchDetails = BranchDto.branchDto()
+                .withAddress("Calea Victoriei")
+                .withEmployees(employeeDtoList)
                 .withCar(carDtoList);
 
         String relativePath = "/branch";
@@ -139,19 +147,109 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
 
         BranchDto expectedResponse = branchDetails.withId(newId);
 
-        Branch expectedBranch = getBranch(newId);
+        Branch expectedBranch = branchRepository.getOne(newId);
 
         Assertions.assertNotNull(expectedBranch);
         Assertions.assertEquals(expectedResponse, actualResponse.getBody());
     }
 
-    @Transactional
-    private Branch getBranch(Long id) {
-        Branch expectedBranch = branchRepository.findById(id).get();
+    @Test
+    public void getByIdTest() {
 
-        expectedBranch.toString();
+        Branch branch = new Branch();
+        Car car = createCar();
+        Employee employee = createEmployee();
 
-        return expectedBranch;
+        CarDto carDto = createCarDto();
+        EmployeeDto employeeDto = createEmployeeDto();
+
+        List<Employee> employeeList = Arrays.asList(employeeMapper.toEntity(employeeDto));
+        List<Car> carList = Arrays.asList(carMapper.toEntity(carDto));
+
+        branch.setAddress("Calea Victoriei");
+        branch.setEmployeeList(employeeList);
+        branch.setAvailableCarsList(carList);
+
+        branch = branchRepository.save(branch);
+
+        String relativePath = "/branch/" + branch.getId();
+
+        ResponseEntity<BranchDto> actualResponse = this.restTemplate.getForEntity(url(relativePath), BranchDto.class);
+
+        Assertions.assertNotNull(actualResponse.getBody());
+        Assertions.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
     }
 
+    @Test
+    public void updateTest() {
+
+        Branch branch = new Branch();
+        Car car = createCar();
+        Employee employee = createEmployee();
+
+        CarDto carDto = createCarDto();
+        EmployeeDto employeeDto = createEmployeeDto();
+
+        List<Employee> employeeList = Arrays.asList(employeeMapper.toEntity(employeeDto));
+        List<Car> carList = Arrays.asList(carMapper.toEntity(carDto));
+
+        branch.setAddress("Calea Victoriei");
+        branch.setEmployeeList(employeeList);
+        branch.setAvailableCarsList(carList);
+
+        branch = branchRepository.saveAndFlush(branch);
+
+        List<EmployeeDto> employeeDtoList = Arrays.asList(employeeMapper.toDto(employee));
+        List<CarDto> carDtoList = Arrays.asList(carMapper.toDto(car));
+
+        BranchDto updatedBranchDto = BranchDto.branchDto()
+                .withAddress("Calea Victoriei")
+                .withEmployees(employeeDtoList)
+                .withCar(carDtoList);
+
+
+        String relativePath = "/branch/" + branch.getId();
+
+        this.restTemplate.put(url(relativePath), updatedBranchDto);
+
+        Branch updatedEntity = branchRepository.findById(branch.getId()).get();
+
+        List<EmployeeDto> employeeDtoList2 = Arrays.asList(employeeMapper.toDto(employee));
+        List<CarDto> carDtoList2 = Arrays.asList(carMapper.toDto(car));
+
+        BranchDto verifyUpdateDto = BranchDto.branchDto()
+                .withAddress(updatedEntity.getAddress())
+                .withEmployees(employeeDtoList2)
+                .withCar(carDtoList2);
+
+        Assertions.assertEquals(updatedBranchDto, verifyUpdateDto);
+
+    }
+
+    @Test
+    public void deleteTest() {
+
+        Branch existingBranch = new Branch();
+        Car car = createCar();
+        Employee employee = createEmployee();
+
+        CarDto carDto = createCarDto();
+        EmployeeDto employeeDto = createEmployeeDto();
+
+        List<Employee> employeeList = Arrays.asList(employeeMapper.toEntity(employeeDto));
+        List<Car> carList = Arrays.asList(carMapper.toEntity(carDto));
+
+        existingBranch.setAddress("Calea Victoriei");
+        existingBranch.setEmployeeList(employeeList);
+        existingBranch.setAvailableCarsList(carList);
+
+        existingBranch = branchRepository.saveAndFlush(existingBranch);
+
+        String relativePath = "/branch/" + existingBranch.getId();
+        this.restTemplate.delete(relativePath, existingBranch.getId());
+
+        Optional<Branch> updatedBranch = this.branchRepository.findById(existingBranch.getId());
+
+        Assertions.assertFalse(updatedBranch.isPresent());
+    }
 }
