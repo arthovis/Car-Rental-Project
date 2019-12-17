@@ -1,8 +1,6 @@
 package com.sda10.carrental.dto;
 
 import com.sda10.carrental.model.Booking;
-import com.sda10.carrental.model.Car;
-import com.sda10.carrental.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +12,13 @@ public class BookingMapper {
     @Autowired
     CarMapper carMapper;
 
+    @Autowired
+    CarReturnMapper carReturnMapper;
+
     public Booking toEntity(BookingDto dto) {
-        Customer client = new Customer();
-        Car car = new Car();
+//        Customer client = new Customer();
+//        Car car = new Car();
+// Nu este nevoie ca creezi client si car, poti sa le stergi
 
         Booking entity = new Booking();
         entity.setDateOfBooking(dto.dateOfBooking);
@@ -27,7 +29,7 @@ public class BookingMapper {
 //        entity.setRentalBranch(dto));
 //        entity.setReturnBranch(dto.withReturnBranch());
         entity.setAmount(dto.amount);
-
+        entity.setCarReturn(carReturnMapper.toLightEntity(dto.carReturnDto));
         return entity;
     }
 
@@ -39,6 +41,7 @@ public class BookingMapper {
                 .withCar(carMapper.toDto(entity.getCar()))
                 .withDateFrom(entity.getDateFrom())
                 .withDateTo(entity.getDateTo())
-                .withAmount(entity.getAmount());
+                .withAmount(entity.getAmount())
+                .withCarReturnDto(carReturnMapper.toLightDto(entity.getCarReturn()));
     }
 }

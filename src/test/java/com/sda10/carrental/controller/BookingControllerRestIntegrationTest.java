@@ -1,16 +1,10 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
-import com.sda10.carrental.dto.BookingDto;
-import com.sda10.carrental.dto.CarMapper;
-import com.sda10.carrental.dto.CustomerMapper;
-import com.sda10.carrental.model.Booking;
-import com.sda10.carrental.model.Car;
-import com.sda10.carrental.model.Customer;
-import com.sda10.carrental.model.Status;
-import com.sda10.carrental.repository.BookingRepository;
-import com.sda10.carrental.repository.CarRepository;
-import com.sda10.carrental.repository.CustomerRepository;
+import com.sda10.carrental.dto.*;
+import com.sda10.carrental.model.*;
+import com.sda10.carrental.repository.*;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,103 +18,91 @@ import java.util.Optional;
 public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
+    public TestRestTemplate restTemplate;
+
+    @Autowired
     CustomerRepository customerRepository;
 
     @Autowired
     CarRepository carRepository;
+    @Autowired
+    public BookingRepository bookingRepository;
+    @Autowired
+    EmployeeRepository employeeRepository;
+    @Autowired
+    BranchRepository branchRepository;
+    @Autowired
+    CarReturnRepository carReturnRepository;
 
     @Autowired
     CustomerMapper customerMapper;
 
     @Autowired
     CarMapper carMapper;
+    @Autowired
+    CarReturnMapper carReturnMapper;
 
     @Autowired
-    public TestRestTemplate restTemplate;
+    BookingMapper bookingMapper;
 
-    @Autowired
-    public BookingRepository bookingRepository;
+    @AfterEach
+    public void afterEach() {
+        this.bookingRepository.deleteAll();
+        this.carReturnRepository.deleteAll();
+        this.employeeRepository.deleteAll();
+        this.branchRepository.deleteAll();
+    }
 
     @Test
     public void givenBookingDetails_whenPostRequestReceived_thenCreateBooking() {
-        Customer customer = getCustomer();
+        Customer customer = getSavedCustomer();
+        Car car = getSavedCar();
+        CarReturn lightCarReturn = buildLightCarReturn();
 
-        Car car = getCar();
-
-        BookingDto bookingDetails = BookingDto.bookingDto();
-
-        bookingDetails
-                .withId(1L)
+        BookingDto bookingDetails = BookingDto.bookingDto()
                 .withDateOfBooking(LocalDate.now())
                 .withClient(customerMapper.toDto(customer))
                 .withCar(carMapper.toDto(car))
                 .withDateFrom(LocalDate.of(2019, 8, 24))
                 .withDateTo(LocalDate.of(2019, 8, 30))
-//                .withRentalBranch(CarRentalOfficeDto.carRentalOfficeDto())
-//                .withReturnBranch(CarRentalOfficeDto.carRentalOfficeDto())
-                .withAmount(100L);
+                .withAmount(100L)
+                .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn));
 
         String relativePath = "/bookings";
-
         ResponseEntity<BookingDto> actualResponse = this.restTemplate
                 .postForEntity(url(relativePath), bookingDetails, BookingDto.class);
 
         Long newId = actualResponse.getBody().id;
-
+        Optional<Booking> expectedBooking = bookingRepository.findById(newId);
         BookingDto expectedResponse = bookingDetails.withId(newId);
 
-        Booking expectedBooking = bookingRepository.getOne(newId);
-
-        Assertions.assertNotNull(expectedBooking);
+        Assertions.assertTrue(expectedBooking.isPresent());
         Assertions.assertEquals(expectedResponse, actualResponse.getBody());
     }
 
     @Test
     public void findBookingByIdTest() {
-        Customer customer = getCustomer();
+        Customer customer = getSavedCustomer();
+        Car car = getSavedCar();
+        CarReturn lightCarReturn = buildLightCarReturn();
+        Booking savedBooking = getSavedBooking(customer, car, lightCarReturn);
 
-        Car car = getCar();
+        BookingDto expectedResponse = bookingMapper.toDto(savedBooking);
 
-        Booking booking = new Booking();
-
-        booking.setDateOfBooking(LocalDate.now());
-        booking.setClient(customer);
-        booking.setCar(car);
-        booking.setDateFrom(LocalDate.of(2019, 8, 24));
-        booking.setDateTo(LocalDate.of(2019, 8, 30));
-//        booking.setRentalBranch("C");
-//        booking.setReturnBranch("D");
-        booking.setAmount(100L);
-
-        booking = bookingRepository.save(booking);
-
-        String relativePath = "/bookings/" + booking.getId();
-
+        String relativePath = "/bookings/" + savedBooking.getId();
         ResponseEntity<BookingDto> actualResponse = this.restTemplate
                 .getForEntity(url(relativePath), BookingDto.class);
 
-        Assertions.assertNotNull(actualResponse);
+        Assertions.assertEquals(expectedResponse, actualResponse.getBody());
         Assertions.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
     }
 
     @Test
     public void updateTest() {
-        Customer customer = getCustomer();
-
-        Car car = getCar();
-
-        Booking booking = new Booking();
-
-        booking.setDateOfBooking(LocalDate.now());
-        booking.setClient(customer);
-        booking.setCar(car);
-        booking.setDateFrom(LocalDate.of(2019, 8, 24));
-        booking.setDateTo(LocalDate.of(2019, 8, 30));
-//        booking.setRentalBranch("C");
-//        booking.setReturnBranch("D");
-        booking.setAmount(100L);
-
-        booking = bookingRepository.saveAndFlush(booking);
+        Customer customer = getSavedCustomer();
+        Car car = getSavedCar();
+        CarReturn lightCarReturn = buildLightCarReturn();
+        Booking savedBooking = getSavedBooking(customer, car, lightCarReturn);
 
         BookingDto updatedBookingDto = BookingDto.bookingDto()
                 .withDateOfBooking(LocalDate.of(2019, 12, 25))
@@ -128,77 +110,48 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
                 .withCar(carMapper.toDto(car))
                 .withDateFrom(LocalDate.of(2019, 3, 16))
                 .withDateTo(LocalDate.of(2019, 4, 27))
-//                .withRentalBranch("Z")
-//                .withReturnBranch("Q")
-                .withAmount(1000L);
+                .withAmount(1000L)
+                .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn));
 
-        String relativePath = "/bookings/" + booking.getId();
 
+        String relativePath = "/bookings/" + savedBooking.getId();
         this.restTemplate.put(url(relativePath), updatedBookingDto);
 
-        Customer updatedCustomer = getCustomer();
+        Booking updatedBooking = this.bookingRepository.findById(savedBooking.getId()).get();
 
-        Car updatedCar = getUpdatedCar(car);
+        BookingDto verifyUpdateDto = bookingMapper.toDto(updatedBooking);
 
-        Booking updatedBooking = bookingRepository.findById(booking.getId()).get();
-
-        BookingDto verifyUpdateDto = BookingDto.bookingDto()
-                .withDateOfBooking(updatedBooking.getDateOfBooking())
-                .withClient(customerMapper.toDto(updatedCustomer))
-                .withCar(carMapper.toDto(updatedCar))
-                .withDateFrom(updatedBooking.getDateFrom())
-                .withDateTo(updatedBooking.getDateTo())
-//                .withRentalBranch(updatedBooking.getRentalBranch())
-//                .withReturnBranch(updatedBooking.getReturnBranch())
-                .withAmount(updatedBooking.getAmount());
-
-        Assertions.assertEquals(updatedBookingDto, verifyUpdateDto);
+        Assertions.assertEquals(updatedBookingDto.withId(updatedBooking.getId()), verifyUpdateDto);
     }
 
     @Test
     public void deleteTest() {
-        Customer customer = getCustomer();
+        Customer customer = getSavedCustomer();
+        Car car = getSavedCar();
+        CarReturn lightCarReturn = buildLightCarReturn();
+        Booking savedBooking = getSavedBooking(customer, car, lightCarReturn);
 
-        Car car = getCar();
+        String relativePath = "/bookings/" + savedBooking.getId();
+        this.restTemplate.delete(url(relativePath), savedBooking.getId());
 
-        Booking booking = new Booking();
-
-        booking.setDateOfBooking(LocalDate.now());
-        booking.setClient(customer);
-        booking.setCar(car);
-        booking.setDateFrom(LocalDate.of(2019, 8, 24));
-        booking.setDateTo(LocalDate.of(2019, 8, 30));
-//        booking.setRentalBranch("C");
-//        booking.setReturnBranch("D");
-        booking.setAmount(100L);
-
-        booking = bookingRepository.save(booking);
-
-        String relativePath = "/bookings/" + booking.getId();
-
-        this.restTemplate.delete(url(relativePath), booking);
-
-        Optional<Booking> verifyDelete = this.bookingRepository.findById(booking.getId());
+        Optional<Booking> verifyDelete = this.bookingRepository.findById(savedBooking.getId());
 
         Assertions.assertFalse(verifyDelete.isPresent());
     }
 
-
-    private Customer getCustomer() {
+    private Customer getSavedCustomer() {
         Customer customer = new Customer();
-        customer.setId(1L);
         customer.setFirstName("A");
         customer.setLastName("B");
         customer.setEmail("C");
         customer.setAddress("D");
 
-        customer = customerRepository.save(customer);
+        customer = customerRepository.saveAndFlush(customer);
         return customer;
     }
 
-    private Car getCar() {
+    private Car getSavedCar() {
         Car car = new Car();
-        car.setId(1L);
         car.setMake("A");
         car.setModel("B");
         car.setBodyType("C");
@@ -208,23 +161,57 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         car.setStatus(Status.AVAILABLE);
         car.setAmount("E");
 
-        car = carRepository.save(car);
+        car = carRepository.saveAndFlush(car);
         return car;
     }
 
-    private Car getUpdatedCar(Car car) {
+/* // Alex
+    private Car getUpdatedCar() {
         Car updatedCar = new Car();
-        updatedCar.setId(1L);
-        updatedCar.setMake("A");
-        updatedCar.setModel("B");
-        updatedCar.setBodyType("C");
+        updatedCar.setMake("Aa");
+        updatedCar.setModel("Bb");
+        updatedCar.setBodyType("Cc");
         updatedCar.setYearOfProduction(1988);
-        updatedCar.setColor("D");
+        updatedCar.setColor("Dd");
         updatedCar.setMileage(2019L);
-        updatedCar.setStatus(Status.AVAILABLE);
-        updatedCar.setAmount("E");
+        updatedCar.setStatus(Status.UNAVAILABLE);
+        updatedCar.setAmount("Ee");
 
-        updatedCar = carRepository.save(car);
+        updatedCar = carRepository.saveAndFlush(updatedCar);
         return updatedCar;
+    }
+
+    private Customer getUpdatedCustomer() {
+        Customer customer = new Customer();
+        customer.setFirstName("Aa");
+        customer.setLastName("Bb");
+        customer.setEmail("Cc");
+        customer.setAddress("Dd");
+
+        customer = customerRepository.saveAndFlush(customer);
+        return customer;
+    }
+*/
+
+    private CarReturn buildLightCarReturn() {
+        CarReturn carReturn = new CarReturn();
+        carReturn.setDateOfReturn(LocalDate.of(2019, 8, 30));
+        carReturn.setAdditionalPayment(0.0);
+        carReturn.setComments("first car");
+
+        return carReturn;
+    }
+
+    private Booking getSavedBooking(Customer customer, Car car, CarReturn carReturn) {
+        Booking booking = new Booking();
+        booking.setDateOfBooking(LocalDate.now());
+        booking.setClient(customer);
+        booking.setCar(car);
+        booking.setDateFrom(LocalDate.of(2019, 8, 24));
+        booking.setDateTo(LocalDate.of(2019, 8, 30));
+        booking.setAmount(100L);
+        booking.setCarReturn(carReturn);
+
+        return this.bookingRepository.saveAndFlush(booking);
     }
 }

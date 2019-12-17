@@ -14,6 +14,7 @@ public class BookingDto {
     //    public CarRentalOfficeDto rentalBranch;
 //    public CarRentalOfficeDto returnBranch;
     public Long amount;
+    public CarReturnDto carReturnDto;
 
     private BookingDto() {
     }
@@ -67,10 +68,15 @@ public class BookingDto {
         return this;
     }
 
+    public BookingDto withCarReturnDto(CarReturnDto carReturnDto) {
+        this.carReturnDto = carReturnDto;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof BookingDto)) return false;
         BookingDto that = (BookingDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(dateOfBooking, that.dateOfBooking) &&
@@ -78,14 +84,26 @@ public class BookingDto {
                 Objects.equals(car, that.car) &&
                 Objects.equals(dateFrom, that.dateFrom) &&
                 Objects.equals(dateTo, that.dateTo) &&
-//                Objects.equals(rentalBranch, that.rentalBranch) &&
-//                Objects.equals(returnBranch, that.returnBranch) &&
-                Objects.equals(amount, that.amount);
+                Objects.equals(amount, that.amount) &&
+                Objects.equals(carReturnDto, that.carReturnDto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, dateTo, amount);
+        return Objects.hash(id, dateOfBooking, client, car, dateFrom, dateTo, amount, carReturnDto);
     }
-//    rentalBranch, returnBranch,
+
+    @Override
+    public String toString() {
+        return "BookingDto{" +
+                "id=" + id +
+                ", dateOfBooking=" + dateOfBooking +
+                ", client=" + client +
+                ", car=" + car +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
+                ", amount=" + amount +
+                ", carReturnDto=" + carReturnDto +
+                '}';
+    }
 }

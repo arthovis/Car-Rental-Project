@@ -20,7 +20,7 @@ public class CarReturn {
 
     private String comments;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
@@ -87,8 +87,8 @@ public class CarReturn {
         return Double.compare(carReturn.additionalPayment, additionalPayment) == 0 &&
                 dateOfReturn.equals(carReturn.dateOfReturn) &&
                 Objects.equals(comments, carReturn.comments) &&
-                employee.equals(carReturn.employee) &&
-                branch.equals(carReturn.branch);
+                Objects.equals(employee, carReturn.employee) &&
+                Objects.equals(branch, carReturn.branch);
     }
 
     @Override
