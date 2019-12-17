@@ -76,8 +76,8 @@ public class Rental {
         Rental rental = (Rental) o;
         return rentalDate.equals(rental.rentalDate) &&
                 Objects.equals(comments, rental.comments) &&
-                employee.equals(rental.employee) &&
-                branch.equals(rental.branch);
+                Objects.equals(employee, rental.employee) &&
+                Objects.equals(branch, rental.branch);
     }
 
     @Override

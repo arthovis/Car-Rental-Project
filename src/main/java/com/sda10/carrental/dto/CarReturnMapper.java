@@ -23,11 +23,26 @@ public class CarReturnMapper {
         return carReturn;
     }
 
+    public CarReturn toLightEntity(CarReturnDto carReturnDtoDetails) {
+        CarReturn carReturn = new CarReturn();
+        carReturn.setDateOfReturn(carReturnDtoDetails.dateOfReturn);
+        carReturn.setAdditionalPayment(carReturnDtoDetails.additionalPayment);
+        carReturn.setComments(carReturnDtoDetails.comments);
+        return carReturn;
+    }
+
     public CarReturnDto toDto(CarReturn carReturn) {
         return CarReturnDto.carReturnDto()
                 .withId(carReturn.getId())
                 .withEmployeeDto(employeeMapper.toDto(carReturn.getEmployee()))
                 .withBranchDto(branchMapper.toLightDto(carReturn.getBranch()))
+                .withDateOfReturn(carReturn.getDateOfReturn())
+                .withAdditionalPayment(carReturn.getAdditionalPayment())
+                .withComments(carReturn.getComments());
+    }
+
+    public CarReturnDto toLightDto(CarReturn carReturn) {
+        return CarReturnDto.carReturnDto()
                 .withDateOfReturn(carReturn.getDateOfReturn())
                 .withAdditionalPayment(carReturn.getAdditionalPayment())
                 .withComments(carReturn.getComments());

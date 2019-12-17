@@ -3,7 +3,6 @@ package com.sda10.carrental.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Table(name = "booking")
@@ -40,6 +39,9 @@ public class Booking {
 
     @NotNull
     private Long amount;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private CarReturn carReturn;
 
     public Long getId() {
         return id;
@@ -113,25 +115,25 @@ public class Booking {
         this.amount = amount;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Booking booking = (Booking) o;
-        return Objects.equals(id, booking.id) &&
-                Objects.equals(dateOfBooking, booking.dateOfBooking) &&
-                Objects.equals(client, booking.client) &&
-//                Objects.equals(car, booking.car) &&
-                Objects.equals(dateFrom, booking.dateFrom) &&
-                Objects.equals(dateTo, booking.dateTo) &&
-//                Objects.equals(rentalBranch, booking.rentalBranch) &&
-//                Objects.equals(returnBranch, booking.returnBranch) &&
-                Objects.equals(amount, booking.amount);
+    public CarReturn getCarReturn() {
+        return carReturn;
+    }
+
+    public void setCarReturn(CarReturn carReturn) {
+        this.carReturn = carReturn;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, dateFrom, dateTo, amount);
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", dateOfBooking=" + dateOfBooking +
+                ", client=" + client +
+                ", car=" + car +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
+                ", amount=" + amount +
+                ", carReturn=" + carReturn +
+                '}';
     }
-//    rentalBranch, returnBranch, car
 }
