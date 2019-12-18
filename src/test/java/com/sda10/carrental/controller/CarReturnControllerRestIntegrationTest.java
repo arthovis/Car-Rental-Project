@@ -72,9 +72,8 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
         Long newId = actualResponse.getBody().id;
         Optional<CarReturn> expectedCarReturn = this.carReturnRepository.findById(newId);
         CarReturnDto expectedResponse = carReturnDetails.withId(newId);
-        System.out.println(expectedResponse);
+
         Assertions.assertTrue(expectedCarReturn.isPresent());
-        System.out.println(actualResponse.getBody());
         Assertions.assertEquals(expectedResponse, actualResponse.getBody());
     }
 
@@ -85,16 +84,11 @@ public class CarReturnControllerRestIntegrationTest extends RestIntegrationTest 
         Branch branch = saveBranch(employee);
         CarReturn savedCarReturn = saveCarReturn(employee, branch);
 
-        CarReturnDto expectedResponse = CarReturnDto.carReturnDto()
-                .withId(savedCarReturn.getId())
-                .withBranchDto(branchMapper.toLightDto(savedCarReturn.getBranch()))
-                .withEmployeeDto(employeeMapper.toDto(savedCarReturn.getEmployee()))
-                .withDateOfReturn(savedCarReturn.getDateOfReturn())
-                .withAdditionalPayment(savedCarReturn.getAdditionalPayment())
-                .withComments(savedCarReturn.getComments());
+        CarReturnDto expectedResponse = carReturnMapper.toDto(savedCarReturn);
 
         String relativePath = "/car-return/" + savedCarReturn.getId();
         ResponseEntity<CarReturnDto> actualResponse = this.restTemplate.getForEntity(url(relativePath), CarReturnDto.class);
+
         Assertions.assertEquals(expectedResponse, actualResponse.getBody());
         Assertions.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
     }
