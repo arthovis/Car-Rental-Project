@@ -20,14 +20,16 @@ public class CarReturnDtoTest extends UnitTest {
                 .withEmployeeDto(buildEmployeeDto(1L, "popescu ion", MANAGER))
                 .withDateOfReturn(LocalDate.of(2019, 11, 11))
                 .withAdditionalPayment(33)
-                .withComments("car");
+                .withComments("car")
+                .withBranchDto(buildLightBranchDto(1L, "Calea Victoriei"));
 
         CarReturnDto carReturnDto2 = CarReturnDto.carReturnDto()
                 .withId(1L)
                 .withEmployeeDto(buildEmployeeDto(1L, "popescu ion", MANAGER))
                 .withDateOfReturn(LocalDate.of(2019, 11, 11))
                 .withAdditionalPayment(33)
-                .withComments("car");
+                .withComments("car")
+                .withBranchDto(buildLightBranchDto(1L, "Calea Victoriei"));
 
         boolean comparisonResult = carReturnDto1.equals(carReturnDto2);
 
@@ -49,6 +51,20 @@ public class CarReturnDtoTest extends UnitTest {
     }
 
     @Test
+    public void givenTwoCarReturnDtoWithDifferentBranch_whenCompared_theResultIsFalse() {
+
+        CarReturnDto carReturnDto1 = CarReturnDto.carReturnDto()
+                .withBranchDto(buildLightBranchDto(1L, "Calea Victoriei"));
+
+        CarReturnDto carReturnDto2 = CarReturnDto.carReturnDto()
+                .withBranchDto(buildLightBranchDto(1L, "Floreasca"));
+
+        boolean comparisonResult = carReturnDto1.equals(carReturnDto2);
+
+        assertFalse(comparisonResult);
+    }
+
+    @Test
     public void givenTwoCarReturnDtoWithDifferentEmployees_whenCompared_theResultIsFalse() {
 
         CarReturnDto carReturnDto1 = CarReturnDto.carReturnDto()
@@ -61,8 +77,6 @@ public class CarReturnDtoTest extends UnitTest {
 
         assertFalse(comparisonResult);
     }
-
-
 
     @Test
     public void givenTwoCarReturnDtoWithDifferentDateOfReturn_whenCompared_theResultIsFalse() {
@@ -111,5 +125,11 @@ public class CarReturnDtoTest extends UnitTest {
                 .withId(id)
                 .withNameAndSurname(nameAndSurname)
                 .withJobPosition(jobPosition);
+    }
+
+    public BranchDto buildLightBranchDto(Long id, String address) {
+        return BranchDto.branchDto()
+                .withId(id)
+                .withAddress(address);
     }
 }

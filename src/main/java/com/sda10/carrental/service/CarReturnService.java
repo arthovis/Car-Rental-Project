@@ -1,5 +1,6 @@
 package com.sda10.carrental.service;
 
+import com.sda10.carrental.exception.NotFoundException;
 import com.sda10.carrental.model.CarReturn;
 import com.sda10.carrental.repository.CarReturnRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class CarReturnService {
     public CarReturn findCarReturnById(Long id) {
         return carReturnRepository
                 .findById(id)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new NotFoundException("carReturn not found"));
     }
 
     public CarReturn updateCarReturn(Long id, CarReturn updatedCarReturn) {
@@ -38,7 +39,7 @@ public class CarReturnService {
             updatedCarReturn.setId(id);
             return carReturnRepository.save(updatedCarReturn);
         } else {
-            throw new RuntimeException();
+            throw new NotFoundException("carReturn not found");
         }
     }
 
@@ -47,7 +48,7 @@ public class CarReturnService {
         if (carReturnToDelete.isPresent()) {
             carReturnRepository.deleteById(id);
         } else {
-            throw new RuntimeException();
+            throw new NotFoundException("carReturn not found");
         }
     }
 
