@@ -59,5 +59,14 @@ public class BookingController {
         }
     }
 
+    @PostMapping(value = "/bookings/{id}/cancellations")
+    private BookingDto cancelBooking(@PathVariable Long id) {
+
+        Booking booking = bookingService.cancelBooking(id);
+
+        return bookingMapper.toDto(booking);
+
+    }
+
 
 }

@@ -158,6 +158,43 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         Assertions.assertFalse(verifyDelete.isPresent());
     }
 
+    @Test
+    public void cancelWithFeesTest() {
+        Customer customer = getSavedCustomer();
+        Car car = getSavedCar();
+        CarReturn lightCarReturn = buildLightCarReturn();
+        Rental rental = buildRental(LocalDate.now().minusDays(2));
+        Booking bookingToCancel = getSavedBooking(customer, car, rental, lightCarReturn);
+
+        String relativePath = "/bookings/" + bookingToCancel.getId() + "/cancellations";
+        this.restTemplate.postForEntity(url(relativePath), null, BookingDto.class);
+
+        Optional<Booking> byId = bookingRepository.findById(bookingToCancel.getId());
+
+        Assertions.assertEquals(BookingStatus.CANCELLED, byId.get().getBookingStatus());
+        Assertions.assertEquals(120, byId.get().getAmount());
+
+
+    }
+
+    @Test
+    public void cancelWithoutFeesTest() {
+        Customer customer = getSavedCustomer();
+        Car car = getSavedCar();
+        CarReturn lightCarReturn = buildLightCarReturn();
+        Rental rental = buildRental(LocalDate.now().minusDays(3));
+        Booking bookingToCancel = getSavedBooking(customer, car, rental, lightCarReturn);
+
+        String relativePath = "/bookings/" + bookingToCancel.getId() + "/cancellations";
+        this.restTemplate.postForEntity(url(relativePath), null, BookingDto.class);
+
+        Optional<Booking> byId = bookingRepository.findById(bookingToCancel.getId());
+
+        Assertions.assertEquals(BookingStatus.CANCELLED, byId.get().getBookingStatus());
+        Assertions.assertEquals(0, byId.get().getAmount());
+
+    }
+
     private Customer getSavedCustomer() {
         Customer customer = new Customer();
         customer.setFirstName("A");
@@ -226,10 +263,11 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         booking.setClient(customer);
         booking.setCar(car);
         booking.setDateFrom(rental);
-        booking.setAmount(100D);
+        booking.setAmount(600D);
         booking.setCarReturn(carReturn);
         booking.setBookingStatus(BookingStatus.OPEN);
 
         return this.bookingRepository.saveAndFlush(booking);
     }
+
 }
