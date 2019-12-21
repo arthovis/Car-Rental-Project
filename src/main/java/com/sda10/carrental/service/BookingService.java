@@ -1,6 +1,7 @@
 package com.sda10.carrental.service;
 
 import com.sda10.carrental.model.Booking;
+import com.sda10.carrental.model.BookingStatus;
 import com.sda10.carrental.model.Car;
 import com.sda10.carrental.model.Customer;
 import com.sda10.carrental.repository.BookingRepository;
@@ -63,8 +64,7 @@ public class BookingService {
 
     public Booking buildBooking(Customer client, Car car, LocalDate rentalDate, LocalDate carReturn) {
 
-        Integer rentalDays = Period.between(rentalDate, carReturn).getDays();
-        Double amount = rentalDays * car.getAmount();
+        Double amount = getCalculatedBookingAmount(car, rentalDate, carReturn);
 
         Customer customer = customerRepository.findById(client.getId()).get();
 
@@ -78,8 +78,33 @@ public class BookingService {
         booking.addReturn(carReturn);
         booking.setAmount(amount);
         booking.setDateOfBooking(LocalDate.now());
+        booking.setBookingStatus(BookingStatus.OPEN);
 
         return booking;
+    }
+
+    private Double getCalculatedBookingAmount(Car car, LocalDate rentalDate, LocalDate carReturn) {
+        Integer rentalDays = Period.between(rentalDate, carReturn).getDays();
+        return rentalDays * car.getAmount();
+    }
+
+    public Booking cancelBooking(Long id, Booking booking) {
+
+        Booking bookingToUpdate = bookingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Booking could not be canceled"));
+        LocalDate cancelationDate = LocalDate.now();
+
+        Integer rentalFees = Period.between(bookingToUpdate.getDateFrom().getRentalDate(), cancelationDate).getDays();
+
+        booking.setBookingStatus(BookingStatus.CANCELLED);
+
+        if (rentalFees <= 2) {
+            booking.setAmount(bookingToUpdate.getAmount() * 0.2);
+        } else {
+            booking.setAmount(0D);
+
+        }
+        return bookingRepository.save(booking);
     }
 
 }
