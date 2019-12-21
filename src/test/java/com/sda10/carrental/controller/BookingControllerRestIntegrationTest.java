@@ -182,7 +182,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         Customer customer = getSavedCustomer();
         Car car = getSavedCar();
         CarReturn lightCarReturn = buildLightCarReturn();
-        Rental rental = buildRental(LocalDate.now().minusDays(6));
+        Rental rental = buildRental(LocalDate.now().minusDays(3));
         Booking bookingToCancel = getSavedBooking(customer, car, rental, lightCarReturn);
 
         String relativePath = "/bookings/" + bookingToCancel.getId() + "/cancellations";
