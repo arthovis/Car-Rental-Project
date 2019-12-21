@@ -1,10 +1,7 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
-import com.sda10.carrental.dto.BookingDto;
-import com.sda10.carrental.dto.CarMapper;
-import com.sda10.carrental.dto.CustomerMapper;
-import com.sda10.carrental.dto.RentalDto;
+import com.sda10.carrental.dto.*;
 import com.sda10.carrental.model.*;
 import com.sda10.carrental.repository.BookingRepository;
 import com.sda10.carrental.repository.CarRepository;
@@ -44,6 +41,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         Customer customer = getCustomer();
         Car car = getCar();
         RentalDto rentalDto = getRentalDto();
+        CarReturnDto carReturnDto = getCarReturnDto();
 
         BookingDto bookingDetails = BookingDto.bookingDto()
                 .withId(1L)
@@ -240,5 +238,10 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         rental.setRentalDate(LocalDate.of(2019, 8, 30));
         rental.setComments("A");
         return rental;
+    }
+
+    private CarReturn getCarReturnDto() {
+        Car carReturn = new CarReturn();
+        return carReturn;
     }
 }

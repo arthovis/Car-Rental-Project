@@ -29,8 +29,9 @@ public class Booking {
     @OneToOne(cascade = CascadeType.ALL)
     private Rental dateFrom;
 
-//    @NotNull
-//    private LocalDate dateTo;
+    @NotNull
+    @OneToOne(cascade = CascadeType.ALL)
+    private CarReturn dateTo;
 
 //    @NotNull
 //    private CarRentalOffice rentalBranch;
@@ -81,13 +82,13 @@ public class Booking {
         this.dateFrom = dateFrom;
     }
 
-//    public LocalDate getDateTo() {
-//        return dateTo;
-//    }
-//
-//    public void setDateTo(LocalDate dateTo) {
-//        this.dateTo = dateTo;
-//    }
+    public CarReturn getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(CarReturn dateTo) {
+        this.dateTo = dateTo;
+    }
 
 //    public CarRentalOffice getRentalBranch() {
 //        return rentalBranch;
@@ -123,7 +124,7 @@ public class Booking {
                 Objects.equals(client, booking.client) &&
                 Objects.equals(car, booking.car) &&
                 Objects.equals(dateFrom, booking.dateFrom) &&
-//                Objects.equals(dateTo, booking.dateTo) &&
+                Objects.equals(dateTo, booking.dateTo) &&
 //                Objects.equals(rentalBranch, booking.rentalBranch) &&
 //                Objects.equals(returnBranch, booking.returnBranch) &&
                 Objects.equals(amount, booking.amount);
@@ -131,7 +132,7 @@ public class Booking {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, amount);
+        return Objects.hash(id, dateOfBooking, client, car, dateFrom, dateTo, amount);
     }
-//    rentalBranch, returnBranch, dateTo,
+//    rentalBranch, returnBranch,
 }
