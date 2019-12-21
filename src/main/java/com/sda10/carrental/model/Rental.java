@@ -9,8 +9,6 @@ import java.util.Objects;
 @Table(name = "rental")
 public class Rental {
 
-    // TODO: 09-Dec-19 add employee and booking entries
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -20,6 +18,14 @@ public class Rental {
 
     @NotNull
     private String comments;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
 
     public Long getId() {
         return id;
@@ -45,19 +51,36 @@ public class Rental {
         this.comments = comments;
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Rental)) return false;
         Rental rental = (Rental) o;
-        return Objects.equals(id, rental.id) &&
-                Objects.equals(rentalDate, rental.rentalDate) &&
-                Objects.equals(comments, rental.comments);
+        return rentalDate.equals(rental.rentalDate) &&
+                Objects.equals(comments, rental.comments) &&
+                Objects.equals(employee, rental.employee) &&
+                Objects.equals(branch, rental.branch);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, rentalDate, comments);
+        return Objects.hash(rentalDate, comments, employee, branch);
     }
 
     @Override
@@ -66,6 +89,8 @@ public class Rental {
                 "id=" + id +
                 ", rentalDate=" + rentalDate +
                 ", comments='" + comments + '\'' +
+                ", employee=" + employee +
+                ", branch=" + branch +
                 '}';
     }
 }

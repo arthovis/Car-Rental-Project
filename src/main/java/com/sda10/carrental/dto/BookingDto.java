@@ -1,7 +1,5 @@
 package com.sda10.carrental.dto;
 
-import com.sda10.carrental.model.CarReturn;
-
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,9 +9,12 @@ public class BookingDto {
     public LocalDate dateOfBooking;
     public CustomerDto client;
     public CarDto car;
-    public RentalDto dateFrom;
-    public CarReturnDto dateTo;
+    public LocalDate dateFrom;
+    public LocalDate dateTo;
+    //    public CarRentalOfficeDto rentalBranch;
+//    public CarRentalOfficeDto returnBranch;
     public Long amount;
+    public CarReturnDto carReturnDto;
 
     private BookingDto() {
     }
@@ -42,12 +43,12 @@ public class BookingDto {
         return this;
     }
 
-    public BookingDto withDateFrom(RentalDto dateFrom) {
+    public BookingDto withDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
         return this;
     }
 
-    public BookingDto withDateTo(CarReturnDto dateTo) {
+    public BookingDto withDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
         return this;
     }
@@ -67,25 +68,42 @@ public class BookingDto {
         return this;
     }
 
+    public BookingDto withCarReturnDto(CarReturnDto carReturnDto) {
+        this.carReturnDto = carReturnDto;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof BookingDto)) return false;
         BookingDto that = (BookingDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(dateOfBooking, that.dateOfBooking) &&
                 Objects.equals(client, that.client) &&
                 Objects.equals(car, that.car) &&
                 Objects.equals(dateFrom, that.dateFrom) &&
-//                Objects.equals(dateTo, that.dateTo) &&
-//                Objects.equals(rentalBranch, that.rentalBranch) &&
-//                Objects.equals(returnBranch, that.returnBranch) &&
-                Objects.equals(amount, that.amount);
+                Objects.equals(dateTo, that.dateTo) &&
+                Objects.equals(amount, that.amount) &&
+                Objects.equals(carReturnDto, that.carReturnDto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, amount);
+        return Objects.hash(id, dateOfBooking, client, car, dateFrom, dateTo, amount, carReturnDto);
     }
-//    rentalBranch, returnBranch, dateTo,
+
+    @Override
+    public String toString() {
+        return "BookingDto{" +
+                "id=" + id +
+                ", dateOfBooking=" + dateOfBooking +
+                ", client=" + client +
+                ", car=" + car +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
+                ", amount=" + amount +
+                ", carReturnDto=" + carReturnDto +
+                '}';
+    }
 }

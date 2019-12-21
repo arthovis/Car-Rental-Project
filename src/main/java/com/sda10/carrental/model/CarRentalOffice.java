@@ -3,6 +3,7 @@ package com.sda10.carrental.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -29,7 +30,9 @@ public class CarRentalOffice {
     @NotNull
     private String logoType;
 
-    // TODO: list of branches
+    @OneToMany
+    @JoinColumn(name = "branch_id")
+    List<Branch> branches;
 
 
     public Long getId() {
@@ -80,6 +83,14 @@ public class CarRentalOffice {
         this.logoType = logoType;
     }
 
+    public List<Branch> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(List<Branch> branches) {
+        this.branches = branches;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,12 +101,13 @@ public class CarRentalOffice {
                 Objects.equals(internetDomain, that.internetDomain) &&
                 Objects.equals(contactAddress, that.contactAddress) &&
                 Objects.equals(owner, that.owner) &&
-                Objects.equals(logoType, that.logoType);
+                Objects.equals(logoType, that.logoType) &&
+                Objects.equals(branches, that.branches);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, internetDomain, contactAddress, owner, logoType);
+        return Objects.hash(id, name, internetDomain, contactAddress, owner, logoType, branches);
     }
 
     @Override
@@ -107,6 +119,7 @@ public class CarRentalOffice {
                 ", contactAddress='" + contactAddress + '\'' +
                 ", owner='" + owner + '\'' +
                 ", logoType='" + logoType + '\'' +
+                ", branches=" + branches +
                 '}';
     }
 }

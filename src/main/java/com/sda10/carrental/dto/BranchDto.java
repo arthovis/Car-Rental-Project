@@ -1,5 +1,6 @@
 package com.sda10.carrental.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,8 +8,8 @@ public class BranchDto {
 
     public Long id;
     public String address;
-    public List<EmployeeDto> employeeList;
-    public List<CarDto> availableCarsList;
+    public List<EmployeeDto> employeeList = new ArrayList<>();
+    public List<CarDto> availableCarsList = new ArrayList<>();
 
     private BranchDto() {
     }
@@ -27,7 +28,7 @@ public class BranchDto {
         return this;
     }
 
-    public BranchDto withEmployee(List<EmployeeDto> employeeList) {
+    public BranchDto withEmployees(List<EmployeeDto> employeeList) {
         this.employeeList = employeeList;
         return this;
     }

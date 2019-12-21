@@ -1,9 +1,15 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
+import com.sda10.carrental.dto.BranchMapper;
+import com.sda10.carrental.dto.EmployeeMapper;
 import com.sda10.carrental.dto.RentalDto;
-import com.sda10.carrental.model.Rental;
+import com.sda10.carrental.dto.RentalMapper;
+import com.sda10.carrental.model.*;
+import com.sda10.carrental.repository.BranchRepository;
+import com.sda10.carrental.repository.EmployeeRepository;
 import com.sda10.carrental.repository.RentalRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class RentalControllerRestIntegrationTest extends RestIntegrationTest {
@@ -22,13 +30,38 @@ public class RentalControllerRestIntegrationTest extends RestIntegrationTest {
     @Autowired
     private RentalRepository rentalRepository;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private BranchRepository branchRepository;
+
+    @Autowired
+    private RentalMapper rentalMapper;
+
+    @Autowired
+    private EmployeeMapper employeeMapper;
+
+    @Autowired
+    private BranchMapper branchMapper;
+
+    @AfterEach
+    public void afterEach() {
+        this.rentalRepository.deleteAll();
+        this.employeeRepository.deleteAll();
+        this.branchRepository.deleteAll();
+    }
+
     @Test
     public void givenRentalDetails_whenAPostRequestReceived_thenCreateRental() {
+        Employee employee = saveEmployee();
+        Branch branch = saveBranch(employee);
 
-        RentalDto rentalDetails = RentalDto.rentalDto();
-
-        rentalDetails.withRentalDate(LocalDate.of(1995, 02, 12))
-                .withComments("Achitat");
+        RentalDto rentalDetails = RentalDto.rentalDto()
+                .withBranchDto(branchMapper.toLightDto(branch))
+                .withEmployeeDto(employeeMapper.toDto(employee))
+                .withRentalDate(LocalDate.of(2019, 11, 11))
+                .withComments("second car");
 
         String relativePath = "/rental";
 
@@ -47,63 +80,109 @@ public class RentalControllerRestIntegrationTest extends RestIntegrationTest {
     @Test
     public void getByIdTest() {
 
-        Rental rental = new Rental();
+        Employee employee = saveEmployee();
+        Branch branch = saveBranch(employee);
+        Rental savedRental = saveRental(employee, branch);
 
-        rental.setRentalDate(LocalDate.of(2019, 5, 5));
-        rental.setComments("Done");
+        RentalDto expectedResponse = RentalDto.rentalDto()
+                .withId(savedRental.getId())
+                .withBranchDto(branchMapper.toLightDto(savedRental.getBranch()))
+                .withEmployeeDto(employeeMapper.toDto(savedRental.getEmployee()))
+                .withRentalDate(savedRental.getRentalDate())
+                .withComments(savedRental.getComments());
 
-        rental = rentalRepository.save(rental);
-
-        String relativePath = "/rental/" + rental.getId();
+        String relativePath = "/rental/" + savedRental.getId();
 
         ResponseEntity<RentalDto> actualResponse = this.restTemplate.getForEntity(url(relativePath), RentalDto.class);
 
-        Assertions.assertNotNull(actualResponse.getBody());
+        Assertions.assertEquals(expectedResponse, actualResponse.getBody());
         Assertions.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
     }
 
     @Test
     public void updateTest() {
 
-        Rental rental = new Rental();
+        Employee employee = saveEmployee();
+        Branch branch = saveBranch(employee);
+        Rental newRental = saveRental(employee, branch);
 
-        rental.setRentalDate(LocalDate.of(2019, 5, 5));
-        rental.setComments("Done");
+        RentalDto newRentalDetails = RentalDto.rentalDto()
+                .withBranchDto(branchMapper.toLightDto(newRental.getBranch()))
+                .withEmployeeDto(employeeMapper.toDto(newRental.getEmployee()))
+                .withRentalDate(LocalDate.of(2020, 11, 11))
+                .withComments("my comments");
 
-        rental = rentalRepository.saveAndFlush(rental);
+        String relativePath = "/rental/" + newRental.getId();
 
-        RentalDto updatedRentalDto = RentalDto.rentalDto()
-                .withRentalDate(LocalDate.of(2019, 6, 12))
-                .withComments("Achitat");
+        this.restTemplate.put(url(relativePath), newRentalDetails);
 
-        String relativePath = "/rental/" + rental.getId();
+        Rental updatedEntity = this.rentalRepository.findById(newRental.getId()).get();
 
-        this.restTemplate.put(url(relativePath), updatedRentalDto);
+        RentalDto verifyUpdateDto = rentalMapper.toDto(updatedEntity);
 
-        Rental updatedEntity = rentalRepository.findById(rental.getId()).get();
-
-        RentalDto verifyUpdateDto = RentalDto.rentalDto()
-                .withRentalDate(updatedEntity.getRentalDate())
-                .withComments(updatedEntity.getComments());
-
-        Assertions.assertEquals(updatedRentalDto, verifyUpdateDto);
+        Assertions.assertEquals(newRentalDetails.withId(updatedEntity.getId()), verifyUpdateDto);
     }
 
     @Test
     public void deleteTest() {
 
-        Rental existingRental = new Rental();
+        Employee savedEmployee = saveEmployee();
+        Branch savedBranch = saveBranch(savedEmployee);
+        Rental savedRental = saveRental(savedEmployee, savedBranch);
 
-        existingRental.setRentalDate(LocalDate.of(2012, 12, 21));
-        existingRental.setComments("Spalat, curatat, gata de inchiriat!");
-        existingRental = rentalRepository.save(existingRental);
+        String relativePath = "/rental/" + savedRental.getId();
+        this.restTemplate.delete(relativePath, savedRental.getId());
 
-        String relativePath = "/rental/" + existingRental.getId();
-        this.restTemplate.delete(relativePath, existingRental.getId());
+        Optional<Rental> deletedRental = this.rentalRepository.findById(savedRental.getId());
 
-        Optional<Rental> updatedRental = this.rentalRepository.findById(existingRental.getId());
+        Assertions.assertFalse(deletedRental.isPresent());
+    }
 
-        Assertions.assertFalse(updatedRental.isPresent());
+    private Employee buildEmployee() {
+        Employee employee = new Employee();
+        employee.setNameAndSurname("popescu ion");
+        employee.setJobPosition(JobPosition.MANAGER);
+        return employee;
+    }
+
+    public Employee saveEmployee() {
+        return this.employeeRepository.saveAndFlush(buildEmployee());
+    }
+
+    private Branch buildBranch(Employee savedEmployee) {
+        List<Car> carList = new ArrayList<>();
+
+        List<Employee> employeeList = new ArrayList<>();
+        employeeList.add(savedEmployee);
+
+        Branch branch = new Branch();
+        branch.setAvailableCarsList(carList);
+        branch.setEmployeeList(employeeList);
+        branch.setAddress("Calea Victoriei");
+        return branch;
+    }
+
+    public Branch saveBranch(Employee savedEmployee) {
+
+        Branch newBranch = buildBranch(savedEmployee);
+
+        return this.branchRepository.saveAndFlush(newBranch);
+    }
+
+    private Rental buildRental(Employee savedEmployee, Branch savedBranch) {
+        Rental rental = new Rental();
+        rental.setBranch(savedBranch);
+        rental.setEmployee(savedEmployee);
+        rental.setRentalDate(LocalDate.of(2019, 11, 11));
+        rental.setComments("first car");
+        return rental;
+    }
+
+    public Rental saveRental(Employee savedEmployee, Branch savedBranch) {
+
+        Rental newRental = buildRental(savedEmployee, savedBranch);
+
+        return this.rentalRepository.saveAndFlush(newRental);
     }
 
 }

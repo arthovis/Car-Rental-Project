@@ -12,6 +12,7 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column
     @NotNull
     private LocalDate dateOfBooking;
 
@@ -31,7 +32,7 @@ public class Booking {
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
-    private CarReturn dateTo;
+    private CarReturn carReturn;
 
     @NotNull
     private Long amount;
@@ -76,14 +77,6 @@ public class Booking {
         this.dateFrom = dateFrom;
     }
 
-    public CarReturn getDateTo() {
-        return dateTo;
-    }
-
-    public void setDateTo(CarReturn dateTo) {
-        this.dateTo = dateTo;
-    }
-
 //    public CarRentalOffice getRentalBranch() {
 //        return rentalBranch;
 //    }
@@ -108,6 +101,14 @@ public class Booking {
         this.amount = amount;
     }
 
+    public CarReturn getCarReturn() {
+        return carReturn;
+    }
+
+    public void setCarReturn(CarReturn carReturn) {
+        this.carReturn = carReturn;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -118,15 +119,26 @@ public class Booking {
                 Objects.equals(client, booking.client) &&
                 Objects.equals(car, booking.car) &&
                 Objects.equals(dateFrom, booking.dateFrom) &&
-                Objects.equals(dateTo, booking.dateTo) &&
-//                Objects.equals(rentalBranch, booking.rentalBranch) &&
-//                Objects.equals(returnBranch, booking.returnBranch) &&
+                Objects.equals(carReturn, booking.carReturn) &&
                 Objects.equals(amount, booking.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, dateTo, amount);
+        return Objects.hash(id, dateOfBooking, client, car, dateFrom, carReturn, amount);
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", dateOfBooking=" + dateOfBooking +
+                ", client=" + client +
+                ", car=" + car +
+                ", dateFrom=" + dateFrom +
+                ", carReturn=" + carReturn +
+                ", amount=" + amount +
+                '}';
     }
 //    rentalBranch, returnBranch,
 }

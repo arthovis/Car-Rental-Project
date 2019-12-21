@@ -4,11 +4,12 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class RentalDto {
-    // TODO: 09-Dec-19 add employee and booking entries
 
     public Long id;
     public LocalDate rentalDate;
     public String comments;
+    public EmployeeDto employeeDto;
+    public BranchDto branchDto;
 
     private RentalDto() {
     }
@@ -32,18 +33,41 @@ public class RentalDto {
         return this;
     }
 
+    public RentalDto withEmployeeDto(EmployeeDto employeeDto) {
+        this.employeeDto = employeeDto;
+        return this;
+    }
+
+    public RentalDto withBranchDto(BranchDto branchDto) {
+        this.branchDto = branchDto;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof RentalDto)) return false;
         RentalDto rentalDto = (RentalDto) o;
         return Objects.equals(id, rentalDto.id) &&
                 Objects.equals(rentalDate, rentalDto.rentalDate) &&
-                Objects.equals(comments, rentalDto.comments);
+                Objects.equals(comments, rentalDto.comments) &&
+                Objects.equals(employeeDto, rentalDto.employeeDto) &&
+                Objects.equals(branchDto, rentalDto.branchDto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, rentalDate, comments);
+        return Objects.hash(id, rentalDate, comments, employeeDto, branchDto);
+    }
+
+    @Override
+    public String toString() {
+        return "RentalDto{" +
+                "id=" + id +
+                ", rentalDate=" + rentalDate +
+                ", comments='" + comments + '\'' +
+                ", employeeDto=" + employeeDto +
+                ", branchDto=" + branchDto +
+                '}';
     }
 }

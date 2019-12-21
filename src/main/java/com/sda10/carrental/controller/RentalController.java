@@ -1,6 +1,7 @@
 package com.sda10.carrental.controller;
 
 import com.sda10.carrental.dto.RentalDto;
+import com.sda10.carrental.dto.RentalMapper;
 import com.sda10.carrental.model.Rental;
 import com.sda10.carrental.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,40 +14,31 @@ public class RentalController {
     @Autowired
     private RentalService rentalService;
 
+    @Autowired
+    private RentalMapper rentalMapper;
+
+
     @PostMapping(value = "/rental")
     public RentalDto createRental(@RequestBody RentalDto rentalDetails) {
 
-        Rental rental = new Rental();
-
-        rental.setRentalDate(rentalDetails.rentalDate);
-        rental.setComments(rentalDetails.comments);
-
+        Rental rental = rentalMapper.toEntity(rentalDetails);
         rental = rentalService.createRental(rental);
 
-        return RentalDto.rentalDto()
-                .withId(rental.getId())
-                .withRentalDate(rental.getRentalDate())
-                .withComments(rental.getComments());
+        return rentalMapper.toDto(rental);
     }
 
     @GetMapping(value = "/rental/{id}")
     public RentalDto findRentalById(@PathVariable Long id) {
+
         Rental rentalById = rentalService.findRentalById(id);
 
-        return RentalDto.rentalDto()
-                .withId(rentalById.getId())
-                .withRentalDate(rentalById.getRentalDate())
-                .withComments(rentalById.getComments());
+        return rentalMapper.toDto(rentalById);
     }
 
     @PutMapping(value = "/rental/{id}")
     public ResponseEntity updateRental(@PathVariable Long id, @RequestBody RentalDto rentalDetails) {
 
-        Rental rental = new Rental();
-
-        rental.setRentalDate(rentalDetails.rentalDate);
-        rental.setComments(rentalDetails.comments);
-
+        Rental rental = rentalMapper.toEntity(rentalDetails);
         rentalService.updateRental(id, rental);
 
         return new ResponseEntity(HttpStatus.OK);

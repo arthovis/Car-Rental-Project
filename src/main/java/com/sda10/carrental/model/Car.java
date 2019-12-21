@@ -38,6 +38,7 @@ public class Car {
     @NotNull
     private String amount;
 
+
     public Long getId() {
         return id;
     }
