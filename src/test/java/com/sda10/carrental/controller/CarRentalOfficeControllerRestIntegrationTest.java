@@ -95,11 +95,8 @@ public class CarRentalOfficeControllerRestIntegrationTest extends RestIntegratio
         Car car = createCar();
         Employee employee = createEmployee();
 
-        CarDto carDto = createCarDto();
-        EmployeeDto employeeDto = createEmployeeDto();
-
-        List<Employee> employeeList = Arrays.asList(employeeMapper.toEntity(employeeDto));
-        List<Car> carList = Arrays.asList(carMapper.toEntity(carDto));
+        List<Employee> employeeList = Arrays.asList(employee);
+        List<Car> carList = Arrays.asList(car);
 
         branch.setAddress("Calea Victoriei");
         branch.setEmployeeList(employeeList);
