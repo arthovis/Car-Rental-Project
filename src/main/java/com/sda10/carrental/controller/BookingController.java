@@ -58,4 +58,6 @@ public class BookingController {
             throw new RuntimeException("Booking was not deleted", e);
         }
     }
+
+
 }

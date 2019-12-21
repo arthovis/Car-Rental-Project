@@ -1,5 +1,7 @@
 package com.sda10.carrental.dto;
 
+import com.sda10.carrental.model.BookingStatus;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -14,6 +16,7 @@ public class BookingDto {
 //    public CarRentalOfficeDto returnBranch;
     public Double amount;
     public CarReturnDto carReturnDto;
+    public BookingStatus bookingStatus;
 
     private BookingDto() {
     }
@@ -67,10 +70,15 @@ public class BookingDto {
         return this;
     }
 
+    public BookingDto withStatus(BookingStatus bookingStatus) {
+        this.bookingStatus = bookingStatus;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BookingDto)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         BookingDto that = (BookingDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(dateOfBooking, that.dateOfBooking) &&
@@ -78,12 +86,13 @@ public class BookingDto {
                 Objects.equals(car, that.car) &&
                 Objects.equals(dateFrom, that.dateFrom) &&
                 Objects.equals(amount, that.amount) &&
-                Objects.equals(carReturnDto, that.carReturnDto);
+                Objects.equals(carReturnDto, that.carReturnDto) &&
+                bookingStatus == that.bookingStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, amount, carReturnDto);
+        return Objects.hash(id, dateOfBooking, client, car, dateFrom, amount, carReturnDto, bookingStatus);
     }
 
     @Override
@@ -96,6 +105,7 @@ public class BookingDto {
                 ", dateFrom=" + dateFrom +
                 ", amount=" + amount +
                 ", carReturnDto=" + carReturnDto +
+                ", bookingStatus=" + bookingStatus +
                 '}';
     }
 }

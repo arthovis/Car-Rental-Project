@@ -73,7 +73,8 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
                 .withCar(carMapper.toDto(car))
                 .withDateFrom(rentalMapper.toDto(rental))
                 .withAmount(amount)
-                .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn));
+                .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn))
+                .withStatus(BookingStatus.OPEN);
 
         String relativePath = "/bookings";
         ResponseEntity<BookingDto> actualResponse = this.restTemplate
@@ -127,7 +128,8 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
                 .withCar(carMapper.toDto(car))
                 .withDateFrom(rentalMapper.toDto(rental))
                 .withAmount(1000D)
-                .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn));
+                .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn))
+                .withStatus(BookingStatus.OPEN);
 
 
         String relativePath = "/bookings/" + savedBooking.getId();
@@ -226,6 +228,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         booking.setDateFrom(rental);
         booking.setAmount(100D);
         booking.setCarReturn(carReturn);
+        booking.setBookingStatus(BookingStatus.OPEN);
 
         return this.bookingRepository.saveAndFlush(booking);
     }

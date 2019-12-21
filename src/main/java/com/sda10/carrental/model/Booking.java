@@ -37,6 +37,9 @@ public class Booking {
     @NotNull
     private Double amount;
 
+    @NotNull
+    private BookingStatus bookingStatus;
+
     public Long getId() {
         return id;
     }
@@ -121,6 +124,14 @@ public class Booking {
         this.carReturn = carReturn;
     }
 
+    public BookingStatus getBookingStatus() {
+        return bookingStatus;
+    }
+
+    public void setBookingStatus(BookingStatus bookingStatus) {
+        this.bookingStatus = bookingStatus;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,12 +143,13 @@ public class Booking {
                 Objects.equals(car, booking.car) &&
                 Objects.equals(dateFrom, booking.dateFrom) &&
                 Objects.equals(carReturn, booking.carReturn) &&
-                Objects.equals(amount, booking.amount);
+                Objects.equals(amount, booking.amount) &&
+                bookingStatus == booking.bookingStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, carReturn, amount);
+        return Objects.hash(id, dateOfBooking, client, car, dateFrom, carReturn, amount, bookingStatus);
     }
 
     @Override
@@ -150,7 +162,9 @@ public class Booking {
                 ", dateFrom=" + dateFrom +
                 ", carReturn=" + carReturn +
                 ", amount=" + amount +
+                ", bookingStatus=" + bookingStatus +
                 '}';
     }
-//    rentalBranch, returnBranch,
+
+    //    rentalBranch, returnBranch,
 }

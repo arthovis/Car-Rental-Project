@@ -32,6 +32,7 @@ public class BookingMapper {
 //        entity.setReturnBranch(dto.withReturnBranch());
         entity.setAmount(dto.amount);
         entity.setCarReturn(carReturnMapper.toLightEntity(dto.carReturnDto));
+        entity.setBookingStatus(dto.bookingStatus);
         return entity;
     }
 
@@ -43,6 +44,7 @@ public class BookingMapper {
                 .withCar(carMapper.toDto(entity.getCar()))
                 .withDateFrom(rentalMapper.toDto(entity.getDateFrom()))
                 .withAmount(entity.getAmount())
-                .withCarReturnDto(carReturnMapper.toLightDto(entity.getCarReturn()));
+                .withCarReturnDto(carReturnMapper.toLightDto(entity.getCarReturn()))
+                .withStatus(entity.getBookingStatus());
     }
 }
