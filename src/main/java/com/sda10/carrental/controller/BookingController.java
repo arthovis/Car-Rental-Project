@@ -44,7 +44,7 @@ public class BookingController {
 
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
-            throw new RuntimeException("Booking could not be updated");
+            throw new RuntimeException("Booking could not be updated", e);
         }
     }
 
@@ -54,7 +54,7 @@ public class BookingController {
             bookingService.deleteBooking(id);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
-            throw new RuntimeException("Booking was not deleted");
+            throw new RuntimeException("Booking was not deleted", e);
         }
     }
 }

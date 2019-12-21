@@ -14,16 +14,17 @@ public class Rental {
     private Long id;
 
     @NotNull
+    @Column
     private LocalDate rentalDate;
 
-    @NotNull
+    @Column
     private String comments;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "branch_id")
     private Branch branch;
 
