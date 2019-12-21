@@ -88,23 +88,23 @@ public class BookingService {
         return rentalDays * car.getAmount();
     }
 
-    public Booking cancelBooking(Long id, Booking booking) {
+    public Booking cancelBooking(Long id) {
 
         Booking bookingToUpdate = bookingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Booking could not be canceled"));
         LocalDate cancelationDate = LocalDate.now();
 
-        Integer rentalFees = Period.between(bookingToUpdate.getDateFrom().getRentalDate(), cancelationDate).getDays();
+        Integer daysUntilPickup = Period.between(bookingToUpdate.getDateFrom().getRentalDate(), cancelationDate).getDays();
 
-        booking.setBookingStatus(BookingStatus.CANCELLED);
+        bookingToUpdate.setBookingStatus(BookingStatus.CANCELLED);
 
-        if (rentalFees <= 2) {
-            booking.setAmount(bookingToUpdate.getAmount() * 0.2);
+        if (daysUntilPickup <= 2) {
+            bookingToUpdate.setAmount(bookingToUpdate.getAmount() * 0.2);
         } else {
-            booking.setAmount(0D);
+            bookingToUpdate.setAmount(0D);
 
         }
-        return bookingRepository.save(booking);
+        return bookingRepository.save(bookingToUpdate);
     }
 
 }
