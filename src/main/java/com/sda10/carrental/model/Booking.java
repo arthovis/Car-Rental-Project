@@ -3,6 +3,7 @@ package com.sda10.carrental.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "booking")
@@ -16,32 +17,25 @@ public class Booking {
     private LocalDate dateOfBooking;
 
     @NotNull
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer client;
 
     @NotNull
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
 
     @NotNull
-    private LocalDate dateFrom;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Rental dateFrom;
 
     @NotNull
-    private LocalDate dateTo;
-
-//    @NotNull
-//    private CarRentalOffice rentalBranch;
-
-//    @NotNull
-//    private CarRentalOffice returnBranch;
+    @OneToOne(cascade = CascadeType.ALL)
+    private CarReturn carReturn;
 
     @NotNull
     private Long amount;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private CarReturn carReturn;
 
     public Long getId() {
         return id;
@@ -75,20 +69,12 @@ public class Booking {
         this.car = car;
     }
 
-    public LocalDate getDateFrom() {
+    public Rental getDateFrom() {
         return dateFrom;
     }
 
-    public void setDateFrom(LocalDate dateFrom) {
+    public void setDateFrom(Rental dateFrom) {
         this.dateFrom = dateFrom;
-    }
-
-    public LocalDate getDateTo() {
-        return dateTo;
-    }
-
-    public void setDateTo(LocalDate dateTo) {
-        this.dateTo = dateTo;
     }
 
 //    public CarRentalOffice getRentalBranch() {
@@ -124,6 +110,25 @@ public class Booking {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return Objects.equals(id, booking.id) &&
+                Objects.equals(dateOfBooking, booking.dateOfBooking) &&
+                Objects.equals(client, booking.client) &&
+                Objects.equals(car, booking.car) &&
+                Objects.equals(dateFrom, booking.dateFrom) &&
+                Objects.equals(carReturn, booking.carReturn) &&
+                Objects.equals(amount, booking.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dateOfBooking, client, car, dateFrom, carReturn, amount);
+    }
+
+    @Override
     public String toString() {
         return "Booking{" +
                 "id=" + id +
@@ -131,9 +136,9 @@ public class Booking {
                 ", client=" + client +
                 ", car=" + car +
                 ", dateFrom=" + dateFrom +
-                ", dateTo=" + dateTo +
-                ", amount=" + amount +
                 ", carReturn=" + carReturn +
+                ", amount=" + amount +
                 '}';
     }
+//    rentalBranch, returnBranch,
 }

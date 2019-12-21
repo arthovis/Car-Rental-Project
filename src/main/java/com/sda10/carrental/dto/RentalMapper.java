@@ -20,8 +20,8 @@ public class RentalMapper {
         rental.setId(dto.id);
         rental.setRentalDate(dto.rentalDate);
         rental.setComments(dto.comments);
-        rental.setEmployee(employeeMapper.toEntity(dto.employeeDto));
-        rental.setBranch(branchMapper.toEntity(dto.branchDto));
+        rental.setEmployee(dto.employeeDto == null ? null : employeeMapper.toEntity(dto.employeeDto));
+        rental.setBranch(dto.branchDto == null ? null : branchMapper.toEntity(dto.branchDto));
         return rental;
     }
 
@@ -30,7 +30,7 @@ public class RentalMapper {
                 .withId(entity.getId())
                 .withRentalDate(entity.getRentalDate())
                 .withComments(entity.getComments())
-                .withEmployeeDto(employeeMapper.toDto(entity.getEmployee()))
-                .withBranchDto(branchMapper.toLightDto(entity.getBranch()));
+                .withEmployeeDto(entity.getEmployee() == null ? null : employeeMapper.toDto(entity.getEmployee()))
+                .withBranchDto(entity.getBranch() == null ? null : branchMapper.toLightDto(entity.getBranch()));
     }
 }

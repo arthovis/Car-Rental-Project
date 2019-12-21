@@ -9,8 +9,7 @@ public class BookingDto {
     public LocalDate dateOfBooking;
     public CustomerDto client;
     public CarDto car;
-    public LocalDate dateFrom;
-    public LocalDate dateTo;
+    public RentalDto dateFrom;
     //    public CarRentalOfficeDto rentalBranch;
 //    public CarRentalOfficeDto returnBranch;
     public Long amount;
@@ -43,13 +42,8 @@ public class BookingDto {
         return this;
     }
 
-    public BookingDto withDateFrom(LocalDate dateFrom) {
+    public BookingDto withDateFrom(RentalDto dateFrom) {
         this.dateFrom = dateFrom;
-        return this;
-    }
-
-    public BookingDto withDateTo(LocalDate dateTo) {
-        this.dateTo = dateTo;
         return this;
     }
 
@@ -83,14 +77,13 @@ public class BookingDto {
                 Objects.equals(client, that.client) &&
                 Objects.equals(car, that.car) &&
                 Objects.equals(dateFrom, that.dateFrom) &&
-                Objects.equals(dateTo, that.dateTo) &&
                 Objects.equals(amount, that.amount) &&
                 Objects.equals(carReturnDto, that.carReturnDto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, dateTo, amount, carReturnDto);
+        return Objects.hash(id, dateOfBooking, client, car, dateFrom, amount, carReturnDto);
     }
 
     @Override
@@ -101,7 +94,6 @@ public class BookingDto {
                 ", client=" + client +
                 ", car=" + car +
                 ", dateFrom=" + dateFrom +
-                ", dateTo=" + dateTo +
                 ", amount=" + amount +
                 ", carReturnDto=" + carReturnDto +
                 '}';

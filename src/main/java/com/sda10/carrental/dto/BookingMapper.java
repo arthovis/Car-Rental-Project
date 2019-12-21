@@ -13,6 +13,9 @@ public class BookingMapper {
     CarMapper carMapper;
 
     @Autowired
+    RentalMapper rentalMapper;
+
+    @Autowired
     CarReturnMapper carReturnMapper;
 
     public Booking toEntity(BookingDto dto) {
@@ -24,8 +27,7 @@ public class BookingMapper {
         entity.setDateOfBooking(dto.dateOfBooking);
         entity.setClient(customerMapper.toEntity(dto.client));
         entity.setCar(carMapper.toEntity(dto.car));
-        entity.setDateFrom(dto.dateFrom);
-        entity.setDateTo(dto.dateTo);
+        entity.setDateFrom(rentalMapper.toEntity(dto.dateFrom));
 //        entity.setRentalBranch(dto));
 //        entity.setReturnBranch(dto.withReturnBranch());
         entity.setAmount(dto.amount);
@@ -39,8 +41,7 @@ public class BookingMapper {
                 .withDateOfBooking(entity.getDateOfBooking())
                 .withClient(customerMapper.toDto(entity.getClient()))
                 .withCar(carMapper.toDto(entity.getCar()))
-                .withDateFrom(entity.getDateFrom())
-                .withDateTo(entity.getDateTo())
+                .withDateFrom(rentalMapper.toDto(entity.getDateFrom()))
                 .withAmount(entity.getAmount())
                 .withCarReturnDto(carReturnMapper.toLightDto(entity.getCarReturn()));
     }

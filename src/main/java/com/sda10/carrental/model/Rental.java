@@ -13,19 +13,18 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
     @NotNull
+    @Column
     private LocalDate rentalDate;
 
     @Column
-    @NotNull
     private String comments;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "branch_id")
     private Branch branch;
 
