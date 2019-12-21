@@ -4,7 +4,6 @@ import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.*;
 import com.sda10.carrental.model.*;
 import com.sda10.carrental.repository.*;
-import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Optional;
 
 public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
@@ -63,12 +63,16 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         CarReturn lightCarReturn = buildLightCarReturn();
         Rental rental = buildRental(LocalDate.of(2019, 8, 24));
 
+        Integer rentalDays = Period.between(rental.getRentalDate(), lightCarReturn.getDateOfReturn()).getDays();
+        Double amount = rentalDays * car.getAmount();
+
+
         BookingDto bookingDetails = BookingDto.bookingDto()
                 .withDateOfBooking(LocalDate.now())
                 .withClient(customerMapper.toDto(customer))
                 .withCar(carMapper.toDto(car))
                 .withDateFrom(rentalMapper.toDto(rental))
-                .withAmount(100L)
+                .withAmount(amount)
                 .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn));
 
         String relativePath = "/bookings";
@@ -122,7 +126,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
                 .withClient(customerMapper.toDto(customer))
                 .withCar(carMapper.toDto(car))
                 .withDateFrom(rentalMapper.toDto(rental))
-                .withAmount(1000L)
+                .withAmount(1000D)
                 .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn));
 
 
@@ -172,7 +176,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         car.setColor("D");
         car.setMileage(2019L);
         car.setStatus(Status.AVAILABLE);
-        car.setAmount("E");
+        car.setAmount(5D);
 
         car = carRepository.saveAndFlush(car);
         return car;
@@ -210,7 +214,6 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         CarReturn carReturn = new CarReturn();
         carReturn.setDateOfReturn(LocalDate.of(2019, 8, 30));
         carReturn.setAdditionalPayment(0.0);
-        carReturn.setComments("first car");
 
         return carReturn;
     }
@@ -221,7 +224,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         booking.setClient(customer);
         booking.setCar(car);
         booking.setDateFrom(rental);
-        booking.setAmount(100L);
+        booking.setAmount(100D);
         booking.setCarReturn(carReturn);
 
         return this.bookingRepository.saveAndFlush(booking);

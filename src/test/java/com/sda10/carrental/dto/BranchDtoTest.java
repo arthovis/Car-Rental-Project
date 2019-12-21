@@ -136,7 +136,7 @@ public class BranchDtoTest extends UnitTest {
                 .withColor("D")
                 .withMileage(100L)
                 .withStatus(Status.AVAILABLE)
-                .withAmount("G");
+                .withAmount(5D);
 
         CarDto carDto2 = CarDto.carDto()
                 .withId(1L)
@@ -147,7 +147,7 @@ public class BranchDtoTest extends UnitTest {
                 .withColor("D")
                 .withMileage(100L)
                 .withStatus(Status.AVAILABLE)
-                .withAmount("G");
+                .withAmount(5D);
 
         List<CarDto> carDtos = new ArrayList<>();
         carDtos.add(carDto1);
@@ -183,7 +183,7 @@ public class BranchDtoTest extends UnitTest {
                 .withColor("D")
                 .withMileage(100L)
                 .withStatus(Status.AVAILABLE)
-                .withAmount("G");
+                .withAmount(5D);
 
 
         List<CarDto> carDtos = new ArrayList<>();

@@ -20,9 +20,10 @@ public class BookingController {
 
     @PostMapping(value = "/bookings")
     private BookingDto createBooking(@RequestBody BookingDto bookingDetails) {
+
         Booking booking = bookingMapper.toEntity(bookingDetails);
 
-        booking = bookingService.createBooking(booking);
+        booking = bookingService.createBooking(booking.getClient(), booking.getCar(), booking.getDateFrom().getRentalDate(), booking.getCarReturn().getDateOfReturn());
 
         return bookingMapper.toDto(booking);
 

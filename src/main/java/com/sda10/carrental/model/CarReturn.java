@@ -79,6 +79,7 @@ public class CarReturn {
         this.branch = branch;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
