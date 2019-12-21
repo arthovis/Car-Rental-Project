@@ -22,7 +22,7 @@ public class CarDto {
 
     public Status status;
 
-    public String amount;
+    public Double amount;
 
     private CarDto() {
 
@@ -73,8 +73,8 @@ public class CarDto {
         return this;
     }
 
-    public CarDto withAmount(String amount){
-        this.amount=amount;
+    public CarDto withAmount(Double amount) {
+        this.amount = amount;
         return this;
     }
 

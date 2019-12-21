@@ -35,7 +35,7 @@ public class Booking {
     private CarReturn carReturn;
 
     @NotNull
-    private Long amount;
+    private Double amount;
 
     public Long getId() {
         return id;
@@ -93,11 +93,23 @@ public class Booking {
 //        this.returnBranch = returnBranch;
 //    }
 
-    public Long getAmount() {
+    public void addRental(LocalDate date) {
+        Rental rental = new Rental();
+        rental.setRentalDate(date);
+        this.dateFrom = rental;
+    }
+
+    public void addReturn(LocalDate date) {
+        CarReturn carReturn = new CarReturn();
+        carReturn.setDateOfReturn(date);
+        this.carReturn = carReturn;
+    }
+
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

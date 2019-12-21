@@ -33,7 +33,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         carDetails.withColor("D");
         carDetails.withMileage(100L);
         carDetails.withStatus(Status.AVAILABLE);
-        carDetails.withAmount("G");
+        carDetails.withAmount(5D);
 
         String relativePath = "/cars";
 
@@ -61,7 +61,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         car.setColor("D");
         car.setMileage(100L);
         car.setStatus(Status.AVAILABLE);
-        car.setAmount("G");
+        car.setAmount(5D);
 
         car = carRepository.save(car);
 
@@ -85,7 +85,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         car.setColor("D");
         car.setMileage(100L);
         car.setStatus(Status.AVAILABLE);
-        car.setAmount("G");
+        car.setAmount(5D);
 
         car = carRepository.saveAndFlush(car);
 
@@ -97,7 +97,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
                 .withColor("E")
                 .withMileage(101L)
                 .withStatus(Status.UNAVAILABLE)
-                .withAmount("H");
+                .withAmount(7.5);
 
         String relativePath="/cars/"+car.getId();
 
@@ -131,7 +131,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
         existingCar.setColor("D");
         existingCar.setMileage(100L);
         existingCar.setStatus(Status.AVAILABLE);
-        existingCar.setAmount("G");
+        existingCar.setAmount(5D);
 
         existingCar=carRepository.save(existingCar);
 

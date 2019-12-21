@@ -235,7 +235,7 @@ public class CarRentalOfficeDtoTest extends UnitTest {
                 .withColor("D")
                 .withMileage(100L)
                 .withStatus(Status.AVAILABLE)
-                .withAmount("G");
+                .withAmount(5D);
 
 
         List<CarDto> carDtos = new ArrayList<>();

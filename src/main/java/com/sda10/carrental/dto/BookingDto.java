@@ -12,7 +12,7 @@ public class BookingDto {
     public RentalDto dateFrom;
     //    public CarRentalOfficeDto rentalBranch;
 //    public CarRentalOfficeDto returnBranch;
-    public Long amount;
+    public Double amount;
     public CarReturnDto carReturnDto;
 
     private BookingDto() {
@@ -57,7 +57,7 @@ public class BookingDto {
 //        return this;
 //    }
 
-    public BookingDto withAmount(Long amount) {
+    public BookingDto withAmount(Double amount) {
         this.amount = amount;
         return this;
     }

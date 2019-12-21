@@ -48,7 +48,7 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
         car.setColor("D");
         car.setMileage(100L);
         car.setStatus(Status.AVAILABLE);
-        car.setAmount("G");
+        car.setAmount(5D);
 
         return carRepository.save(car);
     }
@@ -81,7 +81,7 @@ public class BranchControllerRestIntegrationTest extends RestIntegrationTest {
                 .withColor("D")
                 .withMileage(100L)
                 .withStatus(Status.AVAILABLE)
-                .withAmount("G");
+                .withAmount(5D);
     }
 
     private List<EmployeeDto> createEmployeeDtoList() {
