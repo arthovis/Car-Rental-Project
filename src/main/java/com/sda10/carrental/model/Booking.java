@@ -33,12 +33,6 @@ public class Booking {
     @OneToOne(cascade = CascadeType.ALL)
     private CarReturn dateTo;
 
-//    @NotNull
-//    private CarRentalOffice rentalBranch;
-
-//    @NotNull
-//    private CarRentalOffice returnBranch;
-
     @NotNull
     private Long amount;
 

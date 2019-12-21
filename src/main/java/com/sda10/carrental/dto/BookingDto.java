@@ -1,5 +1,7 @@
 package com.sda10.carrental.dto;
 
+import com.sda10.carrental.model.CarReturn;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -10,9 +12,7 @@ public class BookingDto {
     public CustomerDto client;
     public CarDto car;
     public RentalDto dateFrom;
-    //    public LocalDate dateTo;
-    //    public CarRentalOfficeDto rentalBranch;
-//    public CarRentalOfficeDto returnBranch;
+    public CarReturnDto dateTo;
     public Long amount;
 
     private BookingDto() {
@@ -47,10 +47,10 @@ public class BookingDto {
         return this;
     }
 
-//    public BookingDto withDateTo(LocalDate dateTo) {
-//        this.dateTo = dateTo;
-//        return this;
-//    }
+    public BookingDto withDateTo(CarReturnDto dateTo) {
+        this.dateTo = dateTo;
+        return this;
+    }
 
 //    public BookingDto withRentalBranch(CarRentalOfficeDto rentalBranch) {
 //        this.rentalBranch = rentalBranch;

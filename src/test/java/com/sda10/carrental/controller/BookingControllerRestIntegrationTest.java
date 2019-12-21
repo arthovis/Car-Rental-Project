@@ -49,7 +49,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
                 .withClient(customerMapper.toDto(customer))
                 .withCar(carMapper.toDto(car))
                 .withDateFrom(rentalDto)
-//                .withDateTo(LocalDate.of(2019, 8, 30))
+                .withDateTo(carReturnDto)
 //                .withRentalBranch(CarRentalOfficeDto.carRentalOfficeDto())
 //                .withReturnBranch(CarRentalOfficeDto.carRentalOfficeDto())
                 .withAmount(100L);
@@ -240,8 +240,8 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         return rental;
     }
 
-    private CarReturn getCarReturnDto() {
-        Car carReturn = new CarReturn();
-        return carReturn;
+    private CarReturnDto getCarReturnDto() {
+        return CarReturnDto.carReturnDto()
+                .withDateOfReturn(LocalDate.now());
     }
 }
