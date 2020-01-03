@@ -2,7 +2,9 @@ package com.sda10.carrental.controller;
 
 import com.sda10.carrental.dto.CarDto;
 import com.sda10.carrental.dto.CarMapper;
+import com.sda10.carrental.exception.NotFoundException;
 import com.sda10.carrental.model.Car;
+import com.sda10.carrental.model.Status;
 import com.sda10.carrental.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,9 +56,29 @@ public class CarController {
     }
 
     @GetMapping(value = "/cars?{filters}")
-    public List<Car> filterCars(@RequestBody CarDto carDto) {
+    public ResponseEntity<CarDto> filterCars(@RequestParam(required = false) String make, @RequestParam(required = false) String model,
+                                             @RequestParam(required = false) String bodyType, @RequestParam(required = false) Integer yearOfProduction,
+                                             @RequestParam(required = false) String color, @RequestParam(required = false) Long mileage,
+                                             @RequestParam(required = false) Status status, @RequestParam(required = false) Double amount) {
 
-        return carService.carFilters(carDto);
+        CarDto carDto = CarDto.carDto().withMake(make)
+                .withModel(model)
+                .withBodyType(bodyType)
+                .withYearOfProduction(yearOfProduction)
+                .withColor(color)
+                .withMileage(mileage)
+                .withStatus(status)
+                .withAmount(amount);
+
+        List<Car> filteredCar = carService.carFilters(carDto);
+
+        if (filteredCar.isEmpty()) {
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            throw new NotFoundException("Your car was not found");
+        }
+
+
     }
 
 }
