@@ -48,62 +48,46 @@ public class CarService {
     public List<Car> carFilters(CarDto carDto) {
 
         List<Car> filterList = new ArrayList<>();
-        Stream<Car> filteredCars;
+        Stream<Car> filteredCars = null;
 
         if (!carDto.make.isEmpty()) {
             filteredCars = filterList.stream()
                     .filter(car -> car.getMake().equals(carDto.make));
-        } else {
-            throw new RuntimeException();
         }
 
         if (!carDto.model.isEmpty()) {
             filteredCars = filterList.stream()
                     .filter(car -> car.getModel().equals(carDto.model));
-        } else {
-            throw new RuntimeException();
         }
 
         if (!carDto.bodyType.isEmpty()) {
             filteredCars = filterList.stream()
                     .filter(car -> car.getBodyType().equals(carDto.bodyType));
-        } else {
-            throw new RuntimeException();
         }
 
         if (carDto.yearOfProduction != null) {
             filteredCars = filterList.stream()
                     .filter(car -> car.getYearOfProduction().equals(carDto.yearOfProduction));
-        } else {
-            throw new RuntimeException();
         }
 
         if (!carDto.color.isEmpty()) {
             filteredCars = filterList.stream()
                     .filter(car -> car.getColor().equals(carDto.color));
-        } else {
-            throw new RuntimeException();
         }
 
         if (carDto.mileage != null) {
             filteredCars = filterList.stream()
                     .filter(car -> car.getMileage().equals(carDto.mileage));
-        } else {
-            throw new RuntimeException();
         }
 
         if (!carDto.status.equals(null)) {
             filteredCars = filterList.stream()
                     .filter(car -> car.getStatus().equals(carDto.status));
-        } else {
-            throw new RuntimeException();
         }
 
         if (carDto.amount != null) {
             filteredCars = filterList.stream()
                     .filter(car -> car.getAmount().equals(carDto.amount));
-        } else {
-            throw new RuntimeException();
         }
 
         return filteredCars.collect(Collectors.toList());

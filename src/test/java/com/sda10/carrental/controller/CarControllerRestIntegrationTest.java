@@ -2,9 +2,11 @@ package com.sda10.carrental.controller;
 
 import com.sda10.carrental.RestIntegrationTest;
 import com.sda10.carrental.dto.CarDto;
+import com.sda10.carrental.dto.CarMapper;
 import com.sda10.carrental.model.Car;
 import com.sda10.carrental.model.Status;
 import com.sda10.carrental.repository.CarRepository;
+import com.sda10.carrental.service.CarService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,12 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
     private CarRepository carRepository;
+
+    @Autowired
+    private CarService carService;
+
+    @Autowired
+    private CarMapper carMapper;
 
     @Test
     public void givenCarDetails_whenPostRequestReceived_thenCreateCar() {
@@ -143,7 +151,5 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
 
         Assertions.assertFalse(updatedCar.isPresent());
     }
-
-
 
 }
