@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class CarController {
 
@@ -49,6 +51,12 @@ public class CarController {
         carService.deleteCar(id);
 
         return new ResponseEntity((HttpStatus.OK));
+    }
+
+    @GetMapping(value = "/cars?{filters}")
+    public List<Car> filterCars(@RequestBody CarDto carDto) {
+
+        return carService.carFilters(carDto);
     }
 
 }
