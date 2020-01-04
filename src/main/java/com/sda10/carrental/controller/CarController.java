@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class CarController {
@@ -55,10 +56,10 @@ public class CarController {
     }
 
     @GetMapping(value = "/cars")
-    public List<Car> filterCars(@RequestParam(required = false) String make, @RequestParam(required = false) String model,
-                                @RequestParam(required = false) String bodyType, @RequestParam(required = false) Integer yearOfProduction,
-                                @RequestParam(required = false) String color, @RequestParam(required = false) Long mileage,
-                                @RequestParam(required = false) Status status, @RequestParam(required = false) Double amount) {
+    public List<CarDto> filterCars(@RequestParam(required = false) String make, @RequestParam(required = false) String model,
+                                   @RequestParam(required = false) String bodyType, @RequestParam(required = false) Integer yearOfProduction,
+                                   @RequestParam(required = false) String color, @RequestParam(required = false) Long mileage,
+                                   @RequestParam(required = false) Status status, @RequestParam(required = false) Double amount) {
 
         CarDto carDto = CarDto.carDto().withMake(make)
                 .withModel(model)
@@ -71,6 +72,6 @@ public class CarController {
 
         List<Car> filteredCar = carService.carFilters(carDto);
 
-            return filteredCar;
+        return filteredCar.stream().map(carMapper::toDto).collect(Collectors.toList());
     }
 }

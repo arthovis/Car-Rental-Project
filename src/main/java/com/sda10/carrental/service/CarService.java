@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,46 +46,47 @@ public class CarService {
 
     public List<Car> carFilters(CarDto carDto) {
 
-        List<Car> filterList = new ArrayList<>();
-        Stream<Car> filteredCars = null;
 
-        if (!carDto.make.isEmpty()) {
-            filteredCars = filterList.stream()
+        List<Car> filterList = carRepository.findAll();
+        Stream<Car> filteredCars = filterList.stream();
+
+        if (carDto.make != null) {
+            filteredCars = filteredCars
                     .filter(car -> car.getMake().equals(carDto.make));
         }
 
-        if (!carDto.model.isEmpty()) {
-            filteredCars = filterList.stream()
+        if (carDto.model != null) {
+            filteredCars = filteredCars
                     .filter(car -> car.getModel().equals(carDto.model));
         }
 
-        if (!carDto.bodyType.isEmpty()) {
-            filteredCars = filterList.stream()
+        if (carDto.bodyType != null) {
+            filteredCars = filteredCars
                     .filter(car -> car.getBodyType().equals(carDto.bodyType));
         }
 
         if (carDto.yearOfProduction != null) {
-            filteredCars = filterList.stream()
+            filteredCars = filteredCars
                     .filter(car -> car.getYearOfProduction().equals(carDto.yearOfProduction));
         }
 
-        if (!carDto.color.isEmpty()) {
-            filteredCars = filterList.stream()
+        if (carDto.color != null) {
+            filteredCars = filteredCars
                     .filter(car -> car.getColor().equals(carDto.color));
         }
 
         if (carDto.mileage != null) {
-            filteredCars = filterList.stream()
+            filteredCars = filteredCars
                     .filter(car -> car.getMileage().equals(carDto.mileage));
         }
 
-        if (!carDto.status.equals(null)) {
-            filteredCars = filterList.stream()
+        if (carDto.status != null) {
+            filteredCars = filteredCars
                     .filter(car -> car.getStatus().equals(carDto.status));
         }
 
         if (carDto.amount != null) {
-            filteredCars = filterList.stream()
+            filteredCars = filteredCars
                     .filter(car -> car.getAmount().equals(carDto.amount));
         }
 

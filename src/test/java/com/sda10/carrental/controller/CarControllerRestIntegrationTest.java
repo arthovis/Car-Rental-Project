@@ -6,7 +6,6 @@ import com.sda10.carrental.dto.CarMapper;
 import com.sda10.carrental.model.Car;
 import com.sda10.carrental.model.Status;
 import com.sda10.carrental.repository.CarRepository;
-import com.sda10.carrental.service.CarService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,9 +25,6 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
     private CarRepository carRepository;
-
-    @Autowired
-    private CarService carService;
 
     @Autowired
     private CarMapper carMapper;
@@ -200,12 +197,16 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
                 .filter(car -> car.getMake().contains("B"))
                 .collect(Collectors.toList());
 
+        List<CarDto> dtoListToFilter = listToFilter.stream().map(carMapper::toDto).collect(Collectors.toList());
+
         String relativePath = "/cars" + "?make=B";
 
         ResponseEntity<CarDto[]> responseEntity = this.restTemplate.getForEntity(url(relativePath), CarDto[].class);
-        CarDto[] listToCheck = responseEntity.getBody();
+        CarDto[] arrayToCheck = responseEntity.getBody();
 
-        Assertions.assertEquals(listToFilter, listToCheck);
+        List<CarDto> listToCheck = Arrays.asList(arrayToCheck);
+
+        Assertions.assertEquals(dtoListToFilter, listToCheck);
 
     }
 }
