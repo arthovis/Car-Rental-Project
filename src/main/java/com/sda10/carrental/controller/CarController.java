@@ -2,7 +2,6 @@ package com.sda10.carrental.controller;
 
 import com.sda10.carrental.dto.CarDto;
 import com.sda10.carrental.dto.CarMapper;
-import com.sda10.carrental.exception.NotFoundException;
 import com.sda10.carrental.model.Car;
 import com.sda10.carrental.model.Status;
 import com.sda10.carrental.service.CarService;
@@ -55,7 +54,7 @@ public class CarController {
         return new ResponseEntity((HttpStatus.OK));
     }
 
-    @GetMapping(value = "/cars?{filters}")
+    @GetMapping(value = "/cars")
     public List<Car> filterCars(@RequestParam(required = false) String make, @RequestParam(required = false) String model,
                                 @RequestParam(required = false) String bodyType, @RequestParam(required = false) Integer yearOfProduction,
                                 @RequestParam(required = false) String color, @RequestParam(required = false) Long mileage,
@@ -72,13 +71,6 @@ public class CarController {
 
         List<Car> filteredCar = carService.carFilters(carDto);
 
-        if (!filteredCar.isEmpty()) {
             return filteredCar;
-        } else {
-            throw new NotFoundException("Your car was not found");
-        }
-
-
     }
-
 }

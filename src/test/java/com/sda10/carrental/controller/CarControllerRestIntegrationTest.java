@@ -159,7 +159,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
 
         Car car1 = new Car();
 
-        car1.setMake("A");
+        car1.setMake("B");
         car1.setModel("B");
         car1.setBodyType("C");
         car1.setYearOfProduction(2015);
@@ -172,7 +172,7 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
 
         Car car2 = new Car();
 
-        car2.setMake("A");
+        car2.setMake("B");
         car2.setModel("B");
         car2.setBodyType("C");
         car2.setYearOfProduction(2015);
@@ -200,17 +200,10 @@ public class CarControllerRestIntegrationTest extends RestIntegrationTest {
                 .filter(car -> car.getMake().contains("B"))
                 .collect(Collectors.toList());
 
-        CarDto carDto = CarDto.carDto()
-                .withMake("B")
-                .withModel("C")
-                .withBodyType("D")
-                .withYearOfProduction(2005)
-                .withColor("E")
-                .withMileage(101L)
-                .withStatus(Status.UNAVAILABLE)
-                .withAmount(7.5);
+        String relativePath = "/cars" + "?make=B";
 
-        List<Car> listToCheck = carService.carFilters(carDto);
+        ResponseEntity<CarDto[]> responseEntity = this.restTemplate.getForEntity(url(relativePath), CarDto[].class);
+        CarDto[] listToCheck = responseEntity.getBody();
 
         Assertions.assertEquals(listToFilter, listToCheck);
 
