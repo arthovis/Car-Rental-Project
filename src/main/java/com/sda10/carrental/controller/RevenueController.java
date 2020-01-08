@@ -18,7 +18,7 @@ public class RevenueController {
 
     @GetMapping(value = "/revenues")
     public Revenue revenueByBranch(@RequestParam Long branchID) {
-        double filterRevenue = revenueService.bookingFilter(branchID);
+        double filterRevenue = revenueService.totalAmountByBranchIdAndStatus(branchID);
         revenue.setTotalRevenue(filterRevenue);
         return revenue;
     }

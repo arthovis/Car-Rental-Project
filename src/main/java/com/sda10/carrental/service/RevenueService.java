@@ -13,8 +13,12 @@ public class RevenueService {
     @Autowired
     public RevenueRepository revenueRepository;
 
-    public double bookingFilter(Long branchID) {
+    public double totalAmountByBranchIdAndStatus(Long branchID) {
         List<Booking> list = revenueRepository.bookingsByBranchIdAndStatus(branchID);
-        return list.stream().map(booking -> booking.getAmount()).count();
+
+        return list
+                .stream()
+                .map(booking -> booking.getAmount() + booking.getCarReturn().getAdditionalPayment())
+                .reduce((double) 0, Double::sum);
     }
 }

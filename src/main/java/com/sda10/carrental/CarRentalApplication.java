@@ -1,6 +1,8 @@
 package com.sda10.carrental;
 
 import com.sda10.carrental.repository.*;
+import com.sda10.carrental.service.CarReturnService;
+import com.sda10.carrental.service.RevenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -144,25 +146,27 @@ public class CarRentalApplication {
 	}
 */
 
-	@Autowired
-	RevenueRepository revenueRepository;
+    @Autowired
+    RevenueService revenueService;
 
-	@Autowired
-	EmployeeRepository employeeRepository;
+    @Autowired
+    CarReturnRepository carReturnRepository;
 
-	@Bean
-	CommandLineRunner filterData() {
-		return args -> {
-			System.out.println(employeeRepository.findAll());
-			System.out.println(carRepository.findAll());
-			System.out.println(branchRepository.findAll());
+    @Autowired
+    CarReturnService carReturnService;
 
-//			List<Booking> l = revenueRepository.bookingsByBranchIdAndStatus(1L);
-//			System.out.println(l);
-//			double result = l.stream().map(booking -> booking.getAmount()).count();
-//			System.out.println(result);
-		};
+    @Bean
+    CommandLineRunner filterData() {
+        return args -> {
+//			CarReturn carReturn = carReturnRepository.findById(12L).get();
+//			Branch branch = branchRepository.findById(2L).get();
+//			carReturn.setBranch(branch);
+//			carReturn.setAdditionalPayment(80.0);
+//			carReturnService.updateCarReturn(12L, carReturn);
+
+            double result = revenueService.totalAmountByBranchIdAndStatus(2L);
+            System.out.println(result);
+        };
 	}
 
 }
-
