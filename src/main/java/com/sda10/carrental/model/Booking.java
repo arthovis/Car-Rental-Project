@@ -37,6 +37,7 @@ public class Booking {
     @NotNull
     private Double amount;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
     private BookingStatus bookingStatus;
 
