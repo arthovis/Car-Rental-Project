@@ -1,5 +1,6 @@
 package com.sda10.carrental.controller;
 
+import com.sda10.carrental.dto.RevenueDto;
 import com.sda10.carrental.model.Revenue;
 import com.sda10.carrental.service.RevenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,8 @@ public class RevenueController {
     RevenueService revenueService;
 
     @GetMapping(value = "/revenues")
-    public Revenue revenueByBranch(@RequestParam Long branchID) {
-        return revenueService.computeRevenueForBranchWithId(branchID);
+    public RevenueDto revenueByBranch(@RequestParam Long branchID) {
+        Revenue revenue = revenueService.computeRevenueForBranchWithId(branchID);
+        return RevenueDto.revenueDto().withTotalRevenue(revenue.getTotalRevenue());
     }
 }
