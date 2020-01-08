@@ -1,13 +1,15 @@
 package com.sda10.carrental;
 
+import com.sda10.carrental.model.Booking;
 import com.sda10.carrental.repository.*;
 import com.sda10.carrental.service.CarReturnService;
-import com.sda10.carrental.service.RevenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @SpringBootApplication
 public class CarRentalApplication {
@@ -146,8 +148,8 @@ public class CarRentalApplication {
 	}
 */
 
-    @Autowired
-    RevenueService revenueService;
+	@Autowired
+	RevenueRepository revenueRepository;
 
     @Autowired
     CarReturnRepository carReturnRepository;
@@ -164,9 +166,13 @@ public class CarRentalApplication {
 //			carReturn.setAdditionalPayment(80.0);
 //			carReturnService.updateCarReturn(12L, carReturn);
 
-            double result = revenueService.totalAmountByBranchIdAndStatus(2L);
-            System.out.println(result);
-        };
+			List<Booking> list = revenueRepository.bookingsByBranchIdAndStatus(2L);
+			double totalRevenue = list
+					.stream()
+					.map(booking -> booking.getAmount() + booking.getCarReturn().getAdditionalPayment())
+					.reduce((double) 0, Double::sum);
+			System.out.println(totalRevenue);
+		};
 	}
 
 }

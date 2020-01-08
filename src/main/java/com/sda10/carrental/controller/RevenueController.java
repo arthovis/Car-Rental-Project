@@ -11,15 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class RevenueController {
 
     @Autowired
-    Revenue revenue;
-
-    @Autowired
     RevenueService revenueService;
 
     @GetMapping(value = "/revenues")
     public Revenue revenueByBranch(@RequestParam Long branchID) {
-        double filterRevenue = revenueService.totalAmountByBranchIdAndStatus(branchID);
-        revenue.setTotalRevenue(filterRevenue);
-        return revenue;
+        return revenueService.computeRevenueForBranchWithId(branchID);
     }
 }

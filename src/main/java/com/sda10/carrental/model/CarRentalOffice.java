@@ -31,7 +31,7 @@ public class CarRentalOffice {
     private String logoType;
 
     @OneToMany
-    @JoinColumn(name = "car_rental_office_id")
+    @JoinColumn(name = "branch_id")
     List<Branch> branches;
 
 

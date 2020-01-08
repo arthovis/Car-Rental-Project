@@ -1,8 +1,5 @@
 package com.sda10.carrental.model;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Revenue {
 
     private double totalRevenue;
