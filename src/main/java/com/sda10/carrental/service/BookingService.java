@@ -1,9 +1,6 @@
 package com.sda10.carrental.service;
 
-import com.sda10.carrental.model.Booking;
-import com.sda10.carrental.model.BookingStatus;
-import com.sda10.carrental.model.Car;
-import com.sda10.carrental.model.Customer;
+import com.sda10.carrental.model.*;
 import com.sda10.carrental.repository.BookingRepository;
 import com.sda10.carrental.repository.CarRepository;
 import com.sda10.carrental.repository.CustomerRepository;
@@ -27,14 +24,9 @@ public class BookingService {
     @Autowired
     public CarRepository carRepository;
 
-//    @Transactional
-//    public Booking createBooking(Booking booking) {
-//        return bookingRepository.save(booking);
-//    }
-
     @Transactional
     public Booking createBooking(Customer client, Car car, LocalDate rentalDate, LocalDate carReturn) {
-        if (!rentalDate.isBefore(carReturn)) {
+        if (!rentalDate.isBefore(carReturn) && !car.getStatus().equals(Status.AVAILABLE)) {
             throw new IllegalArgumentException();
         }
         Booking booking = buildBooking(client, car, rentalDate, carReturn);
@@ -102,7 +94,6 @@ public class BookingService {
             bookingToUpdate.setAmount(bookingToUpdate.getAmount() * 0.2);
         } else {
             bookingToUpdate.setAmount(0D);
-
         }
         return bookingRepository.save(bookingToUpdate);
     }

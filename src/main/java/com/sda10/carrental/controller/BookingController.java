@@ -22,11 +22,9 @@ public class BookingController {
     private BookingDto createBooking(@RequestBody BookingDto bookingDetails) {
 
         Booking booking = bookingMapper.toEntity(bookingDetails);
-
         booking = bookingService.createBooking(booking.getClient(), booking.getCar(), booking.getDateFrom().getRentalDate(), booking.getCarReturn().getDateOfReturn());
 
         return bookingMapper.toDto(booking);
-
     }
 
     @GetMapping(value = "/bookings/{id}")

@@ -19,9 +19,6 @@ public class BookingMapper {
     CarReturnMapper carReturnMapper;
 
     public Booking toEntity(BookingDto dto) {
-//        Customer client = new Customer();
-//        Car car = new Car();
-// Nu este nevoie ca creezi client si car, poti sa le stergi
 
         Booking entity = new Booking();
         entity.setDateOfBooking(dto.dateOfBooking);
