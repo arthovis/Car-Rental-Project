@@ -1,9 +1,6 @@
 package com.sda10.carrental.service;
 
-import com.sda10.carrental.model.Booking;
-import com.sda10.carrental.model.BookingStatus;
-import com.sda10.carrental.model.Car;
-import com.sda10.carrental.model.Customer;
+import com.sda10.carrental.model.*;
 import com.sda10.carrental.repository.BookingRepository;
 import com.sda10.carrental.repository.CarRepository;
 import com.sda10.carrental.repository.CustomerRepository;
@@ -34,6 +31,9 @@ public class BookingService {
 
     @Transactional
     public Booking createBooking(Customer client, Car car, LocalDate rentalDate, LocalDate carReturn) {
+        if (car.getStatus() != Status.AVAILABLE) {
+            throw new RuntimeException("Car is not available.");
+        }
         if (!rentalDate.isBefore(carReturn)) {
             throw new IllegalArgumentException();
         }
@@ -107,4 +107,16 @@ public class BookingService {
         return bookingRepository.save(bookingToUpdate);
     }
 
+    public Booking updateRental(Long id, Rental rentalWithDetails) {
+        Optional<Booking> bookingToUpdate = bookingRepository.findById(id);
+
+        if (bookingToUpdate.isPresent()) {
+            Booking booking = bookingToUpdate.get();
+            booking.getDateFrom().setEmployee(rentalWithDetails.getEmployee());
+            booking.getDateFrom().setComments(rentalWithDetails.getComments());
+            return bookingRepository.save(booking);
+        } else {
+            throw new RuntimeException("Booking could not be updated");
+        }
+    }
 }

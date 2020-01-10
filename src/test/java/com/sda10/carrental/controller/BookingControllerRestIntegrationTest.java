@@ -36,6 +36,9 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
     CarReturnRepository carReturnRepository;
 
     @Autowired
+    RentalRepository rentalRepository;
+
+    @Autowired
     CustomerMapper customerMapper;
 
     @Autowired
@@ -195,6 +198,27 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
     }
 
+    @Test
+    public void updateRentalFromBookingTest() {
+        Customer customer = getSavedCustomer();
+        Car car = getSavedCar();
+        CarReturn lightCarReturn = buildLightCarReturn();
+        Rental rental = buildRental(LocalDate.now());
+        Booking bookingToUpdate = getSavedBooking(customer, car, rental, lightCarReturn);
+
+        Employee employee = getSavedEmployee("georgescu", JobPosition.EMPLOYEE);
+        rental.setEmployee(employee);
+        rental.setComments("comment");
+        RentalDto rentalDto = rentalMapper.toDto(rental);
+
+        String relativePath = "/bookings/" + bookingToUpdate.getId() + "/rentals";
+        this.restTemplate.postForEntity(url(relativePath), rentalDto, RentalDto.class);
+        Booking actual = bookingRepository.findById(bookingToUpdate.getId()).get();
+
+        Assertions.assertEquals("comment", actual.getDateFrom().getComments());
+        Assertions.assertEquals(employee, actual.getDateFrom().getEmployee());
+    }
+
     private Customer getSavedCustomer() {
         Customer customer = new Customer();
         customer.setFirstName("A");
@@ -268,6 +292,14 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         booking.setBookingStatus(BookingStatus.OPEN);
 
         return this.bookingRepository.saveAndFlush(booking);
+    }
+
+    private Employee getSavedEmployee(String nameAndSurname, JobPosition jobPosition) {
+        Employee employee = new Employee();
+        employee.setNameAndSurname(nameAndSurname);
+        employee.setJobPosition(jobPosition);
+
+        return this.employeeRepository.saveAndFlush(employee);
     }
 
 }
