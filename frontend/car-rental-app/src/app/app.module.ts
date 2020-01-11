@@ -9,12 +9,16 @@ import { RentalOfficeComponent } from './features/rental-office/rental-office.co
 import { HomeComponent } from './features/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SuccessSnackComponent } from './shared/components/success-snack/success-snack.component';
 
 @NgModule({
+  entryComponents:
+  [SuccessSnackComponent],
   declarations: [
     AppComponent,
     RentalOfficeComponent,
-    HomeComponent
+    HomeComponent,
+    SuccessSnackComponent
   ],
   imports: [
     BrowserModule,
