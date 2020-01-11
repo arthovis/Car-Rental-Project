@@ -24,9 +24,17 @@ public class BookingService {
     @Autowired
     public CarRepository carRepository;
 
+//    @Transactional
+//    public Booking createBooking(Booking booking) {
+//        return bookingRepository.save(booking);
+//    }
+
     @Transactional
     public Booking createBooking(Customer client, Car car, LocalDate rentalDate, LocalDate carReturn) {
-        if (!rentalDate.isBefore(carReturn) && !car.getStatus().equals(Status.AVAILABLE)) {
+        if (car.getStatus() != Status.AVAILABLE) {
+            throw new RuntimeException("Car is not available.");
+        }
+        if (!rentalDate.isBefore(carReturn)) {
             throw new IllegalArgumentException();
         }
         Booking booking = buildBooking(client, car, rentalDate, carReturn);
@@ -94,8 +102,21 @@ public class BookingService {
             bookingToUpdate.setAmount(bookingToUpdate.getAmount() * 0.2);
         } else {
             bookingToUpdate.setAmount(0D);
+
         }
         return bookingRepository.save(bookingToUpdate);
     }
 
+    public Booking updateRental(Long id, Rental rentalWithDetails) {
+        Optional<Booking> bookingToUpdate = bookingRepository.findById(id);
+
+        if (bookingToUpdate.isPresent()) {
+            Booking booking = bookingToUpdate.get();
+            booking.getDateFrom().setEmployee(rentalWithDetails.getEmployee());
+            booking.getDateFrom().setComments(rentalWithDetails.getComments());
+            return bookingRepository.save(booking);
+        } else {
+            throw new RuntimeException("Booking could not be updated");
+        }
+    }
 }

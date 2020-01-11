@@ -1,12 +1,16 @@
 package com.sda10.carrental.service;
 
+import com.sda10.carrental.dto.CarDto;
 import com.sda10.carrental.model.Car;
 import com.sda10.carrental.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class CarService {
@@ -34,9 +38,59 @@ public class CarService {
         }
     }
 
-    public void deleteCar(Long id){
-        Car existingCar=carRepository.findById(id).get();
+    public void deleteCar(Long id) {
+        Car existingCar = carRepository.findById(id).get();
 
         carRepository.delete(existingCar);
+    }
+
+    public List<Car> carFilters(CarDto carDto) {
+
+
+        List<Car> filterList = carRepository.findAll();
+        Stream<Car> filteredCars = filterList.stream();
+
+        if (carDto.make != null) {
+            filteredCars = filteredCars
+                    .filter(car -> car.getMake().equals(carDto.make));
+        }
+
+        if (carDto.model != null) {
+            filteredCars = filteredCars
+                    .filter(car -> car.getModel().equals(carDto.model));
+        }
+
+        if (carDto.bodyType != null) {
+            filteredCars = filteredCars
+                    .filter(car -> car.getBodyType().equals(carDto.bodyType));
+        }
+
+        if (carDto.yearOfProduction != null) {
+            filteredCars = filteredCars
+                    .filter(car -> car.getYearOfProduction().equals(carDto.yearOfProduction));
+        }
+
+        if (carDto.color != null) {
+            filteredCars = filteredCars
+                    .filter(car -> car.getColor().equals(carDto.color));
+        }
+
+        if (carDto.mileage != null) {
+            filteredCars = filteredCars
+                    .filter(car -> car.getMileage().equals(carDto.mileage));
+        }
+
+        if (carDto.status != null) {
+            filteredCars = filteredCars
+                    .filter(car -> car.getStatus().equals(carDto.status));
+        }
+
+        if (carDto.amount != null) {
+            filteredCars = filteredCars
+                    .filter(car -> car.getAmount().equals(carDto.amount));
+        }
+
+        return filteredCars.collect(Collectors.toList());
+
     }
 }
