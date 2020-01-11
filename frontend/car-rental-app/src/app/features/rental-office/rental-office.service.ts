@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class RentalOfficeService {
 
-  private readonly RENTAL_OFFICE_API = `${environment.serverApiUrl}/rental-office`;
+  private readonly RENTAL_OFFICE_API = `${environment.serverApiUrl}/car-rental-offices`;
 
   constructor(private httpClient: HttpClient) { }
 

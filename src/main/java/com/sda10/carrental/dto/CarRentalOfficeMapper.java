@@ -4,6 +4,8 @@ import com.sda10.carrental.model.CarRentalOffice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,7 +24,8 @@ public class CarRentalOfficeMapper {
         entity.setContactAddress(dto.contactAddress);
         entity.setOwner(dto.owner);
         entity.setLogoType(dto.logoType);
-        entity.setBranches(dto.branches.stream()
+        entity.setBranches(Optional.ofNullable(dto.branches).orElse(Collections.emptyList())
+                .stream()
                 .map(branchMapper::toEntity)
                 .collect(Collectors.toList()));
 
