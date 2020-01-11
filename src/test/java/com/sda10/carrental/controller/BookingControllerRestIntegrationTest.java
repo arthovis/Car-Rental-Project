@@ -246,7 +246,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
     @Test
     public void updateRentalFromBookingTest() {
         Customer customer = getSavedCustomer();
-        Car car = getSavedCar();
+        Car car = getSavedAvailableCar();
         CarReturn lightCarReturn = buildLightCarReturn();
         Rental rental = buildRental(LocalDate.now());
         Booking bookingToUpdate = getSavedBooking(customer, car, rental, lightCarReturn);
