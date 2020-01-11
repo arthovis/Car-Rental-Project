@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RentalOfficeComponent implements OnInit {
 
+  name: string;
+
+  internetDomain: string;
+
+  contactAddress: string;
+
+  owner: string;
+
+  logoType: string;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  saveRentalOffice(){
+    alert(this.contactAddress);
   }
 
 }
