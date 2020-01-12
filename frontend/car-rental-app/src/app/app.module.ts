@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SuccessSnackComponent } from './shared/components/success-snack/success-snack.component';
 import { RentalOfficeOverviewComponent } from './features/rental-office-overview/rental-office-overview.component';
+import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   entryComponents:
@@ -28,7 +29,8 @@ import { RentalOfficeOverviewComponent } from './features/rental-office-overview
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

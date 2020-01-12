@@ -2,6 +2,7 @@ import { RentalOfficeService } from './../rental-office/rental-office.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { RentalOffice } from 'src/app/shared/model/rentalOffice';
+import { faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-rental-office-overview',
@@ -13,13 +14,27 @@ export class RentalOfficeOverviewComponent implements OnInit {
   rentalOffices: Observable<RentalOffice[]>;
 
   displayedColumns: string[];
+  trashIcon: IconDefinition = faTrash;
 
   constructor(private rentalOfficeService: RentalOfficeService) {
   }
 
   ngOnInit() {
+
+    this.loadRentalOffices();
+    this.displayedColumns = ['id', 'name', 'internetDomain', 'contactAddress', 'owner', 'logoType', 'actions'];
+  }
+
+  private loadRentalOffices() {
     this.rentalOffices = this.rentalOfficeService.getAllRentalOffices();
-    this.displayedColumns = ['id', 'name', 'internetDomain', 'contactAddress', 'owner', 'logoType'];
+  }
+
+  delete(id: number) {
+    this.rentalOfficeService.deleteRentalOffice(id).subscribe(
+      data => {
+        this.loadRentalOffices();
+    },
+    error => console.log(error));
   }
 
 }

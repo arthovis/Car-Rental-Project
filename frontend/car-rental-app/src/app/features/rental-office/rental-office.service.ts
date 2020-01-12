@@ -22,5 +22,9 @@ export class RentalOfficeService {
     return this.httpClient.get<RentalOffice[]> (this.RENTAL_OFFICE_API);
   }
 
+  deleteRentalOffice(id: number): Observable<any> {
+    return this.httpClient.delete(this.RENTAL_OFFICE_API + `/${id}`, { responseType: 'text' });
+  }
+
 }
 
