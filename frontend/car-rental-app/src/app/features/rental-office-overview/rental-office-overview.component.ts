@@ -2,7 +2,7 @@ import { RentalOfficeService } from './../rental-office/rental-office.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { RentalOffice } from 'src/app/shared/model/rentalOffice';
-import { faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, IconDefinition, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-rental-office-overview',
@@ -12,9 +12,11 @@ import { faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 export class RentalOfficeOverviewComponent implements OnInit {
 
   rentalOffices: Observable<RentalOffice[]>;
+  rentalOfficeById: Observable<RentalOffice>;
 
   displayedColumns: string[];
   trashIcon: IconDefinition = faTrash;
+  searchIcon: IconDefinition = faSearchPlus;
 
   constructor(private rentalOfficeService: RentalOfficeService) {
   }
@@ -35,6 +37,10 @@ export class RentalOfficeOverviewComponent implements OnInit {
         this.loadRentalOffices();
     },
     error => console.log(error));
+  }
+
+  private loadRentalOfficesById(id: number) {
+    this.rentalOfficeById = this.rentalOfficeService.getCarRentalOfficeById(id);
   }
 
 }

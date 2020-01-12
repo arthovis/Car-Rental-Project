@@ -1,6 +1,5 @@
-<div class="rental-offices-overview">
+<div class="rental-offices-details">
 
-  <button mat-raised-button routerLink="/rental-offices/new">New rental office</button>
   <table [dataSource]='rentalOffices | async' class="mat-elevation-z8" mat-table>
 
     <ng-container matColumnDef="id">
@@ -39,7 +38,7 @@
         <button (click)="delete(element.id)" mat-raised-button>
           <fa-icon [icon]="trashIcon"></fa-icon>
         </button>
-        <a mat-raised-button routerLink="/rental-offices/{{element.id}}/details">
+        <a mat-raised-button routerLink="/rental-offices/details">
           <fa-icon [icon]="searchIcon"></fa-icon>
         </a>
       </td>

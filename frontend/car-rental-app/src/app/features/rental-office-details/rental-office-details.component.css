@@ -1,0 +1,15 @@
+mat-grid-tile {
+    background: lightblue;
+  }
+  
+  .rental-offices-details {
+    width: 1000px;
+  }
+
+  .rental-offices-details table {
+    width: 100%;
+  }
+
+  button {
+      margin: 16px 8px;
+  }

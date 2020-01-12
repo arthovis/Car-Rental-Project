@@ -31,8 +31,7 @@ export class RentalOfficeComponent implements OnInit {
     this.rentalOfficeService.saveRentalOffice(rentalOffice)
     .subscribe(result => {this.snackBar.openFromComponent(SuccessSnackComponent, {
       duration: 5000,
-      verticalPosition: 'top',
-      horizontalPosition: 'center'
+      verticalPosition: 'top'
     }); });
   }
 

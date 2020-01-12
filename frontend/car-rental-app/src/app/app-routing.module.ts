@@ -1,3 +1,5 @@
+import { RentalOfficeDetailsComponent } from './features/rental-office-details/rental-office-details.component';
+import { BranchComponent } from './features/branch/branch.component';
 import { RentalOfficeOverviewComponent } from './features/rental-office-overview/rental-office-overview.component';
 import { HomeComponent } from './features/home/home.component';
 import { RentalOfficeComponent } from './features/rental-office/rental-office.component';
@@ -19,6 +21,14 @@ const routes: Routes = [
   {
     path: 'rental-offices',
     component: RentalOfficeOverviewComponent
+  },
+  {
+    path: 'rental-offices/:id/details',
+    component: RentalOfficeDetailsComponent
+  },
+  {
+    path: 'branch',
+    component: BranchComponent
   }
 ];
 

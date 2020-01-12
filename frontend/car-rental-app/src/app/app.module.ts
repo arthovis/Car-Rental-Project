@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SuccessSnackComponent } from './shared/components/success-snack/success-snack.component';
 import { RentalOfficeOverviewComponent } from './features/rental-office-overview/rental-office-overview.component';
 import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { BranchComponent } from './features/branch/branch.component';
+import { RentalOfficeDetailsComponent } from './features/rental-office-details/rental-office-details.component';
 
 @NgModule({
   entryComponents:
@@ -21,7 +23,9 @@ import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     RentalOfficeComponent,
     HomeComponent,
     SuccessSnackComponent,
-    RentalOfficeOverviewComponent
+    RentalOfficeOverviewComponent,
+    BranchComponent,
+    RentalOfficeDetailsComponent
   ],
   imports: [
     BrowserModule,
