@@ -24,7 +24,7 @@ export class RentalOfficeOverviewComponent implements OnInit {
   ngOnInit() {
 
     this.loadRentalOffices();
-    this.displayedColumns = ['id', 'name', 'internetDomain', 'contactAddress', 'owner', 'logoType', 'actions'];
+    this.displayedColumns = ['id', 'name', 'actions'];
   }
 
   private loadRentalOffices() {
