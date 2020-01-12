@@ -29,7 +29,11 @@ export class RentalOfficeComponent implements OnInit {
   saveRentalOffice() {
     const rentalOffice = new RentalOffice(null, this.name, this.internetDomain, this.contactAddress, this.owner, this.logoType);
     this.rentalOfficeService.saveRentalOffice(rentalOffice)
-    .subscribe(result => {this.snackBar.openFromComponent(SuccessSnackComponent, {duration: 5000}); });
+    .subscribe(result => {this.snackBar.openFromComponent(SuccessSnackComponent, {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+    }); });
   }
 
 }

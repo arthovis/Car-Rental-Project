@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class CarRentalOfficeController {
 
@@ -35,6 +38,16 @@ public class CarRentalOfficeController {
         CarRentalOffice carRentalOfficeById = carRentalOfficeService.getCarRentalOfficeById(id);
 
         return carRentalOfficeMapper.toDto(carRentalOfficeById);
+    }
+
+    @GetMapping(value = "/car-rental-offices")
+    public List<CarRentalOfficeDto> findAllCarRentalOffice() {
+
+        List<CarRentalOffice> carAllRentalOffice = carRentalOfficeService.getAllCarRentalOffices();
+        return carAllRentalOffice
+                .stream()
+                .map(carRentalOfficeMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @PutMapping(value = "/car-rental-offices/{id}")

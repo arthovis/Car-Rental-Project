@@ -17,5 +17,10 @@ export class RentalOfficeService {
   saveRentalOffice(rentalOffice: RentalOffice): Observable<RentalOffice> {
     return this.httpClient.post<RentalOffice>(this.RENTAL_OFFICE_API, rentalOffice);
   }
+
+  getAllRentalOffices(): Observable<RentalOffice[]> {
+    return this.httpClient.get<RentalOffice[]> (this.RENTAL_OFFICE_API);
+  }
+
 }
 

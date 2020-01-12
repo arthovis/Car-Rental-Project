@@ -1,0 +1,40 @@
+<div class="rental-offices-overview">
+
+  <button mat-raised-button routerLink="/rental-offices/new">New rental office</button>
+  <table [dataSource]='rentalOffices | async' class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell>Name</th>
+      <td *matCellDef="let element" mat-cell>{{element.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="internetDomain">
+      <th *matHeaderCellDef mat-header-cell>Internet Domain</th>
+      <td *matCellDef="let element" mat-cell>{{element.internetDomain}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="contactAddress">
+      <th *matHeaderCellDef mat-header-cell>Contact Address</th>
+      <td *matCellDef="let element" mat-cell>{{element.contactAddress}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="owner">
+      <th *matHeaderCellDef mat-header-cell>Owner</th>
+      <td *matCellDef="let element" mat-cell>{{element.owner}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="logoType">
+      <th *matHeaderCellDef mat-header-cell>Logo Type</th>
+      <td *matCellDef="let element" mat-cell>{{element.logoType}}</td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+  </table>
+</div>

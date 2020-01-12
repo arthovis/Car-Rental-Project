@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,5 +40,9 @@ public class CarRentalOfficeService {
         CarRentalOffice existingCarRentalOffice = carRentalOfficeRepository.findById(id).get();
 
         carRentalOfficeRepository.delete(existingCarRentalOffice);
+    }
+
+    public List<CarRentalOffice> getAllCarRentalOffices() {
+        return carRentalOfficeRepository.findAll();
     }
 }

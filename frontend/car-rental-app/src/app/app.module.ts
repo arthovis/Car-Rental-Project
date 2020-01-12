@@ -10,6 +10,7 @@ import { HomeComponent } from './features/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SuccessSnackComponent } from './shared/components/success-snack/success-snack.component';
+import { RentalOfficeOverviewComponent } from './features/rental-office-overview/rental-office-overview.component';
 
 @NgModule({
   entryComponents:
@@ -18,7 +19,8 @@ import { SuccessSnackComponent } from './shared/components/success-snack/success
     AppComponent,
     RentalOfficeComponent,
     HomeComponent,
-    SuccessSnackComponent
+    SuccessSnackComponent,
+    RentalOfficeOverviewComponent
   ],
   imports: [
     BrowserModule,
