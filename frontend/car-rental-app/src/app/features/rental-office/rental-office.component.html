@@ -1,26 +1,25 @@
 <form class="car-rental-form">
+
   <mat-form-field class="car-rental-full-width">
-    <input [(ngModel)]="name" matInput name="name" placeholder="Name">
+    <input [(ngModel)]="name" matInput name="name" placeholder="Name" required>
   </mat-form-field>
 
   <mat-form-field class="car-rental-full-width">
-    <input [(ngModel)]="internetDomain" matInput name="internetDomain" placeholder="Internet Domain">
+    <input [(ngModel)]="internetDomain" matInput name="internetDomain" placeholder="Internet Domain" required>
   </mat-form-field>
 
   <mat-form-field class="car-rental-full-width">
-    <input [(ngModel)]="contactAddress" matInput name="contactAddress" placeholder="Contact Address">
+    <input [(ngModel)]="contactAddress" matInput name="contactAddress" placeholder="Contact Address" required>
   </mat-form-field>
 
   <mat-form-field class="car-rental-full-width">
-    <input [(ngModel)]="owner" matInput name="owner" placeholder="Owner">
+    <input [(ngModel)]="owner" matInput name="owner" placeholder="Owner" required>
   </mat-form-field>
 
   <mat-form-field class="car-rental-full-width">
-    <input [(ngModel)]="logoType" matInput name="logoType" placeholder="Logo Type">
+    <input [(ngModel)]="logoType" matInput name="logoType" placeholder="Logo Type" required>
   </mat-form-field>
 
-  <button (click)="saveRentalOffice()" color="primary" mat-raised-button>Create</button>
-
+  <button (click)="createRentalOffice()" color="primary" mat-raised-button>Create</button>
 
 </form>
-

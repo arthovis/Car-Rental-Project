@@ -19,12 +19,13 @@ export class RentalOfficeDetailsComponent implements OnInit {
   constructor(private rentalOfficeService: RentalOfficeService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.rentalOffices = this.activatedRoute.params.pipe (
+    this.rentalOffices = this.activatedRoute.params.pipe(
       // tslint:disable-next-line: no-string-literal
-      map (params => params['id']),
-      flatMap (id => this.rentalOfficeService.getCarRentalOfficeById(id)),
-      map (cro => [cro])
+      map(params => params['id']),
+      flatMap(id => this.rentalOfficeService.getCarRentalOfficeById(id)),
+      map(cro => [cro])
     );
+
     this.displayedColumns = ['id', 'name', 'internetDomain', 'contactAddress', 'owner', 'logoType', 'actions'];
   }
 

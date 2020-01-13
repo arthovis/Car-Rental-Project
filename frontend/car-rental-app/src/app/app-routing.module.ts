@@ -1,3 +1,4 @@
+import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 import { RentalOfficeDetailsComponent } from './features/rental-office-details/rental-office-details.component';
 import { BranchComponent } from './features/branch/branch.component';
 import { RentalOfficeOverviewComponent } from './features/rental-office-overview/rental-office-overview.component';
@@ -10,17 +11,12 @@ import { componentFactoryName } from '@angular/compiler';
 
 const routes: Routes = [
   {
-    path: 'rental-offices/new',
-    component: RentalOfficeComponent
-  },
-
-  {
-    path: '',
-    component: HomeComponent
-  },
-  {
     path: 'rental-offices',
     component: RentalOfficeOverviewComponent
+  },
+  {
+    path: 'rental-offices/new',
+    component: RentalOfficeComponent
   },
   {
     path: 'rental-offices/:id/details',
@@ -29,6 +25,14 @@ const routes: Routes = [
   {
     path: 'branch',
     component: BranchComponent
+  },
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   }
 ];
 

@@ -22,7 +22,6 @@ export class RentalOfficeOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.loadRentalOffices();
     this.displayedColumns = ['id', 'name', 'actions'];
   }
@@ -35,12 +34,8 @@ export class RentalOfficeOverviewComponent implements OnInit {
     this.rentalOfficeService.deleteRentalOffice(id).subscribe(
       data => {
         this.loadRentalOffices();
-    },
-    error => console.log(error));
-  }
-
-  private loadRentalOfficesById(id: number) {
-    this.rentalOfficeById = this.rentalOfficeService.getCarRentalOfficeById(id);
+      },
+      error => console.log(error));
   }
 
 }

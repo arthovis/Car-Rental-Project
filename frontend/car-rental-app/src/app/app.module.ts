@@ -14,6 +14,7 @@ import { RentalOfficeOverviewComponent } from './features/rental-office-overview
 import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { BranchComponent } from './features/branch/branch.component';
 import { RentalOfficeDetailsComponent } from './features/rental-office-details/rental-office-details.component';
+import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 
 @NgModule({
   entryComponents:
@@ -25,7 +26,8 @@ import { RentalOfficeDetailsComponent } from './features/rental-office-details/r
     SuccessSnackComponent,
     RentalOfficeOverviewComponent,
     BranchComponent,
-    RentalOfficeDetailsComponent
+    RentalOfficeDetailsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

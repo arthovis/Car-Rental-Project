@@ -1,7 +1,7 @@
 import { RentalOfficeService } from './rental-office.service';
 import { Component, OnInit } from '@angular/core';
 import { RentalOffice } from 'src/app/shared/model/rentalOffice';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/success-snack.component';
 
 @Component({
@@ -26,13 +26,15 @@ export class RentalOfficeComponent implements OnInit {
   ngOnInit() {
   }
 
-  saveRentalOffice() {
+  createRentalOffice() {
     const rentalOffice = new RentalOffice(null, this.name, this.internetDomain, this.contactAddress, this.owner, this.logoType);
     this.rentalOfficeService.saveRentalOffice(rentalOffice)
-    .subscribe(result => {this.snackBar.openFromComponent(SuccessSnackComponent, {
-      duration: 5000,
-      verticalPosition: 'top'
-    }); });
+      .subscribe(result => {
+        this.snackBar.openFromComponent(SuccessSnackComponent, {
+          duration: 2000,
+          verticalPosition: 'top'
+        });
+      });
   }
 
 }

@@ -1,11 +1,13 @@
 <form class="branch-form">
+
   <mat-form-field class="branch-full-width">
     <input [(ngModel)]="id" matInput name="id" placeholder="Id">
   </mat-form-field>
+
   <mat-form-field class="branch-full-width">
-    <input [(ngModel)]="address" matInput name="address" placeholder="Address">
+    <input [(ngModel)]="address" matInput name="address" placeholder="Address" required>
   </mat-form-field>
 
-  <button (click)="saveRentalOffice()" color="primary" mat-raised-button>Create</button>
+  <button (click)="createBranch()" color="primary" mat-raised-button>Create</button>
 
 </form>
