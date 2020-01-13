@@ -1,3 +1,4 @@
+import { BranchOverviewComponent } from './features/branch-overview/branch-overview.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 import { RentalOfficeDetailsComponent } from './features/rental-office-details/rental-office-details.component';
 import { BranchComponent } from './features/branch/branch.component';
@@ -6,8 +7,6 @@ import { HomeComponent } from './features/home/home.component';
 import { RentalOfficeComponent } from './features/rental-office/rental-office.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { componentFactoryName } from '@angular/compiler';
-
 
 const routes: Routes = [
   {
@@ -23,7 +22,11 @@ const routes: Routes = [
     component: RentalOfficeDetailsComponent
   },
   {
-    path: 'branch',
+    path: 'branches',
+    component: BranchOverviewComponent
+  },
+  {
+    path: 'branches/new',
     component: BranchComponent
   },
   {

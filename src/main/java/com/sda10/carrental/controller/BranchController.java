@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class BranchController {
 
@@ -35,6 +38,16 @@ public class BranchController {
 
         return branchMapper.toDto(branchById);
 
+    }
+
+    @GetMapping(value = "/branch")
+    public List<BranchDto> findAllBranches() {
+
+        List<Branch> branches = branchService.getAllBranches();
+        return branches
+                .stream()
+                .map(branchMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @PutMapping(value = "/branch/{id}")

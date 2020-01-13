@@ -15,6 +15,7 @@ import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { BranchComponent } from './features/branch/branch.component';
 import { RentalOfficeDetailsComponent } from './features/rental-office-details/rental-office-details.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
+import { BranchOverviewComponent } from './features/branch-overview/branch-overview.component';
 
 @NgModule({
   entryComponents:
@@ -27,7 +28,8 @@ import { PageNotFoundComponent } from './features/page-not-found/page-not-found.
     RentalOfficeOverviewComponent,
     BranchComponent,
     RentalOfficeDetailsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    BranchOverviewComponent
   ],
   imports: [
     BrowserModule,

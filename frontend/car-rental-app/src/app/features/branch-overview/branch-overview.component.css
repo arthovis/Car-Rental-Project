@@ -1,0 +1,15 @@
+mat-grid-tile {
+  background: lightblue;
+}
+
+.branch-overview {
+  width: 800px;
+}
+
+.branch-overview table {
+  width: 100%;
+}
+
+button {
+  margin: 16px 8px;
+}
