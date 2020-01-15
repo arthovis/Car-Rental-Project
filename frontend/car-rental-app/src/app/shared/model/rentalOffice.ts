@@ -1,3 +1,4 @@
+import { Branch } from 'src/app/shared/model/branch';
 export class RentalOffice {
 
     constructor( public id: number,
@@ -5,7 +6,8 @@ export class RentalOffice {
                  public internetDomain: string,
                  public contactAddress: string,
                  public owner: string,
-                 public logoType: string) {
+                 public logoType: string,
+                 public branches: Branch[]) {
 
                 }
 }

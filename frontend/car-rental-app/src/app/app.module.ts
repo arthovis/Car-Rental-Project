@@ -1,3 +1,4 @@
+import { RentalOfficeDetailsModule } from './features/rental-office-details/rental-office-details.module';
 import { MaterialModule } from './shared/material/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,7 @@ import { BranchComponent } from './features/branch/branch.component';
 import { RentalOfficeDetailsComponent } from './features/rental-office-details/rental-office-details.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 import { BranchOverviewComponent } from './features/branch-overview/branch-overview.component';
+import { BranchesListComponent } from './features/branches-list/branches-list.component';
 
 @NgModule({
   entryComponents:
@@ -29,16 +31,18 @@ import { BranchOverviewComponent } from './features/branch-overview/branch-overv
     BranchComponent,
     RentalOfficeDetailsComponent,
     PageNotFoundComponent,
-    BranchOverviewComponent
+    BranchOverviewComponent,
+    BranchesListComponent
   ],
   imports: [
     BrowserModule,
+    RentalOfficeDetailsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

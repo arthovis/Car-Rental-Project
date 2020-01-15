@@ -32,15 +32,21 @@
       <td *matCellDef="let element" mat-cell>{{element.logoType}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="branches">
+      <th *matHeaderCellDef mat-header-cell>Number of branches</th>
+      <td *matCellDef="let element" mat-cell>{{element.branches.length}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell>Actions</th>
       <td *matCellDef="let element" mat-cell>
-        <button (click)="delete(element.id)" mat-raised-button>
-          <fa-icon [icon]="trashIcon"></fa-icon>
+        <button (click)="listsBranches(element.id);view=true" mat-raised-button>Branches list</button>
+        <button (click)="view2=true" [routerLink]="['/rental-offices', element.id, 'branches-list']" mat-raised-button>
+          Add new branch
         </button>
-        <a mat-raised-button routerLink="/rental-offices/details">
-          <fa-icon [icon]="searchIcon"></fa-icon>
-        </a>
+        <button mat-raised-button routerLink="/rental-offices/{{element.id}}/update">
+          Update rental office
+        </button>
       </td>
     </ng-container>
 
@@ -49,8 +55,19 @@
 
   </table>
 
-  <!-- <button mat-raised-button routerLink="/branches">View branches list</button>
-  <div>
-  </div> -->
-
 </div>
+
+<div class="blank_row"></div>
+<div [hidden]="!view">
+  <button (click)="view=false" mat-raised-button>Close list</button>
+  <h3>Rental office branches list:</h3>
+  <div class="list">
+    <ul class="branches">
+      <li *ngFor="let branch of branches">
+        <span class="badge">{{branch.id}}</span>{{branch.address}}
+        <button mat-raised-button style="position: absolute; right: 0;">Delete</button>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="blank_row"></div>

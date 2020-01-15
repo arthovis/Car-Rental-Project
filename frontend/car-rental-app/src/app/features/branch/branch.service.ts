@@ -25,4 +25,8 @@ export class BranchService {
     return this.httpClient.delete(this.BRANCH_API + `/${id}`);
   }
 
+  getBranchById(id: number): Observable<Branch> {
+    return this.httpClient.get<Branch>(this.BRANCH_API + `/${id}`);
+  }
+
 }
