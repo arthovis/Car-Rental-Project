@@ -1,3 +1,4 @@
+import { Branch } from 'src/app/shared/model/branch';
 import { RentalOfficeService } from './rental-office.service';
 import { Component, OnInit } from '@angular/core';
 import { RentalOffice } from 'src/app/shared/model/rentalOffice';
@@ -21,13 +22,16 @@ export class RentalOfficeComponent implements OnInit {
 
   logoType: string;
 
+  branches: Branch[];
+
   constructor(public rentalOfficeService: RentalOfficeService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
 
   createRentalOffice() {
-    const rentalOffice = new RentalOffice(null, this.name, this.internetDomain, this.contactAddress, this.owner, this.logoType);
+    const rentalOffice = new RentalOffice(null, this.name, this.internetDomain,
+        this.contactAddress, this.owner, this.logoType, this.branches);
     this.rentalOfficeService.saveRentalOffice(rentalOffice)
       .subscribe(result => {
         this.snackBar.openFromComponent(SuccessSnackComponent, {

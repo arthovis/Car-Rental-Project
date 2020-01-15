@@ -1,3 +1,4 @@
+import { Branch } from 'src/app/shared/model/branch';
 import { RentalOffice } from './../../shared/model/rentalOffice';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -22,12 +23,16 @@ export class RentalOfficeService {
     return this.httpClient.get<RentalOffice[]> (this.RENTAL_OFFICE_API);
   }
 
-  getCarRentalOfficeById(id: number): Observable<RentalOffice>{
+  getCarRentalOfficeById(id: number): Observable<RentalOffice> {
     return this.httpClient.get<RentalOffice> (this.RENTAL_OFFICE_API + `/${id}`);
   }
 
   deleteRentalOffice(id: number): Observable<any> {
     return this.httpClient.delete(this.RENTAL_OFFICE_API + `/${id}`);
+  }
+
+  setBranch(id: number, branch: Branch): Observable<RentalOffice> {
+    return this.httpClient.post<RentalOffice> (this.RENTAL_OFFICE_API + `/${id}` + `/branches`, branch);
   }
 
 }

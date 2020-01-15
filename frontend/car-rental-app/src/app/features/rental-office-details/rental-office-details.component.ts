@@ -1,3 +1,5 @@
+import { async } from '@angular/core/testing';
+import { Branch } from 'src/app/shared/model/branch';
 import { Component, OnInit } from '@angular/core';
 import { RentalOffice } from 'src/app/shared/model/rentalOffice';
 import { Observable } from 'rxjs';
@@ -13,6 +15,10 @@ import { ActivatedRoute } from '@angular/router';
 export class RentalOfficeDetailsComponent implements OnInit {
 
   rentalOffices: Observable<RentalOffice[]>;
+  offices: RentalOffice[];
+  office: RentalOffice;
+  branches: Branch[];
+  view: false;
 
   displayedColumns: string[];
 
@@ -26,7 +32,16 @@ export class RentalOfficeDetailsComponent implements OnInit {
       map(cro => [cro])
     );
 
-    this.displayedColumns = ['id', 'name', 'internetDomain', 'contactAddress', 'owner', 'logoType', 'actions'];
+    this.rentalOffices.subscribe(offices => {
+      this.offices = offices;
+      this.office = this.offices[0];
+    });
+
+    this.displayedColumns = ['id', 'name', 'internetDomain', 'contactAddress', 'owner', 'logoType', 'branches', 'actions'];
+  }
+
+  listsBranches() {
+    this.branches = this.office.branches;
   }
 
 }

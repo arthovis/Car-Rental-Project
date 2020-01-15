@@ -1,15 +1,65 @@
 mat-grid-tile {
-    background: lightblue;
-  }
-  
-  .rental-offices-details {
-    width: 1000px;
-  }
+  background: lightblue;
+}
 
-  .rental-offices-details table {
-    width: 100%;
-  }
+.rental-offices-details {
+  width: 1000px;
+  margin-bottom: 10px;
+}
 
-  button {
-      margin: 16px 8px;
-  }
+.rental-offices-details table {
+  width: 100%;
+}
+
+.blank_row {
+  height: 40px;
+  background-color: #ffffff;
+}
+
+.branches li {
+  position: relative;
+  cursor: pointer;
+  background-color: #eee;
+  margin: 0.5em;
+  padding: 0.3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+
+.branches li:hover {
+  color: #607d8b;
+  background-color: #ddd;
+  left: 0.1em;
+}
+
+.branches a {
+  color: #888;
+  text-decoration: none;
+  position: relative;
+  display: block;
+}
+
+.branches a:hover {
+  color: #607d8b;
+}
+
+.branches .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #607d8b;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  min-width: 16px;
+  text-align: right;
+  margin-right: 0.8em;
+  border-radius: 4px 0 0 4px;
+}
+
+.tab {
+  float:right;
+}
