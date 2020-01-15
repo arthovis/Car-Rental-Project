@@ -3,6 +3,7 @@ package com.sda10.carrental.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,8 +33,7 @@ public class CarRentalOffice {
 
     @OneToMany
     @JoinColumn(name = "branch_id")
-    List<Branch> branches;
-
+    List<Branch> branches = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -89,6 +89,14 @@ public class CarRentalOffice {
 
     public void setBranches(List<Branch> branches) {
         this.branches = branches;
+    }
+
+    public void addBranch(Branch branch) {
+        branches.add(branch);
+    }
+
+    public void removeBranch(Branch branch) {
+        branches.remove(branch);
     }
 
     @Override

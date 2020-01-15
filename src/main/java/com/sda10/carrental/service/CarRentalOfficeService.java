@@ -1,5 +1,6 @@
 package com.sda10.carrental.service;
 
+import com.sda10.carrental.model.Branch;
 import com.sda10.carrental.model.CarRentalOffice;
 import com.sda10.carrental.repository.CarRentalOfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,29 @@ public class CarRentalOfficeService {
     public List<CarRentalOffice> getAllCarRentalOffices() {
         return carRentalOfficeRepository.findAll();
     }
+
+    public CarRentalOffice updateCarRentalOfficeWithBranch(Long id, Branch branch) {
+        Optional<CarRentalOffice> CarRentalOfficeToUpdate = carRentalOfficeRepository.findById(id);
+
+        if (CarRentalOfficeToUpdate.isPresent()) {
+            CarRentalOffice carRentalOffice = CarRentalOfficeToUpdate.get();
+            carRentalOffice.addBranch(branch);
+            return carRentalOfficeRepository.save(carRentalOffice);
+        } else {
+            throw new RuntimeException("Rental office could not be updated");
+        }
+    }
+
+    public CarRentalOffice updateCarRentalOfficeWithoutBranch(Long id, Branch branch) {
+        Optional<CarRentalOffice> CarRentalOfficeToUpdate = carRentalOfficeRepository.findById(id);
+
+        if (CarRentalOfficeToUpdate.isPresent()) {
+            CarRentalOffice carRentalOffice = CarRentalOfficeToUpdate.get();
+            carRentalOffice.removeBranch(branch);
+            return carRentalOfficeRepository.save(carRentalOffice);
+        } else {
+            throw new RuntimeException("Rental office could not be removed");
+        }
+    }
+
 }

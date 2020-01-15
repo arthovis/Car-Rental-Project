@@ -1,7 +1,10 @@
 package com.sda10.carrental.controller;
 
+import com.sda10.carrental.dto.BranchDto;
+import com.sda10.carrental.dto.BranchMapper;
 import com.sda10.carrental.dto.CarRentalOfficeDto;
 import com.sda10.carrental.dto.CarRentalOfficeMapper;
+import com.sda10.carrental.model.Branch;
 import com.sda10.carrental.model.CarRentalOffice;
 import com.sda10.carrental.service.CarRentalOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class CarRentalOfficeController {
 
     @Autowired
     private CarRentalOfficeMapper carRentalOfficeMapper;
+
+    @Autowired
+    private BranchMapper branchMapper;
 
     @PostMapping(value = "/car-rental-offices")
     public CarRentalOfficeDto createCarRentalOffice(@RequestBody CarRentalOfficeDto carRentalOfficeDetails) {
@@ -67,4 +73,23 @@ public class CarRentalOfficeController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @PostMapping(value = "/car-rental-offices/{id}/branches")
+    public ResponseEntity<CarRentalOfficeDto> addBranchToCarRentalOffice(@PathVariable Long id, @RequestBody BranchDto branchDto) {
+        Branch branch = branchMapper.toEntity(branchDto);
+        CarRentalOffice updatedCarRentalOffice = carRentalOfficeService.updateCarRentalOfficeWithBranch(id, branch);
+        CarRentalOfficeDto response = carRentalOfficeMapper.toDto(updatedCarRentalOffice);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/car-rental-offices/{id}/branches")
+    public ResponseEntity<CarRentalOfficeDto> deleteBranchFromCarRentalOffice(@PathVariable Long id, @RequestBody BranchDto branchDto) {
+        Branch branch = branchMapper.toEntity(branchDto);
+        CarRentalOffice updatedCarRentalOffice = carRentalOfficeService.updateCarRentalOfficeWithoutBranch(id, branch);
+        CarRentalOfficeDto response = carRentalOfficeMapper.toDto(updatedCarRentalOffice);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }
