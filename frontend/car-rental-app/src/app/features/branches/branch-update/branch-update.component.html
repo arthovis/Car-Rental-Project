@@ -1,0 +1,10 @@
+<form class="branch-form">
+
+  <mat-form-field class="branch-full-width">
+    <input [(ngModel)]="branchToUpdate.address" matInput name="address" placeholder="Address" required>
+  </mat-form-field>
+
+  <button (click)="changeBranch()" color="primary" mat-raised-button>Change</button>
+  <button (click)="goToBranches()" mat-raised-button>Close</button>
+
+</form>

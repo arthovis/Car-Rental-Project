@@ -1,8 +1,8 @@
-import { RentalOfficeService } from './../rental-office/rental-office.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { RentalOffice } from 'src/app/shared/model/rentalOffice';
 import { faTrash, IconDefinition, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
+import { RentalOfficesService } from '../rental-offices.service';
 
 @Component({
   selector: 'app-rental-office-overview',
@@ -18,7 +18,7 @@ export class RentalOfficeOverviewComponent implements OnInit {
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
 
-  constructor(private rentalOfficeService: RentalOfficeService) {
+  constructor(private rentalOfficeService: RentalOfficesService) {
   }
 
   ngOnInit() {
