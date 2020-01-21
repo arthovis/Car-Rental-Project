@@ -12,7 +12,7 @@ import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/s
 })
 export class BranchUpdateComponent implements OnInit {
 
-  branchToUpdate = new Branch(null, null);
+  branchToUpdate = new Branch(null, null, null, null);
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -41,8 +41,8 @@ export class BranchUpdateComponent implements OnInit {
     return +this.route.snapshot.paramMap.get('id');
   }
 
-  goToBranches() {
-    this.router.navigate(['/branches']);
+  goToBranchDetails() {
+    this.router.navigate(['/branches', this.getIdFromRoute(), 'details']);
   }
 
 }

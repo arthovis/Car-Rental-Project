@@ -13,6 +13,8 @@ import { SuccessSnackComponent } from './shared/components/success-snack/success
 import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 import { BranchesModule } from './features/branches/branches.module';
+import { CarsComponent } from './features/cars/cars.component';
+import { CarsListComponent } from './features/cars/cars-list/cars-list.component';
 
 @NgModule({
   entryComponents:
@@ -21,7 +23,7 @@ import { BranchesModule } from './features/branches/branches.module';
     AppComponent,
     HomeComponent,
     PageNotFoundComponent,
-    SuccessSnackComponent
+    SuccessSnackComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,9 +19,9 @@
         <button (click)="delete(element.id)" mat-raised-button>
           <fa-icon [icon]="trashIcon"></fa-icon>
         </button>
-        <a mat-raised-button routerLink="/branches/{{element.id}}/update">
-          Update
-        </a>
+        <button mat-raised-button routerLink="/branches/{{element.id}}/details">
+          <fa-icon [icon]="searchIcon"></fa-icon>
+        </button>
       </td>
     </ng-container>
 

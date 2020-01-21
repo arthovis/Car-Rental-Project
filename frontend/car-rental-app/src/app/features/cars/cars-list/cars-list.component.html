@@ -1,0 +1,30 @@
+<div class="cars-list">
+  <button (click)="goToBranch()" mat-raised-button>Close</button>
+  <h3>All cars available:</h3>
+
+  <table [dataSource]='cars | async' class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+      <th *matHeaderCellDef mat-header-cell>Model</th>
+      <td *matCellDef="let element" mat-cell>{{element.model}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell>Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="addCar(element.id)" mat-raised-button>
+          Add
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+  </table>
+</div>
