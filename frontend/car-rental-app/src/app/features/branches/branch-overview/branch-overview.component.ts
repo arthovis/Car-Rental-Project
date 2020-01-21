@@ -1,8 +1,8 @@
-import { BranchService } from './../branch/branch.service';
 import { Component, OnInit } from '@angular/core';
 import { Branch } from 'src/app/shared/model/branch';
 import { IconDefinition, faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
+import { BranchesService } from '../branches.service';
 
 @Component({
   selector: 'app-branch-overview',
@@ -18,7 +18,7 @@ export class BranchOverviewComponent implements OnInit {
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
 
-  constructor(private branchService: BranchService) { }
+  constructor(private branchService: BranchesService) { }
 
   ngOnInit() {
     this.loadBranches();

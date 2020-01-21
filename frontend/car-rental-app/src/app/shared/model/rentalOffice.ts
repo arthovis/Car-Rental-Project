@@ -8,6 +8,5 @@ export class RentalOffice {
                  public owner: string,
                  public logoType: string,
                  public branches: Branch[]) {
-
                 }
 }

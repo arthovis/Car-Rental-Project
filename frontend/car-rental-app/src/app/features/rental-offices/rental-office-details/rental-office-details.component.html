@@ -1,5 +1,6 @@
 <div class="rental-offices-details">
-
+  <button (click)="goBack()" mat-raised-button>Close</button>
+  <h3>RENTAL OFFICE DETAILS</h3>
   <table [dataSource]='rentalOffices | async' class="mat-elevation-z8" mat-table>
 
     <ng-container matColumnDef="id">
@@ -40,8 +41,8 @@
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell>Actions</th>
       <td *matCellDef="let element" mat-cell>
-        <button (click)="listsBranches(element.id);view=true" mat-raised-button>Branches list</button>
-        <button (click)="view2=true" [routerLink]="['/rental-offices', element.id, 'branches-list']" mat-raised-button>
+        <button (click)="view=true" mat-raised-button>Branches list</button>
+        <button [routerLink]="['/rental-offices', element.id, 'branches-list']" mat-raised-button>
           Add new branch
         </button>
         <button mat-raised-button routerLink="/rental-offices/{{element.id}}/update">
@@ -65,7 +66,7 @@
     <ul class="branches">
       <li *ngFor="let branch of branches">
         <span class="badge">{{branch.id}}</span>{{branch.address}}
-        <button mat-raised-button style="position: absolute; right: 0;">Delete</button>
+        <button (click)=deleteBranch(branch) mat-raised-button style="position: absolute; right: 0;">Delete</button>
       </li>
     </ul>
   </div>

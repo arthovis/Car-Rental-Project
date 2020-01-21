@@ -74,7 +74,7 @@ public class CarRentalOfficeController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/car-rental-offices/{id}/branches")
+    @PutMapping(value = "/car-rental-offices/{id}/branches")
     public ResponseEntity<CarRentalOfficeDto> addBranchToCarRentalOffice(@PathVariable Long id, @RequestBody BranchDto branchDto) {
         Branch branch = branchMapper.toEntity(branchDto);
         CarRentalOffice updatedCarRentalOffice = carRentalOfficeService.updateCarRentalOfficeWithBranch(id, branch);
@@ -83,7 +83,7 @@ public class CarRentalOfficeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/car-rental-offices/{id}/branches")
+    @PutMapping(value = "/car-rental-offices/{id}/details")
     public ResponseEntity<CarRentalOfficeDto> deleteBranchFromCarRentalOffice(@PathVariable Long id, @RequestBody BranchDto branchDto) {
         Branch branch = branchMapper.toEntity(branchDto);
         CarRentalOffice updatedCarRentalOffice = carRentalOfficeService.updateCarRentalOfficeWithoutBranch(id, branch);

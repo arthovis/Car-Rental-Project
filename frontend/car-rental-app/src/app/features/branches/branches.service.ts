@@ -1,13 +1,13 @@
-import { Branch } from './../../shared/model/branch';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Branch } from 'src/app/shared/model/branch';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BranchService {
+export class BranchesService {
 
   private readonly BRANCH_API = `${environment.serverApiUrl}/branch`;
 
@@ -27,6 +27,10 @@ export class BranchService {
 
   getBranchById(id: number): Observable<Branch> {
     return this.httpClient.get<Branch>(this.BRANCH_API + `/${id}`);
+  }
+
+  updateBranch(id: number, branch: Branch): Observable<Branch> {
+    return this.httpClient.put<Branch> (this.BRANCH_API + `/${id}`, branch);
   }
 
 }

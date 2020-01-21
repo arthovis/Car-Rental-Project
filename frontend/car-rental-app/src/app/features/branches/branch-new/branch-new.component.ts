@@ -1,19 +1,23 @@
-import { Branch } from './../../shared/model/branch';
-import { BranchService } from './branch.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/success-snack.component';
+import { BranchesService } from '../branches.service';
+import { Branch } from 'src/app/shared/model/branch';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-branch',
-  templateUrl: './branch.component.html',
-  styleUrls: ['./branch.component.css']
+  selector: 'app-branch-new',
+  templateUrl: './branch-new.component.html',
+  styleUrls: ['./branch-new.component.css']
 })
-export class BranchComponent implements OnInit {
+export class BranchNewComponent implements OnInit {
 
   address: string;
 
-  constructor(public branchService: BranchService, private snackBar: MatSnackBar) { }
+  constructor(public branchService: BranchesService,
+              private snackBar: MatSnackBar,
+              private router: Router
+              ) { }
 
   ngOnInit() {
   }
@@ -27,6 +31,10 @@ export class BranchComponent implements OnInit {
           verticalPosition: 'top'
         });
       });
+  }
+
+  goToBranches() {
+    this.router.navigate(['/branches']);
   }
 
 }
