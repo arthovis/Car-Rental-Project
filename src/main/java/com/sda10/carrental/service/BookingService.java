@@ -24,11 +24,6 @@ public class BookingService {
     @Autowired
     public CarRepository carRepository;
 
-//    @Transactional
-//    public Booking createBooking(Booking booking) {
-//        return bookingRepository.save(booking);
-//    }
-
     @Transactional
     public Booking createBooking(Customer client, Car car, LocalDate rentalDate, LocalDate carReturn) {
         if (car.getStatus() != Status.AVAILABLE) {

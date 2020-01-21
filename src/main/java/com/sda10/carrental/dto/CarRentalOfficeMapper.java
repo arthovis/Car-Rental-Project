@@ -17,7 +17,6 @@ public class CarRentalOfficeMapper {
     public CarRentalOffice toEntity(CarRentalOfficeDto dto) {
 
         CarRentalOffice entity = new CarRentalOffice();
-
         entity.setId(dto.id);
         entity.setName(dto.name);
         entity.setInternetDomain(dto.internetDomain);
@@ -41,11 +40,10 @@ public class CarRentalOfficeMapper {
                 .withContactAddress(entity.getContactAddress())
                 .withOwner(entity.getOwner())
                 .withLogoType(entity.getLogoType())
-                .withBranches(entity.getBranches()
+                .withBranches(Optional.ofNullable(entity.getBranches()).orElse(Collections.emptyList())
                         .stream()
                         .map(branchMapper::toDto)
                         .collect(Collectors.toList()));
     }
-
 
 }

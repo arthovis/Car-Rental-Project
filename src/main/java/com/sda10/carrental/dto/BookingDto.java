@@ -12,8 +12,6 @@ public class BookingDto {
     public CustomerDto client;
     public CarDto car;
     public RentalDto dateFrom;
-    //    public CarRentalOfficeDto rentalBranch;
-//    public CarRentalOfficeDto returnBranch;
     public Double amount;
     public CarReturnDto carReturnDto;
     public BookingStatus bookingStatus;
@@ -49,16 +47,6 @@ public class BookingDto {
         this.dateFrom = dateFrom;
         return this;
     }
-
-//    public BookingDto withRentalBranch(CarRentalOfficeDto rentalBranch) {
-//        this.rentalBranch = rentalBranch;
-//        return this;
-//    }
-//
-//    public BookingDto withReturnBranch(CarRentalOfficeDto returnBranch) {
-//        this.returnBranch = returnBranch;
-//        return this;
-//    }
 
     public BookingDto withAmount(Double amount) {
         this.amount = amount;

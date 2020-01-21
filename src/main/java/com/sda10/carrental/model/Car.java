@@ -32,12 +32,12 @@ public class Car {
     @NotNull
     private Long mileage;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
     private Status status;
 
     @NotNull
     private Double amount;
-
 
     public Long getId() {
         return id;

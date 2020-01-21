@@ -12,26 +12,26 @@ public class EmployeeDto {
 
     public JobPosition jobPosition;
 
-    private EmployeeDto(){
+    private EmployeeDto() {
 
     }
 
-    public static EmployeeDto employeeDto(){
+    public static EmployeeDto employeeDto() {
         return new EmployeeDto();
     }
 
-    public EmployeeDto withId(Long id){
-        this.id=id;
+    public EmployeeDto withId(Long id) {
+        this.id = id;
         return this;
     }
 
-    public EmployeeDto withNameAndSurname(String nameAndSurname){
-        this.nameAndSurname=nameAndSurname;
+    public EmployeeDto withNameAndSurname(String nameAndSurname) {
+        this.nameAndSurname = nameAndSurname;
         return this;
     }
 
     public EmployeeDto withJobPosition(JobPosition jobPosition) {
-        this.jobPosition=jobPosition;
+        this.jobPosition = jobPosition;
         return this;
     }
 
@@ -39,7 +39,7 @@ public class EmployeeDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof EmployeeDto)) return false;
         EmployeeDto that = (EmployeeDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(nameAndSurname, that.nameAndSurname) &&

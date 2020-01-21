@@ -2,6 +2,7 @@ package com.sda10.carrental.service;
 
 import com.sda10.carrental.model.Branch;
 import com.sda10.carrental.model.Car;
+import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.model.Status;
 import com.sda10.carrental.repository.BranchRepository;
 import com.sda10.carrental.repository.CarRepository;
@@ -64,4 +65,55 @@ public class BranchService {
     public List<Branch> getAllBranches() {
         return branchRepository.findAll();
     }
+
+    public Branch updateBranchWithEmployee(Long id, Employee employee) {
+        Optional<Branch> branchToUpdate = branchRepository.findById(id);
+
+        if (branchToUpdate.isPresent()) {
+            Branch branch = branchToUpdate.get();
+            branch.addEmployee(employee);
+            employeeRepository.save(employee);
+            return branchRepository.save(branch);
+        } else {
+            throw new RuntimeException("Branch could not be updated");
+        }
+    }
+
+    public Branch updateBranchWithoutEmployee(Long id, Employee employee) {
+        Optional<Branch> branchToUpdate = branchRepository.findById(id);
+
+        if (branchToUpdate.isPresent()) {
+            Branch branch = branchToUpdate.get();
+            branch.removeEmployee(employee);
+            employeeRepository.save(employee);
+            return branchRepository.save(branch);
+        } else {
+            throw new RuntimeException("Branch could not be removed");
+        }
+    }
+
+    public Branch updateBranchWithCar(Long id, Car car) {
+        Optional<Branch> branchToUpdate = branchRepository.findById(id);
+
+        if (branchToUpdate.isPresent()) {
+            Branch branch = branchToUpdate.get();
+            branch.addCar(car);
+            return branchRepository.save(branch);
+        } else {
+            throw new RuntimeException("Branch could not be updated");
+        }
+    }
+
+    public Branch updateBranchWithoutCar(Long id, Car car) {
+        Optional<Branch> branchToUpdate = branchRepository.findById(id);
+
+        if (branchToUpdate.isPresent()) {
+            Branch branch = branchToUpdate.get();
+            branch.removeCar(car);
+            return branchRepository.save(branch);
+        } else {
+            throw new RuntimeException("Branch could not be removed");
+        }
+    }
+
 }

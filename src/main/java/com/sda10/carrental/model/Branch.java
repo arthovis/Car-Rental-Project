@@ -2,6 +2,7 @@ package com.sda10.carrental.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,11 +15,11 @@ public class Branch {
     private Long id;
 
     @OneToMany(mappedBy = "branch")
-    List<Employee> employeeList;
+    List<Employee> employeeList = new ArrayList<>();
 
     @OneToMany
     @JoinColumn(name = "branch_id")
-    List<Car> availableCarsList;
+    List<Car> availableCarsList = new ArrayList<>();
 
     @Column
     @NotNull
@@ -54,6 +55,24 @@ public class Branch {
 
     public void setAvailableCarsList(List<Car> availableCarsList) {
         this.availableCarsList = availableCarsList;
+    }
+
+    public void addCar(Car car) {
+        availableCarsList.add(car);
+    }
+
+    public void removeCar(Car car) {
+        availableCarsList.remove(car);
+    }
+
+    public void addEmployee(Employee employee) {
+        employeeList.add(employee);
+        employee.setBranch(this);
+    }
+
+    public void removeEmployee(Employee employee) {
+        employeeList.remove(employee);
+        employee.setBranch(null);
     }
 
     @Override

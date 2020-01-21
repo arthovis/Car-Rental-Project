@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class EmployeeController {
 
@@ -31,6 +34,16 @@ public class EmployeeController {
         Employee employeeById = employeeService.getEmployeeById(id);
 
         return employeeMapper.toDto(employeeById);
+    }
+
+    @GetMapping(value = "/employees")
+    public List<EmployeeDto> findAllEmployees() {
+
+        List<Employee> employees = employeeService.getAllEmployees();
+        return employees
+                .stream()
+                .map(employeeMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @PutMapping(value = "/employees/{id}")

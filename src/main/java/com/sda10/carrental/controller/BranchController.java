@@ -1,8 +1,9 @@
 package com.sda10.carrental.controller;
 
-import com.sda10.carrental.dto.BranchDto;
-import com.sda10.carrental.dto.BranchMapper;
+import com.sda10.carrental.dto.*;
 import com.sda10.carrental.model.Branch;
+import com.sda10.carrental.model.Car;
+import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.service.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,12 @@ public class BranchController {
 
     @Autowired
     private BranchMapper branchMapper;
+
+    @Autowired
+    private EmployeeMapper employeeMapper;
+
+    @Autowired
+    private CarMapper carMapper;
 
     @PostMapping(value = "/branch")
     public BranchDto createRental(@RequestBody BranchDto branchDetails) {
@@ -68,5 +75,40 @@ public class BranchController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PutMapping(value = "/branch/{id}/employees")
+    public ResponseEntity<BranchDto> addEmployeeToBranch(@PathVariable Long id, @RequestBody EmployeeDto employeeDto) {
+        Employee employee = employeeMapper.toEntity(employeeDto);
+        Branch updatedBranch = branchService.updateBranchWithEmployee(id, employee);
+        BranchDto response = branchMapper.toDto(updatedBranch);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/branch/{id}/details")
+    public ResponseEntity<BranchDto> deleteEmployeeFromBranch(@PathVariable Long id, @RequestBody EmployeeDto employeeDto) {
+        Employee employee = employeeMapper.toEntity(employeeDto);
+        Branch updatedBranch = branchService.updateBranchWithoutEmployee(id, employee);
+        BranchDto response = branchMapper.toDto(updatedBranch);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/branch/{id}/cars")
+    public ResponseEntity<BranchDto> addCarToBranch(@PathVariable Long id, @RequestBody CarDto carDto) {
+        Car car = carMapper.toEntity(carDto);
+        Branch updatedBranch = branchService.updateBranchWithCar(id, car);
+        BranchDto response = branchMapper.toDto(updatedBranch);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/branch/{id}/details")
+    public ResponseEntity<BranchDto> deleteCarFromBranch(@PathVariable Long id, @RequestBody CarDto carDto) {
+        Car car = carMapper.toEntity(carDto);
+        Branch updatedBranch = branchService.updateBranchWithoutCar(id, car);
+        BranchDto response = branchMapper.toDto(updatedBranch);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 }

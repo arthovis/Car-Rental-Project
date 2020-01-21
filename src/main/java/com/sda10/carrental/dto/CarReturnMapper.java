@@ -13,36 +13,22 @@ public class CarReturnMapper {
     @Autowired
     private BranchMapper branchMapper;
 
-    public CarReturn toEntity(CarReturnDto carReturnDtoDetails) {
+    public CarReturn toEntity(CarReturnDto carReturnDto) {
         CarReturn carReturn = new CarReturn();
-        carReturn.setEmployee(employeeMapper.toEntity(carReturnDtoDetails.employeeDto));
-        carReturn.setBranch(branchMapper.toEntity(carReturnDtoDetails.branchDto));
-        carReturn.setDateOfReturn(carReturnDtoDetails.dateOfReturn);
-        carReturn.setAdditionalPayment(carReturnDtoDetails.additionalPayment);
-        carReturn.setComments(carReturnDtoDetails.comments);
-        return carReturn;
-    }
-
-    public CarReturn toLightEntity(CarReturnDto carReturnDtoDetails) {
-        CarReturn carReturn = new CarReturn();
-        carReturn.setDateOfReturn(carReturnDtoDetails.dateOfReturn);
-        carReturn.setAdditionalPayment(carReturnDtoDetails.additionalPayment);
-        carReturn.setComments(carReturnDtoDetails.comments);
+        carReturn.setId(carReturnDto.id);
+        carReturn.setEmployee(carReturnDto.employeeDto == null ? null : employeeMapper.toEntity(carReturnDto.employeeDto));
+        carReturn.setBranch(carReturnDto.branchDto == null ? null : branchMapper.toEntity(carReturnDto.branchDto));
+        carReturn.setDateOfReturn(carReturnDto.dateOfReturn);
+        carReturn.setAdditionalPayment(carReturnDto.additionalPayment);
+        carReturn.setComments(carReturnDto.comments);
         return carReturn;
     }
 
     public CarReturnDto toDto(CarReturn carReturn) {
         return CarReturnDto.carReturnDto()
                 .withId(carReturn.getId())
-                .withEmployeeDto(employeeMapper.toDto(carReturn.getEmployee()))
-                .withBranchDto(branchMapper.toLightDto(carReturn.getBranch()))
-                .withDateOfReturn(carReturn.getDateOfReturn())
-                .withAdditionalPayment(carReturn.getAdditionalPayment())
-                .withComments(carReturn.getComments());
-    }
-
-    public CarReturnDto toLightDto(CarReturn carReturn) {
-        return CarReturnDto.carReturnDto()
+                .withEmployeeDto(carReturn.getEmployee() == null ? null : employeeMapper.toDto(carReturn.getEmployee()))
+                .withBranchDto(carReturn.getBranch() == null ? null : branchMapper.toLightDto(carReturn.getBranch()))
                 .withDateOfReturn(carReturn.getDateOfReturn())
                 .withAdditionalPayment(carReturn.getAdditionalPayment())
                 .withComments(carReturn.getComments());
