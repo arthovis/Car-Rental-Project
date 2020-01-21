@@ -17,13 +17,13 @@ public class Employee {
     @NotNull
     private String nameAndSurname;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
     private JobPosition jobPosition;
 
     @ManyToOne
     @JoinColumn(name = "branch_id", referencedColumnName = "id")
     private Branch branch;
-
 
     public Long getId() {
         return id;
@@ -49,13 +49,13 @@ public class Employee {
         this.jobPosition = jobPosition;
     }
 
-//    public Branch getBranch() {
-//        return branch;
-//    }
-//
-//    public void setBranch(Branch branch) {
-//        this.branch = branch;
-//    }
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
 
     @Override
     public boolean equals(Object o) {

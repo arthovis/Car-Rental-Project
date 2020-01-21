@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,10 +34,14 @@ public class EmployeeService {
         }
     }
 
-    public void deleteEmployee(Long  id){
-        Employee existingEmployee=employeeRepository.findById(id).get();
+    public void deleteEmployee(Long id) {
+        Employee existingEmployee = employeeRepository.findById(id).get();
 
         employeeRepository.delete(existingEmployee);
+    }
+
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
     }
 
 }

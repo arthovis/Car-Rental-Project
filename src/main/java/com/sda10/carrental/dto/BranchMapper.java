@@ -19,11 +19,11 @@ public class BranchMapper {
         return BranchDto.branchDto()
                 .withId(branch.getId())
                 .withAddress(branch.getAddress())
-                .withCar(branch.getAvailableCarsList()
+                .withCar(branch.getAvailableCarsList() == null ? null : branch.getAvailableCarsList()
                         .stream()
                         .map(carMapper::toDto)
                         .collect(Collectors.toList()))
-                .withEmployees(branch.getEmployeeList()
+                .withEmployees(branch.getEmployeeList() == null ? null : branch.getEmployeeList()
                         .stream()
                         .map(employeeMapper::toDto)
                         .collect(Collectors.toList()));
@@ -37,16 +37,18 @@ public class BranchMapper {
 
     public Branch toEntity(BranchDto branchDto) {
         Branch branch = new Branch();
-
         branch.setId(branchDto.id);
         branch.setAddress(branchDto.address);
-        branch.setEmployeeList(branchDto.employeeList.stream()
+        branch.setEmployeeList(branchDto.employeeList == null ? null : branchDto.employeeList
+                .stream()
                 .map(employeeMapper::toEntity)
                 .collect(Collectors.toList()));
-        branch.setAvailableCarsList(branchDto.availableCarsList.stream()
+        branch.setAvailableCarsList(branchDto.availableCarsList == null ? null : branchDto.availableCarsList
+                .stream()
                 .map(carMapper::toEntity)
                 .collect(Collectors.toList()));
 
         return branch;
     }
+
 }

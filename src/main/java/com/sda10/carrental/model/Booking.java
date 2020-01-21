@@ -81,22 +81,6 @@ public class Booking {
         this.dateFrom = dateFrom;
     }
 
-//    public CarRentalOffice getRentalBranch() {
-//        return rentalBranch;
-//    }
-//
-//    public void setRentalBranch(CarRentalOffice rentalBranch) {
-//        this.rentalBranch = rentalBranch;
-//    }
-
-//    public CarRentalOffice getReturnBranch() {
-//        return returnBranch;
-//    }
-//
-//    public void setReturnBranch(CarRentalOffice returnBranch) {
-//        this.returnBranch = returnBranch;
-//    }
-
     public void addRental(LocalDate date) {
         Rental rental = new Rental();
         rental.setRentalDate(date);

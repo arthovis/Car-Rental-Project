@@ -26,12 +26,16 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
     CarRepository carRepository;
+
     @Autowired
-    public BookingRepository bookingRepository;
+    BookingRepository bookingRepository;
+
     @Autowired
     EmployeeRepository employeeRepository;
+
     @Autowired
     BranchRepository branchRepository;
+
     @Autowired
     CarReturnRepository carReturnRepository;
 
@@ -43,8 +47,10 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
 
     @Autowired
     RentalMapper rentalMapper;
+
     @Autowired
     CarMapper carMapper;
+
     @Autowired
     CarReturnMapper carReturnMapper;
 
@@ -77,7 +83,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
                     .withCar(carMapper.toDto(car))
                     .withDateFrom(rentalMapper.toDto(rental))
                     .withAmount(amount)
-                    .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn))
+                    .withCarReturnDto(carReturnMapper.toDto(lightCarReturn))
                     .withStatus(BookingStatus.OPEN);
 
             String relativePath = "/bookings";
@@ -88,6 +94,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
             Optional<Booking> expectedBooking = bookingRepository.findById(newId);
             BookingDto expectedResponse = bookingDetails.withId(newId);
             expectedResponse.dateFrom.withId(actualResponse.getBody().dateFrom.id);
+            expectedResponse.carReturnDto.withId(actualResponse.getBody().carReturnDto.id);
 
             Assertions.assertTrue(expectedBooking.isPresent());
             Assertions.assertEquals(expectedResponse, actualResponse.getBody());
@@ -121,7 +128,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
                     .withCar(carMapper.toDto(car))
                     .withDateFrom(rentalMapper.toDto(rental))
                     .withAmount(amount)
-                    .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn))
+                    .withCarReturnDto(carReturnMapper.toDto(lightCarReturn))
                     .withStatus(BookingStatus.OPEN);
 
             String relativePath = "/bookings";
@@ -177,7 +184,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
                 .withCar(carMapper.toDto(car))
                 .withDateFrom(rentalMapper.toDto(rental))
                 .withAmount(1000D)
-                .withCarReturnDto(carReturnMapper.toLightDto(lightCarReturn))
+                .withCarReturnDto(carReturnMapper.toDto(lightCarReturn))
                 .withStatus(BookingStatus.OPEN);
 
 
@@ -304,34 +311,6 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         car = carRepository.saveAndFlush(car);
         return car;
     }
-
-/* // Alex
-    private Car getUpdatedCar() {
-        Car updatedCar = new Car();
-        updatedCar.setMake("Aa");
-        updatedCar.setModel("Bb");
-        updatedCar.setBodyType("Cc");
-        updatedCar.setYearOfProduction(1988);
-        updatedCar.setColor("Dd");
-        updatedCar.setMileage(2019L);
-        updatedCar.setStatus(Status.UNAVAILABLE);
-        updatedCar.setAmount("Ee");
-
-        updatedCar = carRepository.saveAndFlush(updatedCar);
-        return updatedCar;
-    }
-
-    private Customer getUpdatedCustomer() {
-        Customer customer = new Customer();
-        customer.setFirstName("Aa");
-        customer.setLastName("Bb");
-        customer.setEmail("Cc");
-        customer.setAddress("Dd");
-
-        customer = customerRepository.saveAndFlush(customer);
-        return customer;
-    }
-*/
 
     private CarReturn buildLightCarReturn() {
         CarReturn carReturn = new CarReturn();

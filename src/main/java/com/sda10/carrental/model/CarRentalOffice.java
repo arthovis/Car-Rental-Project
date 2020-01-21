@@ -32,7 +32,7 @@ public class CarRentalOffice {
     private String logoType;
 
     @OneToMany
-    @JoinColumn(name = "branch_id")
+    @JoinColumn(name = "car_rental_office")
     List<Branch> branches = new ArrayList<>();
 
     public Long getId() {
