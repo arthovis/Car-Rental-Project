@@ -1,8 +1,10 @@
+import { Employee } from './../../shared/model/employee';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Branch } from 'src/app/shared/model/branch';
+import { Car } from 'src/app/shared/model/car';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +33,22 @@ export class BranchesService {
 
   updateBranch(id: number, branch: Branch): Observable<Branch> {
     return this.httpClient.put<Branch> (this.BRANCH_API + `/${id}`, branch);
+  }
+
+  addEmployee(id: number, employee: Employee): Observable<Branch> {
+    return this.httpClient.put<Branch> (this.BRANCH_API + `/${id}` + `/employees`, employee);
+  }
+
+  deleteEmployee(id: number, employee: Employee): Observable<Branch> {
+    return this.httpClient.put<Branch> (this.BRANCH_API + `/${id}` + `/details`, employee);
+  }
+
+  addCar(id: number, car: Car): Observable<Branch> {
+    return this.httpClient.put<Branch> (this.BRANCH_API + `/${id}` + `/cars`, car);
+  }
+
+  deleteCar(id: number, car: Car): Observable<Branch> {
+    return this.httpClient.post<Branch> (this.BRANCH_API + `/${id}` + `/details`, car);
   }
 
 }

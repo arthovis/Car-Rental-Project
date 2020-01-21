@@ -1,0 +1,11 @@
+mat-grid-tile {
+  background: lightblue;
+}
+
+.cars-list {
+  width: 800px;
+}
+
+.cars-list table {
+  width: 100%;
+}

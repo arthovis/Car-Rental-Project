@@ -23,7 +23,7 @@ export class BranchNewComponent implements OnInit {
   }
 
   createBranch() {
-    const branch = new Branch(null, this.address);
+    const branch = new Branch(null, this.address, null, null);
     this.branchService.saveBranch(branch)
       .subscribe(result => {
         this.snackBar.openFromComponent(SuccessSnackComponent, {

@@ -17,7 +17,6 @@ export class RentalOfficeDetailsComponent implements OnInit {
 
   rentalOffices: Observable<RentalOffice[]>;
   office: RentalOffice;
-  branchById: Branch;
   branches: Branch[];
   view: boolean;
 

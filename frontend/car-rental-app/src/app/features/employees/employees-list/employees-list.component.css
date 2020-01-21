@@ -1,0 +1,11 @@
+mat-grid-tile {
+  background: lightblue;
+}
+
+.employees-list {
+  width: 800px;
+}
+
+.employees-list table {
+  width: 100%;
+}
