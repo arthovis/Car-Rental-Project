@@ -55,7 +55,9 @@
     <ul class="details">
       <li *ngFor="let employee of employees">
         <span class="badge">{{employee.id}}</span>{{employee.nameAndSurname}}
-        <button (click)=deleteEmployee(employee) mat-raised-button style="position: absolute; right: 0;">Delete</button>
+        <button (click)=deleteEmployee(employee) mat-raised-button style="position: absolute; right: 0; bottom: 0px;">
+          Delete
+        </button>
       </li>
     </ul>
   </div>
@@ -70,7 +72,8 @@
     <ul class="details">
       <li *ngFor="let car of cars">
         <span class="badge">{{car.id}}</span>{{car.model}}
-        <button (click)=deleteCar(car) mat-raised-button style="position: absolute; right: 0;">Delete</button>
+        <button (click)=deleteCar(car) mat-raised-button style="position: absolute; right: 0; bottom: 0px;">Delete
+        </button>
       </li>
     </ul>
   </div>
