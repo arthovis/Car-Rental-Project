@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface RevenueRepository extends JpaRepository<Booking, Long> {
 
-    @Query("SELECT b FROM Booking b JOIN b.dateFrom r JOIN r.branch br WHERE" +
+    @Query("SELECT b FROM Booking b JOIN b.rental r JOIN r.branch br WHERE" +
             " br.id = :branchID AND (b.bookingStatus = 'COMPLETED' OR b.bookingStatus = 'CANCELLED')")
     List<Booking> bookingsByBranchIdAndStatus(@Param("branchID") Long branchID);
 

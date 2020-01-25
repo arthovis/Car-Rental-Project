@@ -25,14 +25,14 @@ public class BookingService {
     public CarRepository carRepository;
 
     @Transactional
-    public Booking createBooking(Customer client, Car car, LocalDate rentalDate, LocalDate carReturn) {
+    public Booking createBooking(Customer client, Car car, LocalDate rentalDate, LocalDate returnDate, Branch rentalBranch, Branch returnBranch) {
         if (car.getStatus() != Status.AVAILABLE) {
             throw new RuntimeException("Car is not available.");
         }
-        if (!rentalDate.isBefore(carReturn)) {
+        if (!rentalDate.isBefore(returnDate)) {
             throw new IllegalArgumentException();
         }
-        Booking booking = buildBooking(client, car, rentalDate, carReturn);
+        Booking booking = buildBooking(client, car, rentalDate, returnDate, rentalBranch, returnBranch);
         return bookingRepository.save(booking);
     }
 
@@ -57,29 +57,32 @@ public class BookingService {
         bookingRepository.delete(bookingToDelete);
     }
 
-    public Booking buildBooking(Customer client, Car car, LocalDate rentalDate, LocalDate carReturn) {
+    public Booking buildBooking(Customer client, Car desiredCar, LocalDate rentalDate, LocalDate returnDate, Branch rentalBranch, Branch returnBranch) {
 
-        Double amount = getCalculatedBookingAmount(car, rentalDate, carReturn);
+        Double amount = getCalculatedBookingAmount(desiredCar, rentalDate, returnDate);
 
         Customer customer = customerRepository.findById(client.getId()).get();
 
-        Car car1 = carRepository.findById(car.getId()).get();
+        Car car = carRepository.findById(desiredCar.getId()).get();
 
         Booking booking = new Booking();
-
-        booking.setClient(customer);
-        booking.setCar(car1);
-        booking.addRental(rentalDate);
-        booking.addReturn(carReturn);
-        booking.setAmount(amount);
         booking.setDateOfBooking(LocalDate.now());
+        booking.setDateFrom(rentalDate);
+        booking.setDateTo(returnDate);
+        booking.setClient(customer);
+        booking.setCar(car);
+        booking.setRentalBranch(rentalBranch);
+        booking.setReturnBranch(returnBranch);
+        booking.addRental(rentalDate, rentalBranch);
+        booking.addReturn(returnDate, returnBranch);
+        booking.setAmount(amount);
         booking.setBookingStatus(BookingStatus.OPEN);
 
         return booking;
     }
 
-    private Double getCalculatedBookingAmount(Car car, LocalDate rentalDate, LocalDate carReturn) {
-        Integer rentalDays = Period.between(rentalDate, carReturn).getDays();
+    private Double getCalculatedBookingAmount(Car car, LocalDate rentalDate, LocalDate returnDate) {
+        Integer rentalDays = Period.between(rentalDate, returnDate).getDays();
         return rentalDays * car.getAmount();
     }
 
@@ -87,9 +90,9 @@ public class BookingService {
 
         Booking bookingToUpdate = bookingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Booking could not be canceled"));
-        LocalDate cancelationDate = LocalDate.now();
+        LocalDate cancellationDate = LocalDate.now();
 
-        Integer daysUntilPickup = Period.between(bookingToUpdate.getDateFrom().getRentalDate(), cancelationDate).getDays();
+        Integer daysUntilPickup = Period.between(cancellationDate, bookingToUpdate.getDateFrom()).getDays();
 
         bookingToUpdate.setBookingStatus(BookingStatus.CANCELLED);
 
@@ -102,16 +105,4 @@ public class BookingService {
         return bookingRepository.save(bookingToUpdate);
     }
 
-    public Booking updateRental(Long id, Rental rentalWithDetails) {
-        Optional<Booking> bookingToUpdate = bookingRepository.findById(id);
-
-        if (bookingToUpdate.isPresent()) {
-            Booking booking = bookingToUpdate.get();
-            booking.getDateFrom().setEmployee(rentalWithDetails.getEmployee());
-            booking.getDateFrom().setComments(rentalWithDetails.getComments());
-            return bookingRepository.save(booking);
-        } else {
-            throw new RuntimeException("Booking could not be updated");
-        }
-    }
 }

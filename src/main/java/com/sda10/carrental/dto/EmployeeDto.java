@@ -12,6 +12,8 @@ public class EmployeeDto {
 
     public JobPosition jobPosition;
 
+    public BranchDto branchDto;
+
     private EmployeeDto() {
 
     }
@@ -35,6 +37,10 @@ public class EmployeeDto {
         return this;
     }
 
+    public EmployeeDto withBranchDto(BranchDto branchDto) {
+        this.branchDto = branchDto;
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -43,11 +49,13 @@ public class EmployeeDto {
         EmployeeDto that = (EmployeeDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(nameAndSurname, that.nameAndSurname) &&
-                jobPosition == that.jobPosition;
+                jobPosition == that.jobPosition &&
+                Objects.equals(branchDto, that.branchDto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameAndSurname, jobPosition);
+        return Objects.hash(id, nameAndSurname, jobPosition, branchDto);
     }
+
 }

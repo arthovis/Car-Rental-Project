@@ -9,11 +9,15 @@ public class BookingDto {
 
     public Long id;
     public LocalDate dateOfBooking;
+    public LocalDate dateFrom;
+    public LocalDate dateTo;
+    public BranchDto rentalBranchDto;
+    public BranchDto returnBranchDto;
     public CustomerDto client;
     public CarDto car;
-    public RentalDto dateFrom;
-    public Double amount;
+    public RentalDto rentalDto;
     public CarReturnDto carReturnDto;
+    public Double amount;
     public BookingStatus bookingStatus;
 
     private BookingDto() {
@@ -33,28 +37,48 @@ public class BookingDto {
         return this;
     }
 
-    public BookingDto withClient(CustomerDto client) {
-        this.client = client;
-        return this;
-    }
-
-    public BookingDto withCar(CarDto car) {
-        this.car = car;
-        return this;
-    }
-
-    public BookingDto withDateFrom(RentalDto dateFrom) {
+    public BookingDto withDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
         return this;
     }
 
-    public BookingDto withAmount(Double amount) {
-        this.amount = amount;
+    public BookingDto withDateTo(LocalDate dateTo) {
+        this.dateTo = dateTo;
+        return this;
+    }
+
+    public BookingDto withClientDto(CustomerDto client) {
+        this.client = client;
+        return this;
+    }
+
+    public BookingDto withCarDto(CarDto car) {
+        this.car = car;
+        return this;
+    }
+
+    public BookingDto withRentalBranchDto(BranchDto rentalBranchDto) {
+        this.rentalBranchDto = rentalBranchDto;
+        return this;
+    }
+
+    public BookingDto withReturnBranchDto(BranchDto returnBranchDto) {
+        this.returnBranchDto = returnBranchDto;
+        return this;
+    }
+
+    public BookingDto withRentalDto(RentalDto rentalDto) {
+        this.rentalDto = rentalDto;
         return this;
     }
 
     public BookingDto withCarReturnDto(CarReturnDto carReturnDto) {
         this.carReturnDto = carReturnDto;
+        return this;
+    }
+
+    public BookingDto withAmount(Double amount) {
+        this.amount = amount;
         return this;
     }
 
@@ -66,21 +90,25 @@ public class BookingDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof BookingDto)) return false;
         BookingDto that = (BookingDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(dateOfBooking, that.dateOfBooking) &&
+                Objects.equals(dateFrom, that.dateFrom) &&
+                Objects.equals(dateTo, that.dateTo) &&
+                Objects.equals(rentalBranchDto, that.rentalBranchDto) &&
+                Objects.equals(returnBranchDto, that.returnBranchDto) &&
                 Objects.equals(client, that.client) &&
                 Objects.equals(car, that.car) &&
-                Objects.equals(dateFrom, that.dateFrom) &&
-                Objects.equals(amount, that.amount) &&
+                Objects.equals(rentalDto, that.rentalDto) &&
                 Objects.equals(carReturnDto, that.carReturnDto) &&
+                Objects.equals(amount, that.amount) &&
                 bookingStatus == that.bookingStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, amount, carReturnDto, bookingStatus);
+        return Objects.hash(id, dateOfBooking, dateFrom, dateTo, rentalBranchDto, returnBranchDto, client, car, rentalDto, carReturnDto, amount, bookingStatus);
     }
 
     @Override
@@ -88,12 +116,17 @@ public class BookingDto {
         return "BookingDto{" +
                 "id=" + id +
                 ", dateOfBooking=" + dateOfBooking +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
+                ", rentalBranchDto=" + rentalBranchDto +
+                ", returnBranchDto=" + returnBranchDto +
                 ", client=" + client +
                 ", car=" + car +
-                ", dateFrom=" + dateFrom +
-                ", amount=" + amount +
+                ", rentalDto=" + rentalDto +
                 ", carReturnDto=" + carReturnDto +
+                ", amount=" + amount +
                 ", bookingStatus=" + bookingStatus +
                 '}';
     }
+
 }

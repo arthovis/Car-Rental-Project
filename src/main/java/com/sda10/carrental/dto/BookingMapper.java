@@ -18,15 +18,23 @@ public class BookingMapper {
     @Autowired
     CarReturnMapper carReturnMapper;
 
+    @Autowired
+    BranchMapper branchMapper;
+
+
     public Booking toEntity(BookingDto dto) {
 
         Booking entity = new Booking();
         entity.setDateOfBooking(dto.dateOfBooking);
+        entity.setDateFrom(dto.dateFrom);
+        entity.setDateTo(dto.dateTo);
         entity.setClient(customerMapper.toEntity(dto.client));
         entity.setCar(carMapper.toEntity(dto.car));
-        entity.setDateFrom(rentalMapper.toEntity(dto.dateFrom));
+        entity.setRentalBranch(dto.rentalBranchDto == null ? null : branchMapper.toEntity(dto.rentalBranchDto));
+        entity.setReturnBranch(dto.returnBranchDto == null ? null : branchMapper.toEntity(dto.returnBranchDto));
+        entity.setRental(dto.rentalDto == null ? null : rentalMapper.toEntity(dto.rentalDto));
+        entity.setCarReturn(dto.carReturnDto == null ? null : carReturnMapper.toEntity(dto.carReturnDto));
         entity.setAmount(dto.amount);
-        entity.setCarReturn(carReturnMapper.toEntity(dto.carReturnDto));
         entity.setBookingStatus(dto.bookingStatus);
         return entity;
     }
@@ -35,11 +43,15 @@ public class BookingMapper {
         return BookingDto.bookingDto()
                 .withId(entity.getId())
                 .withDateOfBooking(entity.getDateOfBooking())
-                .withClient(customerMapper.toDto(entity.getClient()))
-                .withCar(carMapper.toDto(entity.getCar()))
-                .withDateFrom(rentalMapper.toDto(entity.getDateFrom()))
+                .withDateFrom(entity.getDateFrom())
+                .withDateTo(entity.getDateTo())
+                .withClientDto(customerMapper.toDto(entity.getClient()))
+                .withCarDto(carMapper.toDto(entity.getCar()))
+                .withRentalBranchDto(entity.getRentalBranch() == null ? null : branchMapper.toLightDto(entity.getRentalBranch()))
+                .withReturnBranchDto(entity.getReturnBranch() == null ? null : branchMapper.toLightDto(entity.getReturnBranch()))
+                .withRentalDto(entity.getRental() == null ? null : rentalMapper.toDto(entity.getRental()))
+                .withCarReturnDto(entity.getCarReturn() == null ? null : carReturnMapper.toDto(entity.getCarReturn()))
                 .withAmount(entity.getAmount())
-                .withCarReturnDto(carReturnMapper.toDto(entity.getCarReturn()))
                 .withStatus(entity.getBookingStatus());
     }
 }
