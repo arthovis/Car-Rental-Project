@@ -1,3 +1,4 @@
+/*
 package com.sda10.carrental.dto;
 
 import com.sda10.carrental.UnitTest;
@@ -24,9 +25,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer)
                 .withCar(car)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         BookingDto bookingDto2 = BookingDto
@@ -36,9 +34,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer)
                 .withCar(car)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -58,9 +53,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer)
                 .withCar(car)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         BookingDto bookingDto2 = BookingDto
@@ -70,9 +62,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer)
                 .withCar(car)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -93,9 +82,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer1)
                 .withCar(car)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         BookingDto bookingDto2 = BookingDto
@@ -105,9 +91,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer2)
                 .withCar(car)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -129,9 +112,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer)
                 .withCar(car)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         BookingDto bookingDto2 = BookingDto
@@ -141,9 +121,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer)
                 .withCar(car2)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -163,9 +140,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer)
                 .withCar(car)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         BookingDto bookingDto2 = BookingDto
@@ -175,116 +149,12 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer)
                 .withCar(car)
                 .withDateFrom(getRental2())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
 
         Assertions.assertFalse(comparisonResult);
     }
-
-
-//    @Test
-//    public void givenTwoBookingWithDifferentDateTo_whenCompared_resultIsFalse() {
-//        CustomerDto customer = getCustomerDto();
-//        CarDto car = getCarDto();
-//
-//        BookingDto bookingDto1 = BookingDto
-//                .bookingDto()
-//                .withId(1L)
-//                .withDateOfBooking(LocalDate.now())
-//                .withClient(customer)
-//                .withCar(car)
-//                .withDateFrom(LocalDate.of(2019, 12, 20))
-//                .withDateTo(LocalDate.of(2019, 12, 24))
-////                .withRentalBranch("C")
-////                .withReturnBranch("D")
-//                .withAmount(100L);
-//
-//        BookingDto bookingDto2 = BookingDto
-//                .bookingDto()
-//                .withId(1L)
-//                .withDateOfBooking(LocalDate.now())
-//                .withClient(customer)
-//                .withCar(car)
-//                .withDateFrom(LocalDate.of(2019, 12, 20))
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-////                .withRentalBranch("C")
-////                .withReturnBranch("D")
-//                .withAmount(100L);
-//
-//        boolean comparisonResult = bookingDto1.equals(bookingDto2);
-//
-//        Assertions.assertFalse(comparisonResult);
-//    }
-
-//    @Test
-//    public void givenTwoBookingWithDifferentRentalBranch_whenCompared_resultIsFalse() {
-//        CustomerDto customer = getCustomerDto();
-//
-//        BookingDto bookingDto1 = BookingDto
-//                .bookingDto()
-//                .withId(1L)
-//                .withDateOfBooking(LocalDate.now())
-//                .withClient(customer)
-////                .withCar("B")
-//                .withDateFrom(LocalDate.of(2019, 12, 20))
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-////                .withRentalBranch("D")
-////                .withReturnBranch("D")
-//                .withAmount(100L);
-//
-//        BookingDto bookingDto2 = BookingDto
-//                .bookingDto()
-//                .withId(1L)
-//                .withDateOfBooking(LocalDate.now())
-//                .withClient(customer)
-////                .withCar("B")
-//                .withDateFrom(LocalDate.of(2019, 12, 20))
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-////                .withRentalBranch("C")
-////                .withReturnBranch("D")
-//                .withAmount(100L);
-//
-//        boolean comparisonResult = bookingDto1.equals(bookingDto2);
-//
-//        Assertions.assertFalse(comparisonResult);
-//    }
-//
-//    @Test
-//    public void givenTwoBookingWithDifferentReturnBranch_whenCompared_resultIsFalse() {
-//        CustomerDto customer = getCustomerDto();
-//
-//        BookingDto bookingDto1 = BookingDto
-//                .bookingDto()
-//                .withId(1L)
-//                .withDateOfBooking(LocalDate.now())
-//                .withClient(customer)
-////                .withCar("B")
-//                .withDateFrom(LocalDate.of(2019, 12, 20))
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-////                .withRentalBranch("C")
-////                .withReturnBranch("C")
-//                .withAmount(100L);
-//
-//        BookingDto bookingDto2 = BookingDto
-//                .bookingDto()
-//                .withId(1L)
-//                .withDateOfBooking(LocalDate.now())
-//                .withClient(customer)
-////                .withCar("B")
-//                .withDateFrom(LocalDate.of(2019, 12, 20))
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-////                .withRentalBranch("C")
-////                .withReturnBranch("D")
-//                .withAmount(100L);
-//
-//        boolean comparisonResult = bookingDto1.equals(bookingDto2);
-//
-//        Assertions.assertFalse(comparisonResult);
-//    }
 
     @Test
     public void givenTwoBookingWithDifferentAmount_whenCompared_resultIsFalse() {
@@ -298,9 +168,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer)
                 .withCar(car)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(100D);
 
         BookingDto bookingDto2 = BookingDto
@@ -310,9 +177,6 @@ public class BookingDtoTest extends UnitTest {
                 .withClient(customer)
                 .withCar(car)
                 .withDateFrom(getRental())
-//                .withDateTo(LocalDate.of(2019, 12, 25))
-//                .withRentalBranch("C")
-//                .withReturnBranch("D")
                 .withAmount(1000D);
 
         boolean comparisonResult = bookingDto1.equals(bookingDto2);
@@ -377,3 +241,4 @@ public class BookingDtoTest extends UnitTest {
                 .withComments("B");
     }
 }
+*/

@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "booking")
 public class Booking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,11 +29,25 @@ public class Booking {
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
-    private Rental dateFrom;
+    private Rental rental;
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private CarReturn carReturn;
+
+    @NotNull
+    @OneToOne
+    private Branch rentalBranch;
+
+    @NotNull
+    @OneToOne
+    private Branch returnBranch;
+
+    @NotNull
+    private LocalDate dateFrom;
+
+    @NotNull
+    private LocalDate dateTo;
 
     @NotNull
     private Double amount;
@@ -40,6 +55,9 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     @NotNull
     private BookingStatus bookingStatus;
+
+    public Booking() {
+    }
 
     public Long getId() {
         return id;
@@ -73,23 +91,33 @@ public class Booking {
         this.car = car;
     }
 
-    public Rental getDateFrom() {
-        return dateFrom;
+    public Rental getRental() {
+        return rental;
     }
 
-    public void setDateFrom(Rental dateFrom) {
-        this.dateFrom = dateFrom;
+    public void setRental(Rental rental) {
+        this.rental = rental;
     }
 
-    public void addRental(LocalDate date) {
+    public CarReturn getCarReturn() {
+        return carReturn;
+    }
+
+    public void setCarReturn(CarReturn carReturn) {
+        this.carReturn = carReturn;
+    }
+
+    public void addRental(LocalDate dateFrom, Branch rentalBranch) {
         Rental rental = new Rental();
-        rental.setRentalDate(date);
-        this.dateFrom = rental;
+        rental.setRentalDate(dateFrom);
+        rental.setBranch(rentalBranch);
+        this.rental = rental;
     }
 
-    public void addReturn(LocalDate date) {
+    public void addReturn(LocalDate dateTo, Branch returnBranch) {
         CarReturn carReturn = new CarReturn();
-        carReturn.setDateOfReturn(date);
+        carReturn.setDateOfReturn(dateTo);
+        carReturn.setBranch(returnBranch);
         this.carReturn = carReturn;
     }
 
@@ -101,14 +129,6 @@ public class Booking {
         this.amount = amount;
     }
 
-    public CarReturn getCarReturn() {
-        return carReturn;
-    }
-
-    public void setCarReturn(CarReturn carReturn) {
-        this.carReturn = carReturn;
-    }
-
     public BookingStatus getBookingStatus() {
         return bookingStatus;
     }
@@ -117,24 +137,59 @@ public class Booking {
         this.bookingStatus = bookingStatus;
     }
 
+    public Branch getRentalBranch() {
+        return rentalBranch;
+    }
+
+    public void setRentalBranch(Branch rentalBranch) {
+        this.rentalBranch = rentalBranch;
+    }
+
+    public Branch getReturnBranch() {
+        return returnBranch;
+    }
+
+    public void setReturnBranch(Branch returnBranch) {
+        this.returnBranch = returnBranch;
+    }
+
+    public LocalDate getDateFrom() {
+        return dateFrom;
+    }
+
+    public void setDateFrom(LocalDate dateFrom) {
+        this.dateFrom = dateFrom;
+    }
+
+    public LocalDate getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(LocalDate dateTo) {
+        this.dateTo = dateTo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Booking)) return false;
         Booking booking = (Booking) o;
-        return Objects.equals(id, booking.id) &&
-                Objects.equals(dateOfBooking, booking.dateOfBooking) &&
-                Objects.equals(client, booking.client) &&
-                Objects.equals(car, booking.car) &&
-                Objects.equals(dateFrom, booking.dateFrom) &&
-                Objects.equals(carReturn, booking.carReturn) &&
-                Objects.equals(amount, booking.amount) &&
+        return dateOfBooking.equals(booking.dateOfBooking) &&
+                client.equals(booking.client) &&
+                car.equals(booking.car) &&
+                rental.equals(booking.rental) &&
+                carReturn.equals(booking.carReturn) &&
+                rentalBranch.equals(booking.rentalBranch) &&
+                returnBranch.equals(booking.returnBranch) &&
+                dateFrom.equals(booking.dateFrom) &&
+                dateTo.equals(booking.dateTo) &&
+                amount.equals(booking.amount) &&
                 bookingStatus == booking.bookingStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, client, car, dateFrom, carReturn, amount, bookingStatus);
+        return Objects.hash(dateOfBooking, client, car, rental, carReturn, rentalBranch, returnBranch, dateFrom, dateTo, amount, bookingStatus);
     }
 
     @Override
@@ -144,12 +199,15 @@ public class Booking {
                 ", dateOfBooking=" + dateOfBooking +
                 ", client=" + client +
                 ", car=" + car +
-                ", dateFrom=" + dateFrom +
+                ", rental=" + rental +
                 ", carReturn=" + carReturn +
+                ", rentalBranch=" + rentalBranch +
+                ", returnBranch=" + returnBranch +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
                 ", amount=" + amount +
                 ", bookingStatus=" + bookingStatus +
                 '}';
     }
 
-    //    rentalBranch, returnBranch,
 }

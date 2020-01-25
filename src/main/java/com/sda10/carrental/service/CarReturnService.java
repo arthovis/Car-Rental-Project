@@ -2,6 +2,7 @@ package com.sda10.carrental.service;
 
 import com.sda10.carrental.exception.NotFoundException;
 import com.sda10.carrental.model.CarReturn;
+import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.repository.CarReturnRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,12 +44,24 @@ public class CarReturnService {
         }
     }
 
-    public void deleteCarReturn(Long id){
+    public void deleteCarReturn(Long id) {
         Optional<CarReturn> carReturnToDelete = carReturnRepository.findById(id);
         if (carReturnToDelete.isPresent()) {
             carReturnRepository.deleteById(id);
         } else {
             throw new NotFoundException("carReturn not found");
+        }
+    }
+
+    public CarReturn updateCarReturnWithEmployee(Long id, Employee employee) {
+        Optional<CarReturn> carReturnToUpdate = carReturnRepository.findById(id);
+
+        if (carReturnToUpdate.isPresent()) {
+            CarReturn carReturn = carReturnToUpdate.get();
+            carReturn.setEmployee(employee);
+            return carReturnRepository.save(carReturn);
+        } else {
+            throw new RuntimeException("Car return could not be updated");
         }
     }
 

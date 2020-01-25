@@ -1,5 +1,6 @@
 package com.sda10.carrental.service;
 
+import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.model.Rental;
 import com.sda10.carrental.repository.RentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,18 @@ public class RentalService {
         Rental existingRental = rentalRepository.findById(id).get();
 
         rentalRepository.delete(existingRental);
+    }
+
+    public Rental updateRentalWithEmployee(Long id, Employee employee) {
+        Optional<Rental> rentalToUpdate = rentalRepository.findById(id);
+
+        if (rentalToUpdate.isPresent()) {
+            Rental rental = rentalToUpdate.get();
+            rental.setEmployee(employee);
+            return rentalRepository.save(rental);
+        } else {
+            throw new RuntimeException("Rental could not be updated");
+        }
     }
 
 }
