@@ -1,0 +1,64 @@
+<div class="car-details">
+  <button (click)="goBack()" mat-raised-button>Close</button>
+  <h3>CAR DETAILS</h3>
+  <table [dataSource]='cars | async' class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="make">
+      <th *matHeaderCellDef mat-header-cell>Make</th>
+      <td *matCellDef="let element" mat-cell>{{element.make}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+      <th *matHeaderCellDef mat-header-cell>Model</th>
+      <td *matCellDef="let element" mat-cell>{{element.model}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="bodyType">
+      <th *matHeaderCellDef mat-header-cell>Body Type</th>
+      <td *matCellDef="let element" mat-cell>{{element.bodyType}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="yearOfProduction">
+      <th *matHeaderCellDef mat-header-cell>Year of Production</th>
+      <td *matCellDef="let element" mat-cell>{{element.yearOfProduction}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="color">
+      <th *matHeaderCellDef mat-header-cell>Color</th>
+      <td *matCellDef="let element" mat-cell>{{element.color}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="mileage">
+      <th *matHeaderCellDef mat-header-cell>Mileage</th>
+      <td *matCellDef="let element" mat-cell>{{element.mileage}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th *matHeaderCellDef mat-header-cell>Status</th>
+      <td *matCellDef="let element" mat-cell>{{element.status}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th *matHeaderCellDef mat-header-cell>Amount</th>
+      <td *matCellDef="let element" mat-cell>{{element.amount}}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell>Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button mat-raised-button routerLink="/cars/{{element.id}}/update">
+          Update car
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+  </table>

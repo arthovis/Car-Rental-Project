@@ -20,5 +20,17 @@ export class CarsService {
   getAllCars(): Observable<Car[]> {
     return this.httpClient.get<Car[]>(this.CAR_API);
   }
-  
+
+  saveCar(car: Car): Observable<Car> {
+    return this.httpClient.post<Car>(this.CAR_API, car);
+  }
+
+  deleteCar(id: number): Observable<any> {
+    return this.httpClient.delete(this.CAR_API + `/${id}`);
+  }
+
+  updateCar(id: number, car: Car): Observable<Car> {
+    return this.httpClient.put<Car> (this.CAR_API + `/${id}`, car);
+  }
+
 }

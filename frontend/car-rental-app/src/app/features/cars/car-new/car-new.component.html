@@ -1,0 +1,38 @@
+<form class="car-form">
+
+  <mat-form-field class="car-full-width">
+    <input [(ngModel)]="model" matInput name="model" placeholder="Model" required>
+  </mat-form-field>
+
+  <mat-form-field class="car-full-width">
+    <input [(ngModel)]="amount" matInput name="amount" placeholder="Amount" required>
+  </mat-form-field>
+
+  <mat-form-field class="car-full-width">
+    <input [(ngModel)]="bodyType" matInput name="bodyType" placeholder="Body Type" required>
+  </mat-form-field>
+
+  <mat-form-field class="car-full-width">
+    <input [(ngModel)]="make" matInput name="make" placeholder="Make" required>
+  </mat-form-field>
+
+  <mat-form-field class="car-full-width">
+    <input [(ngModel)]="yearOfProduction" matInput name="yearOfProduction" placeholder="Year of Production" required>
+  </mat-form-field>
+
+  <mat-form-field class="car-full-width">
+    <input [(ngModel)]="color" matInput name="color" placeholder="Color" required>
+  </mat-form-field>
+
+  <mat-form-field class="car-full-width">
+    <input [(ngModel)]="mileage" matInput name="mileage" placeholder="Mileage" required>
+  </mat-form-field>
+
+  <mat-form-field class="car-full-width">
+    <input [(ngModel)]="status" matInput name="status" placeholder="Status" required>
+  </mat-form-field>
+
+  <button (click)="createCar()" color="primary" mat-raised-button>Create</button>
+  <button (click)="goToCars()" mat-raised-button>Close</button>
+
+</form>

@@ -12,7 +12,10 @@ const routes: Routes = [
     path: 'branches',
     loadChildren: () => import('./features/branches/branches.module').then(mod => mod.BranchesModule)
   },
-
+  {
+    path: 'cars',
+    loadChildren: () => import('./features/cars/cars.module').then(mod => mod.CarsModule)
+  },
 
 
   {

@@ -14,29 +14,22 @@ public class Car {
     private Long id;
 
     @Column
-    @NotNull
     private String make;
 
     @NotNull
     private String model;
 
-    @NotNull
     private String bodyType;
 
-    @NotNull
     private Integer yearOfProduction;
 
-    @NotNull
     private String color;
 
-    @NotNull
     private Long mileage;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
     private Status status;
 
-    @NotNull
     private Double amount;
 
     public Long getId() {
