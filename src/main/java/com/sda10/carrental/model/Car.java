@@ -13,23 +13,29 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @NotNull
     private String make;
 
     @NotNull
     private String model;
 
+    @NotNull
     private String bodyType;
 
+    @NotNull
     private Integer yearOfProduction;
 
+    @NotNull
     private String color;
 
+    @NotNull
     private Long mileage;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Status status;
 
+    @NotNull
     private Double amount;
 
     public Long getId() {
@@ -107,22 +113,21 @@ public class Car {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Car)) return false;
         Car car = (Car) o;
-        return Objects.equals(id, car.id) &&
-                Objects.equals(make, car.make) &&
-                Objects.equals(model, car.model) &&
-                Objects.equals(bodyType, car.bodyType) &&
-                Objects.equals(yearOfProduction, car.yearOfProduction) &&
-                Objects.equals(color, car.color) &&
-                Objects.equals(mileage, car.mileage) &&
-                Objects.equals(status, car.status) &&
-                Objects.equals(amount, car.amount);
+        return make.equals(car.make) &&
+                model.equals(car.model) &&
+                bodyType.equals(car.bodyType) &&
+                yearOfProduction.equals(car.yearOfProduction) &&
+                color.equals(car.color) &&
+                mileage.equals(car.mileage) &&
+                status == car.status &&
+                amount.equals(car.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, make, model, bodyType, yearOfProduction, color, mileage, status, amount);
+        return Objects.hash(make, model, bodyType, yearOfProduction, color, mileage, status, amount);
     }
 
     @Override
@@ -134,9 +139,10 @@ public class Car {
                 ", bodyType='" + bodyType + '\'' +
                 ", yearOfProduction=" + yearOfProduction +
                 ", color='" + color + '\'' +
-                ", mileage='" + mileage + '\'' +
-                ", status='" + status + '\'' +
-                ", amount='" + amount + '\'' +
+                ", mileage=" + mileage +
+                ", status=" + status +
+                ", amount=" + amount +
                 '}';
     }
+
 }
