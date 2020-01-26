@@ -23,33 +23,40 @@ public class CarController {
     private CarMapper carMapper;
 
     @PostMapping(value = "/cars")
-    public CarDto createCar(@RequestBody CarDto carDetails) {
+    public ResponseEntity<CarDto> createCar(@RequestBody CarDto carDetails) {
 
         Car car = carMapper.toEntity(carDetails);
         car = carService.createCar(car);
 
-        return carMapper.toDto(car);
+        CarDto response = carMapper.toDto(car);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping(value = "/cars/{id}")
-    public CarDto findCarById(@PathVariable Long id) {
+    public ResponseEntity<CarDto> findCarById(@PathVariable Long id) {
 
         Car carById = carService.getCarById(id);
 
-        return carMapper.toDto(carById);
+        CarDto response = carMapper.toDto(carById);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping(value = "/cars/{id}")
-    public ResponseEntity updateCar(@PathVariable Long id, @RequestBody CarDto carDetails) {
+    public ResponseEntity<CarDto> updateCar(@PathVariable Long id, @RequestBody CarDto carDetails) {
 
         Car car = carMapper.toEntity(carDetails);
-        carService.updateCar(id, car);
+        car = carService.updateCar(id, car);
 
-        return new ResponseEntity(HttpStatus.OK);
+        CarDto response = carMapper.toDto(car);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/cars/{id}")
     public ResponseEntity deleteCar(@PathVariable Long id) {
+
         carService.deleteCar(id);
 
         return new ResponseEntity((HttpStatus.OK));
