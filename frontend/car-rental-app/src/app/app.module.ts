@@ -15,6 +15,11 @@ import { PageNotFoundComponent } from './features/page-not-found/page-not-found.
 import { BranchesModule } from './features/branches/branches.module';
 import { CarsComponent } from './features/cars/cars.component';
 import { CarsListComponent } from './features/cars/cars-list/cars-list.component';
+import { CarDetailsComponent } from './features/cars/car-details/car-details.component';
+import { CarNewComponent } from './features/cars/car-new/car-new.component';
+import { CarOverviewComponent } from './features/cars/car-overview/car-overview.component';
+import { CarUpdateComponent } from './features/cars/car-update/car-update.component';
+import { CarsModule } from './features/cars/cars.module';
 
 @NgModule({
   entryComponents:
@@ -32,6 +37,7 @@ import { CarsListComponent } from './features/cars/cars-list/cars-list.component
     FormsModule,
     RentalOfficesModule,
     BranchesModule,
+    CarsModule,
 
     AppRoutingModule,
     MaterialModule,

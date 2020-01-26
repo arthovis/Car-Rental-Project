@@ -1,0 +1,10 @@
+<form class="car-form">
+
+  <mat-form-field class="car-full-width">
+    <input [(ngModel)]="carToUpdate.model" matInput name="model" placeholder="Model" required>
+  </mat-form-field>
+
+  <button (click)="changeCar()" color="primary" mat-raised-button>Change</button>
+  <button (click)="goToCarDetails()" mat-raised-button>Close</button>
+
+</form>

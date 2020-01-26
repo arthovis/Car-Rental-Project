@@ -1,0 +1,15 @@
+mat-grid-tile {
+    background: lightblue;
+  }
+  
+  .car-overview {
+    width: 800px;
+  }
+  
+  .car-overview table {
+    width: 100%;
+  }
+  
+  button {
+    margin: 16px 8px;
+  }
