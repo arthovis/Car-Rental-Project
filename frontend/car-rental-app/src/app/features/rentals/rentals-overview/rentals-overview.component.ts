@@ -13,7 +13,6 @@ import { faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 export class RentalsOverviewComponent implements OnInit {
 
   rentals: Observable<Rental[]>;
-  rentalById: Observable<Rental>;
 
   displayedColumns: string[];
   trashIcon: IconDefinition = faTrash;
