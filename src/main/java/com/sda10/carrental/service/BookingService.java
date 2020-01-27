@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.Optional;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 public class BookingService {
@@ -82,7 +83,7 @@ public class BookingService {
     }
 
     private Double getCalculatedBookingAmount(Car car, LocalDate rentalDate, LocalDate returnDate) {
-        Integer rentalDays = Period.between(rentalDate, returnDate).getDays();
+        Integer rentalDays = (int) DAYS.between(rentalDate, returnDate);
         return rentalDays * car.getAmount();
     }
 
@@ -92,7 +93,7 @@ public class BookingService {
                 .orElseThrow(() -> new RuntimeException("Booking could not be canceled"));
         LocalDate cancellationDate = LocalDate.now();
 
-        Integer daysUntilPickup = Period.between(cancellationDate, bookingToUpdate.getDateFrom()).getDays();
+        Integer daysUntilPickup = (int) DAYS.between(cancellationDate, bookingToUpdate.getDateFrom());
 
         bookingToUpdate.setBookingStatus(BookingStatus.CANCELLED);
 

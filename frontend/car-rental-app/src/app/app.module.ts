@@ -20,6 +20,7 @@ import { CarNewComponent } from './features/cars/car-new/car-new.component';
 import { CarOverviewComponent } from './features/cars/car-overview/car-overview.component';
 import { CarUpdateComponent } from './features/cars/car-update/car-update.component';
 import { CarsModule } from './features/cars/cars.module';
+import { RentalsModule } from './features/rentals/rentals.module';
 
 @NgModule({
   entryComponents:
@@ -38,6 +39,7 @@ import { CarsModule } from './features/cars/cars.module';
     RentalOfficesModule,
     BranchesModule,
     CarsModule,
+    RentalsModule,
 
     AppRoutingModule,
     MaterialModule,

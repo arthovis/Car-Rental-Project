@@ -1,0 +1,35 @@
+<div class="rental-overview">
+
+  <table [dataSource]='rentals | async' class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="rentalDate">
+      <th *matHeaderCellDef mat-header-cell>Rental date</th>
+      <td *matCellDef="let element" mat-cell>{{element.rentalDate}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="employeeDto">
+      <th *matHeaderCellDef mat-header-cell>Employee</th>
+      <td *matCellDef="let element" mat-cell>
+        <div *ngIf="element.employeeDto != null">{{element.employeeDto.nameAndSurname}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell>Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button mat-raised-button routerLink="/rentals/{{element.id}}/details">
+          <fa-icon [icon]="searchIcon"></fa-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+  </table>
+</div>

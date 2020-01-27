@@ -28,7 +28,6 @@ export class BranchDetailsComponent implements OnInit {
   constructor(private branchService: BranchesService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private route: ActivatedRoute,
               private snackBar: MatSnackBar
               ) { }
 
@@ -79,7 +78,7 @@ export class BranchDetailsComponent implements OnInit {
 
   getIdFromRoute(): number {
     // (+) before transforma string in numar
-    return +this.route.snapshot.paramMap.get('id');
+    return +this.activatedRoute.snapshot.paramMap.get('id');
   }
 
 }

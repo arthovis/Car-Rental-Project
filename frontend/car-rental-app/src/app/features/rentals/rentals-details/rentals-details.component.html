@@ -1,0 +1,73 @@
+<div class="rental-details">
+  <button (click)="goBack()" mat-raised-button>Close</button>
+  <h3>RENTALS DETAILS</h3>
+  <table [dataSource]='rentals | async' class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="rentalDate">
+      <th *matHeaderCellDef mat-header-cell>Rental date</th>
+      <td *matCellDef="let element" mat-cell>{{element.rentalDate}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="comments">
+      <th *matHeaderCellDef mat-header-cell>Comments</th>
+      <td *matCellDef="let element" mat-cell>{{element.comments}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="employeeDto">
+      <th *matHeaderCellDef mat-header-cell>Employee</th>
+      <td *matCellDef="let element" mat-cell>
+        <div *ngIf="element.employeeDto != null">{{element.employeeDto.nameAndSurname}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="branchDto">
+      <th *matHeaderCellDef mat-header-cell>Branch</th>
+      <td *matCellDef="let element" mat-cell>{{element.branchDto.address}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell>Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="listBranchEmployees(element.branchDto.id);view1=true" mat-raised-button>
+          Add employee
+        </button>
+        <button (click)="deleteEmployee();" mat-raised-button>
+          Delete employee
+        </button>
+        <button mat-raised-button routerLink="/rentals/{{element.id}}/update">
+          Update comment
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+  </table>
+
+</div>
+
+<div class="blank_row"></div>
+<div [hidden]="!view1">
+  <button (click)="view1=false" mat-raised-button>Close list</button>
+  <h3>Branch employees list:</h3>
+  <div class="list">
+    <ul class="details">
+      <li *ngFor="let employee of employees">
+        <span class="badge">{{employee.id}}</span>{{employee.nameAndSurname}}
+        <button (click)="addEmployee(employee);view1=false" mat-raised-button
+                style="position: absolute; right: 0; bottom: 0px;">
+          Add
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="blank_row"></div>
+
+
