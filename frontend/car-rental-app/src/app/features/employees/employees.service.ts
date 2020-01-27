@@ -1,3 +1,4 @@
+import { Branch } from './../../shared/model/branch';
 import { Employee } from './../../shared/model/employee';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -21,4 +22,19 @@ export class EmployeesService {
     return this.httpClient.get<Employee[]>(this.EMPLOYEE_API);
   }
 
+  saveEmployee(employee: Employee): Observable<Employee> {
+    return this.httpClient.post<Employee>(this.EMPLOYEE_API, employee);
+  }
+
+  deleteEmployee(id: number): Observable<any> {
+    return this.httpClient.delete(this.EMPLOYEE_API + `/${id}`);
+  }
+
+  updateEmployee(id: number, employee: Employee): Observable<Employee> {
+    return this.httpClient.put<Employee> (this.EMPLOYEE_API + `/${id}`, employee);
+  }
+
+  addBranch(id: number, branch: Branch): Observable<Employee> {
+    return this.httpClient.put<Employee> (this.EMPLOYEE_API + `/${id}` + `/branches`, branch);
+  }
 }

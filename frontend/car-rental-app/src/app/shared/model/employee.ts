@@ -6,6 +6,6 @@ export class Employee {
     constructor(public id: number,
                 public nameAndSurname: string,
                 public jobPosition: JobPosition,
-                public branch: Branch) {
+                public branchDto: Branch) {
     }
 }
