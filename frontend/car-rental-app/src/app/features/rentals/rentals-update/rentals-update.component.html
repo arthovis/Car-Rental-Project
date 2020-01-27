@@ -1,0 +1,10 @@
+<form class="rental-form">
+
+  <mat-form-field class="rental-full-width">
+    <input [(ngModel)]="rentalToUpdate.comments" matInput name="comments" placeholder="Comments">
+  </mat-form-field>
+
+  <button (click)="changeRental()" color="primary" mat-raised-button>Change</button>
+  <button (click)="goToRentalDetails()" mat-raised-button>Close</button>
+
+</form>

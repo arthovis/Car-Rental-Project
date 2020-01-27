@@ -30,4 +30,8 @@ export class RentalsService {
     return this.httpClient.put<Rental> (this.RENTAL_API + `/${id}`, rental);
   }
 
+  updateRental(id: number, rental: Rental): Observable<Rental> {
+    return this.httpClient.put<Rental> (this.RENTAL_API + `/${id}`, rental);
+  }
+  
 }
