@@ -1,3 +1,4 @@
+import { RentalsUpdateComponent } from './rentals-update/rentals-update.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +16,8 @@ import { RentalsDetailsComponent } from './rentals-details/rentals-details.compo
   declarations: [
     RentalsComponent,
     RentalsOverviewComponent,
-    RentalsDetailsComponent
+    RentalsDetailsComponent,
+    RentalsUpdateComponent
   ],
   imports: [
     CommonModule,
