@@ -12,10 +12,14 @@ const routes: Routes = [
     path: 'branches',
     loadChildren: () => import('./features/branches/branches.module').then(mod => mod.BranchesModule)
   },
-    {
-      path: 'rentals',
-      loadChildren: () => import('./features/rentals/rentals.module').then(mod => mod.RentalsModule)
-    },
+  {
+    path: 'rentals',
+    loadChildren: () => import('./features/rentals/rentals.module').then(mod => mod.RentalsModule)
+  },
+  {
+    path: 'returns',
+    loadChildren: () => import('./features/returns/returns.module').then(mod => mod.ReturnsModule)
+  },
   {
     path: 'cars',
     loadChildren: () => import('./features/cars/cars.module').then(mod => mod.CarsModule)

@@ -1,0 +1,15 @@
+<form class="return-form">
+
+  <mat-form-field class="return-full-width">
+    <input [(ngModel)]="returnToUpdate.comments" matInput name="comments" placeholder="Comments">
+  </mat-form-field>
+
+  <mat-form-field class="return-full-width">
+    <input [(ngModel)]="returnToUpdate.additionalPayment" matInput name="additionalPayment"
+           placeholder="Additional Payment">
+  </mat-form-field>
+
+  <button (click)="changeReturn()" color="primary" mat-raised-button>Change</button>
+  <button (click)="goToReturnDetails()" mat-raised-button>Close</button>
+
+</form>

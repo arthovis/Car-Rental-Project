@@ -1,0 +1,35 @@
+<div class="return-overview">
+
+  <table [dataSource]='returns | async' class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateOfReturn">
+      <th *matHeaderCellDef mat-header-cell>Return date</th>
+      <td *matCellDef="let element" mat-cell>{{element.dateOfReturn}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="employeeDto">
+      <th *matHeaderCellDef mat-header-cell>Employee</th>
+      <td *matCellDef="let element" mat-cell>
+        <div *ngIf="element.employeeDto != null">{{element.employeeDto.nameAndSurname}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell>Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button mat-raised-button routerLink="/returns/{{element.id}}/details">
+          <fa-icon [icon]="searchIcon"></fa-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+  </table>
+</div>
