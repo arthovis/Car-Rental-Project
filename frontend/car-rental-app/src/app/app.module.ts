@@ -1,3 +1,4 @@
+import { EmployeeModule } from './features/employees/employee.module';
 import { ReturnsModule } from './features/returns/returns.module';
 import { RentalOfficesModule } from './features/rental-offices/rental-offices.module';
 import { MaterialModule } from './shared/material/material.module';
@@ -17,6 +18,7 @@ import { BranchesModule } from './features/branches/branches.module';
 import { CarsModule } from './features/cars/cars.module';
 import { RentalsModule } from './features/rentals/rentals.module';
 
+
 @NgModule({
   entryComponents:
   [SuccessSnackComponent],
@@ -25,6 +27,7 @@ import { RentalsModule } from './features/rentals/rentals.module';
     HomeComponent,
     PageNotFoundComponent,
     SuccessSnackComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,7 @@ import { RentalsModule } from './features/rentals/rentals.module';
     CarsModule,
     RentalsModule,
     ReturnsModule,
-
+    EmployeeModule,
     AppRoutingModule,
     MaterialModule,
     FontAwesomeModule,
