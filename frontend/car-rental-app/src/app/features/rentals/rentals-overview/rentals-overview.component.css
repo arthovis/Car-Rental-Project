@@ -1,0 +1,15 @@
+mat-grid-tile {
+    background: lightblue;
+  }
+  
+  .rental-overview {
+    width: 800px;
+  }
+  
+  .rental-overview table {
+    width: 100%;
+  }
+  
+  button {
+    margin: 16px 8px;
+  }

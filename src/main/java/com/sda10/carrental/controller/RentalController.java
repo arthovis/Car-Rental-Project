@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class RentalController {
 
@@ -31,6 +34,16 @@ public class RentalController {
         rental = rentalService.createRental(rental);
 
         return rentalMapper.toDto(rental);
+    }
+
+    @GetMapping(value = "/rental")
+    public List<RentalDto> findAllRentals() {
+
+        List<Rental> rentals = rentalService.getAllRentals();
+        return rentals
+                .stream()
+                .map(rentalMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @GetMapping(value = "/rental/{id}")

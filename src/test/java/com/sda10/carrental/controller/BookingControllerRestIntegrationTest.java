@@ -134,7 +134,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         Branch rentalBranch = getSavedBranch("Calea Victoriei");
         Branch returnBranch = getSavedBranch("Bucur Obor");
         Booking bookingToCancel = getSavedBooking(customer, car, rentalBranch, returnBranch,
-                LocalDate.of(2020, 1, 27), LocalDate.of(2019, 8, 30), 600.0, BookingStatus.COMPLETED);
+                LocalDate.of(2020, 1, 27), LocalDate.of(2020, 1, 30), 600.0, BookingStatus.COMPLETED);
 
         String relativePath = "/bookings/" + bookingToCancel.getId() + "/cancellations";
         this.restTemplate.postForEntity(url(relativePath), null, BookingDto.class);
@@ -153,7 +153,7 @@ public class BookingControllerRestIntegrationTest extends RestIntegrationTest {
         Branch rentalBranch = getSavedBranch("Calea Victoriei");
         Branch returnBranch = getSavedBranch("Bucur Obor");
         Booking bookingToCancel = getSavedBooking(customer, car, rentalBranch, returnBranch,
-                LocalDate.of(2020, 1, 28), LocalDate.of(2019, 8, 30), 600.0, BookingStatus.COMPLETED);
+                LocalDate.of(2025, 1, 28), LocalDate.of(2025, 1, 30), 600.0, BookingStatus.COMPLETED);
 
         String relativePath = "/bookings/" + bookingToCancel.getId() + "/cancellations";
         this.restTemplate.postForEntity(url(relativePath), null, BookingDto.class);
