@@ -1,0 +1,15 @@
+mat-grid-tile {
+    background: lightblue;
+  }
+  
+  .employee-overview {
+    width: 800px;
+  }
+  
+  .employee-overview table {
+    width: 100%;
+  }
+  
+  button {
+    margin: 16px 8px;
+  }
