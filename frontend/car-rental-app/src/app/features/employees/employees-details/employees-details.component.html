@@ -1,0 +1,50 @@
+<div class="employee-details">
+  <button (click)="goBack()" mat-raised-button>Close</button>
+  <h3>EMPLOYEES DETAILS</h3>
+  <table [dataSource]='employees | async' class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nameAndSurname">
+      <th *matHeaderCellDef mat-header-cell>Name and Surname</th>
+      <td *matCellDef="let element" mat-cell>{{element.nameAndSurname}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="jobPosition">
+      <th *matHeaderCellDef mat-header-cell>Job Position</th>
+      <td *matCellDef="let element" mat-cell>{{element.jobPosition}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="branchDto">
+      <th *matHeaderCellDef mat-header-cell>Branch</th>
+      <td *matCellDef="let element" mat-cell>
+        <div *ngIf="element.employeeDto != null">{{element.branchDto.address}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell>Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="listEmployeeBranch(element.employee.id);view1=true" mat-raised-button>
+          Add branch
+        </button>
+        <button mat-raised-button routerLink="/employees/{{element.id}}/update">
+          Update employee
+        </button>
+
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+  </table>
+
+</div>
+
+
+
+
