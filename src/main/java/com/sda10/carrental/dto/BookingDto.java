@@ -13,8 +13,8 @@ public class BookingDto {
     public LocalDate dateTo;
     public BranchDto rentalBranchDto;
     public BranchDto returnBranchDto;
-    public CustomerDto client;
-    public CarDto car;
+    public CustomerDto customerDto;
+    public CarDto carDto;
     public RentalDto rentalDto;
     public CarReturnDto carReturnDto;
     public Double amount;
@@ -47,13 +47,13 @@ public class BookingDto {
         return this;
     }
 
-    public BookingDto withClientDto(CustomerDto client) {
-        this.client = client;
+    public BookingDto withClientDto(CustomerDto customerDto) {
+        this.customerDto = customerDto;
         return this;
     }
 
-    public BookingDto withCarDto(CarDto car) {
-        this.car = car;
+    public BookingDto withCarDto(CarDto carDto) {
+        this.carDto = carDto;
         return this;
     }
 
@@ -98,8 +98,8 @@ public class BookingDto {
                 Objects.equals(dateTo, that.dateTo) &&
                 Objects.equals(rentalBranchDto, that.rentalBranchDto) &&
                 Objects.equals(returnBranchDto, that.returnBranchDto) &&
-                Objects.equals(client, that.client) &&
-                Objects.equals(car, that.car) &&
+                Objects.equals(customerDto, that.customerDto) &&
+                Objects.equals(carDto, that.carDto) &&
                 Objects.equals(rentalDto, that.rentalDto) &&
                 Objects.equals(carReturnDto, that.carReturnDto) &&
                 Objects.equals(amount, that.amount) &&
@@ -108,7 +108,7 @@ public class BookingDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBooking, dateFrom, dateTo, rentalBranchDto, returnBranchDto, client, car, rentalDto, carReturnDto, amount, bookingStatus);
+        return Objects.hash(id, dateOfBooking, dateFrom, dateTo, rentalBranchDto, returnBranchDto, customerDto, carDto, rentalDto, carReturnDto, amount, bookingStatus);
     }
 
     @Override
@@ -120,8 +120,8 @@ public class BookingDto {
                 ", dateTo=" + dateTo +
                 ", rentalBranchDto=" + rentalBranchDto +
                 ", returnBranchDto=" + returnBranchDto +
-                ", client=" + client +
-                ", car=" + car +
+                ", customerDto=" + customerDto +
+                ", carDto=" + carDto +
                 ", rentalDto=" + rentalDto +
                 ", carReturnDto=" + carReturnDto +
                 ", amount=" + amount +
