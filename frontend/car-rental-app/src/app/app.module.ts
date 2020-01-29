@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from './features/page-not-found/page-not-found.
 import { BranchesModule } from './features/branches/branches.module';
 import { CarsModule } from './features/cars/cars.module';
 import { RentalsModule } from './features/rentals/rentals.module';
+import { BookingsComponent } from './features/bookings/bookings.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { RentalsModule } from './features/rentals/rentals.module';
     HomeComponent,
     PageNotFoundComponent,
     SuccessSnackComponent,
+    BookingsComponent,
 
   ],
   imports: [

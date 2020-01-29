@@ -28,8 +28,8 @@ public class BookingMapper {
         entity.setDateOfBooking(dto.dateOfBooking);
         entity.setDateFrom(dto.dateFrom);
         entity.setDateTo(dto.dateTo);
-        entity.setClient(customerMapper.toEntity(dto.client));
-        entity.setCar(carMapper.toEntity(dto.car));
+        entity.setClient(customerMapper.toEntity(dto.customerDto));
+        entity.setCar(carMapper.toEntity(dto.carDto));
         entity.setRentalBranch(dto.rentalBranchDto == null ? null : branchMapper.toEntity(dto.rentalBranchDto));
         entity.setReturnBranch(dto.returnBranchDto == null ? null : branchMapper.toEntity(dto.returnBranchDto));
         entity.setRental(dto.rentalDto == null ? null : rentalMapper.toEntity(dto.rentalDto));
