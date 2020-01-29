@@ -21,20 +21,16 @@
     <ng-container matColumnDef="branchDto">
       <th *matHeaderCellDef mat-header-cell>Branch</th>
       <td *matCellDef="let element" mat-cell>
-        <div *ngIf="element.employeeDto != null">{{element.branchDto.address}}</div>
+        <div *ngIf="element.branchDto != null">{{element.branchDto.address}}</div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell>Actions</th>
       <td *matCellDef="let element" mat-cell>
-        <button (click)="listEmployeeBranch(element.employee.id);view1=true" mat-raised-button>
-          Add branch
-        </button>
         <button mat-raised-button routerLink="/employees/{{element.id}}/update">
           Update employee
         </button>
-
       </td>
     </ng-container>
 

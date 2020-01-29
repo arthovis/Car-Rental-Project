@@ -26,15 +26,12 @@ export class EmployeesService {
     return this.httpClient.post<Employee>(this.EMPLOYEE_API, employee);
   }
 
-  deleteEmployee(id: number): Observable<any> {
-    return this.httpClient.delete(this.EMPLOYEE_API + `/${id}`);
+  deleteEmployee(id: number): Observable<Employee> {
+    return this.httpClient.delete<Employee>(this.EMPLOYEE_API + `/${id}`);
   }
 
   updateEmployee(id: number, employee: Employee): Observable<Employee> {
     return this.httpClient.put<Employee> (this.EMPLOYEE_API + `/${id}`, employee);
   }
 
-  addBranch(id: number, branch: Branch): Observable<Employee> {
-    return this.httpClient.put<Employee> (this.EMPLOYEE_API + `/${id}` + `/branches`, branch);
-  }
 }

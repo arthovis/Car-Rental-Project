@@ -25,8 +25,8 @@ export class CarsService {
     return this.httpClient.post<Car>(this.CAR_API, car);
   }
 
-  deleteCar(id: number): Observable<any> {
-    return this.httpClient.delete(this.CAR_API + `/${id}`);
+  deleteCar(id: number): Observable<Car> {
+    return this.httpClient.delete<Car>(this.CAR_API + `/${id}`);
   }
 
   updateCar(id: number, car: Car): Observable<Car> {

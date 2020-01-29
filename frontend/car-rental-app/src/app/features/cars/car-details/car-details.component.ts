@@ -23,8 +23,6 @@ export class CarDetailsComponent implements OnInit {
   constructor(private carService: CarsService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private route: ActivatedRoute,
-              private snackBar: MatSnackBar
               ) { }
 
   ngOnInit() {

@@ -18,18 +18,18 @@ export class EmployeesDetailsComponent implements OnInit {
 
   employees: Observable<Employee[]>;
   employee: Employee;
-  branch: Branch;
   view1: false;
 
   displayedColumns: string[];
 
   constructor(private employeeService: EmployeesService,
-              private branchService: BranchesService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private snackBar: MatSnackBar) { }
+              ) { }
 
   ngOnInit() {
+    this.loadEmployeeDetails();
+    this.displayedColumns = ['id', 'nameAndSurname', 'jobPosition', 'branchDto', 'actions'];
   }
 
   loadEmployeeDetails() {
@@ -39,10 +39,9 @@ export class EmployeesDetailsComponent implements OnInit {
       flatMap(id => this.employeeService.getEmployeeById(id)),
       map(cro => [cro]));
 
-    this.employees. subscribe(employees => {
-        this.employee = this.employees[0];
-        this.branch = this.employee.branchDto;
-      });
+    this.employees.subscribe(employees => {
+      this.employee = this.employees[0];
+    });
   }
 
   goBack() {
@@ -54,17 +53,4 @@ export class EmployeesDetailsComponent implements OnInit {
     return +this.activatedRoute.snapshot.paramMap.get('id');
   }
 
-  listEmployeeBranch(id: number) {
-    this.employeeService.getEmployeeById(id).subscribe(employee =>
-      this.branch = employee.branchDto);
-  }
-
-  addBranch(branch: Branch) {
-    this.employeeService.addBranch(this.getIdFromRoute(), branch).subscribe();
-    this.snackBar.openFromComponent(SuccessSnackComponent, {
-      duration: 2000,
-      verticalPosition: 'top'
-    });
-    this.loadEmployeeDetails();
-  }
 }
