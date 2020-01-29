@@ -4,11 +4,16 @@
     <input [(ngModel)]="employeeToUpdate.nameAndSurname" matInput name="nameAndSurname" placeholder="Name and Surname">
   </mat-form-field>
 
-  <mat-form-field class="employee-full-width">
-    <input [(ngModel)]="employeeToUpdate.jobPosition" matInput name="jobPosition" placeholder="Job Position">
+  <mat-form-field>
+    <mat-select [(ngModel)]="employeeToUpdate.jobPosition" matInput name="jobPosition" placeholder="Job Position">
+      <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>
+      <mat-option value="MANAGER">MANAGER</mat-option>
+    </mat-select>
   </mat-form-field>
 
-  <button (click)="changeEmployee()" color="primary" mat-raised-button>Change</button>
-  <button (click)="goToEmployeeDetails()" mat-raised-button>Close</button>
+  <div>
+    <button (click)="changeEmployee()" color="primary" mat-raised-button>Change</button>
+    <button (click)="goToEmployeeDetails()" mat-raised-button>Close</button>
+  </div>
 
 </form>

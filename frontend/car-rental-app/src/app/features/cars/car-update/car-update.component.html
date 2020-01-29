@@ -28,11 +28,17 @@
     <input [(ngModel)]="carToUpdate.mileage" matInput name="mileage" placeholder="Mileage">
   </mat-form-field>
 
-  <mat-form-field class="car-full-width">
-    <input [(ngModel)]="carToUpdate.status" matInput name="status" placeholder="Status">
+  <mat-form-field>
+    <mat-select [(ngModel)]="carToUpdate.status" matInput name="status" placeholder="Status">
+      <mat-option value="RENTED">RENTED</mat-option>
+      <mat-option value="AVAILABLE">AVAILABLE</mat-option>
+      <mat-option value="UNAVAILABLE">UNAVAILABLE</mat-option>
+    </mat-select>
   </mat-form-field>
 
-  <button (click)="changeCar()" color="primary" mat-raised-button>Change</button>
-  <button (click)="goToCarDetails()" mat-raised-button>Close</button>
+  <div>
+    <button (click)="changeCar()" color="primary" mat-raised-button>Change</button>
+    <button (click)="goToCarDetails()" mat-raised-button>Close</button>
+  </div>
 
 </form>

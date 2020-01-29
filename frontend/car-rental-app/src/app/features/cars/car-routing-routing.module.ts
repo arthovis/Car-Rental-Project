@@ -1,8 +1,8 @@
-import { CarDetailsComponent } from './../car-details/car-details.component';
-import { CarUpdateComponent } from './../car-update/car-update.component';
-import { CarNewComponent } from './../car-new/car-new.component';
-import { CarOverviewComponent } from './../car-overview/car-overview.component';
-import { CarsComponent } from './../cars.component';
+import { CarDetailsComponent } from './car-details/car-details.component';
+import { CarUpdateComponent } from './car-update/car-update.component';
+import { CarNewComponent } from './car-new/car-new.component';
+import { CarOverviewComponent } from './car-overview/car-overview.component';
+import { CarsComponent } from './cars.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

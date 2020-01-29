@@ -19,9 +19,7 @@ export class RentalsDetailsComponent implements OnInit {
 
   rentals: Observable<Rental[]>;
   rental: Rental;
-  employee: Employee;
   employees: Employee[];
-  branch: Branch;
   view1: false;
 
   displayedColumns: string[];
@@ -47,8 +45,6 @@ export class RentalsDetailsComponent implements OnInit {
 
     this.rentals.subscribe(rentals => {
       this.rental = rentals[0];
-      this.branch = this.rental.branchDto;
-      this.employee = this.rental.employeeDto;
     });
   }
 

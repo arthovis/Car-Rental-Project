@@ -19,9 +19,7 @@ export class ReturnsDetailsComponent implements OnInit {
 
   returns: Observable<Return[]>;
   return: Return;
-  employee: Employee;
   employees: Employee[];
-  branch: Branch;
   view1: false;
 
   displayedColumns: string[];
@@ -47,8 +45,6 @@ export class ReturnsDetailsComponent implements OnInit {
 
     this.returns.subscribe(returns => {
       this.return = returns[0];
-      this.branch = this.return.branchDto;
-      this.employee = this.return.employeeDto;
     });
   }
 
