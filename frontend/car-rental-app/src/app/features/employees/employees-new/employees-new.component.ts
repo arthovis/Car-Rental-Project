@@ -17,7 +17,7 @@ export class EmployeesNewComponent implements OnInit {
   jobPosition: JobPosition;
 
 
-  constructor(public employeesService: EmployeesService,
+  constructor(private employeesService: EmployeesService,
               private snackBar: MatSnackBar,
               private router: Router) { }
 

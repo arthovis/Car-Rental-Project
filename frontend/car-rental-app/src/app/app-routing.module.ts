@@ -5,6 +5,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'bookings',
+    loadChildren: () => import('./features/bookings/bookings.module').then(mod => mod.BookingsModule)
+  },
+  {
     path: 'rental-offices',
     loadChildren: () => import('./features/rental-offices/rental-offices.module').then(mod => mod.RentalOfficesModule)
   },
@@ -28,8 +32,6 @@ const routes: Routes = [
     path: 'employees',
     loadChildren: () => import('./features/employees/employee.module').then(mod => mod.EmployeeModule)
   },
-
-
   {
     path: '',
     component: HomeComponent

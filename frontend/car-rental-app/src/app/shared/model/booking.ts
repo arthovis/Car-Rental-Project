@@ -1,3 +1,4 @@
+import { Branch } from './branch';
 import { BookingStatus } from './booking-status';
 import { Return } from './return';
 import { Rental } from './rental';
@@ -10,6 +11,8 @@ export class Booking {
                  public dateOfBooking: Date,
                  public dateFrom: Date,
                  public dateTo: Date,
+                 public rentalBranchDto: Branch,
+                 public returnBranchDto: Branch,
                  public customerDto: Customer,
                  public carDto: Car,
                  public RentalDto: Rental,

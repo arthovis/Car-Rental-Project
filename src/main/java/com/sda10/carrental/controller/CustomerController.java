@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class CustomerController {
 
@@ -33,6 +36,16 @@ public class CustomerController {
         Customer customerById = customerService.findCustomerById(id);
 
         return customerMapper.toDto(customerById);
+    }
+
+    @GetMapping(value = "/customers")
+    public List<CustomerDto> findAllCustomers() {
+
+        List<Customer> customers = customerService.getAllCustomers();
+        return customers
+                .stream()
+                .map(customerMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @PutMapping(value = "/customers/{id}")

@@ -1,0 +1,15 @@
+mat-grid-tile {
+  background: lightblue;
+}
+
+.booking-overview {
+  width: 800px;
+}
+
+.booking-overview table {
+  width: 100%;
+}
+
+button {
+  margin: 16px 8px;
+}
