@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class BookingController {
 
@@ -32,6 +35,16 @@ public class BookingController {
         Booking bookingById = bookingService.findBookingById(id);
 
         return bookingMapper.toDto(bookingById);
+    }
+
+    @GetMapping(value = "/bookings")
+    public List<BookingDto> findAllBookings() {
+
+        List<Booking> bookings = bookingService.getAllBookings();
+        return bookings
+                .stream()
+                .map(bookingMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @PutMapping(value = "/bookings/{id}")

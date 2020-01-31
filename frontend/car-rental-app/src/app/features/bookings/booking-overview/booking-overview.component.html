@@ -1,1 +1,59 @@
-<p>booking-overview works!</p>
+<div class="booking-overview">
+
+  <button mat-raised-button routerLink="/bookings/new">New booking</button>
+  <button mat-raised-button routerLink="/revenue">Revenue</button>
+
+  <table [dataSource]='bookings | async' class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateOfBooking">
+      <th *matHeaderCellDef mat-header-cell>Date Of Booking</th>
+      <td *matCellDef="let element" mat-cell>{{element.dateOfBooking}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateFrom">
+      <th *matHeaderCellDef mat-header-cell>Date From</th>
+      <td *matCellDef="let element" mat-cell>{{element.dateFrom}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateTo">
+      <th *matHeaderCellDef mat-header-cell>Date To</th>
+      <td *matCellDef="let element" mat-cell>{{element.dateTo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="customerDto">
+      <th *matHeaderCellDef mat-header-cell>Customer Name</th>
+      <td *matCellDef="let element" mat-cell>{{element.customerDto.firstName}} {{element.customerDto.lastName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th *matHeaderCellDef mat-header-cell>Amount</th>
+      <td *matCellDef="let element" mat-cell>{{element.amount}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="bookingStatus">
+      <th *matHeaderCellDef mat-header-cell>Status</th>
+      <td *matCellDef="let element" mat-cell>{{element.bookingStatus}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell>Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="delete(element.id)" mat-raised-button>
+          <fa-icon [icon]="trashIcon"></fa-icon>
+        </button>
+        <button mat-raised-button routerLink="/bookings/{{element.id}}/details">
+          <fa-icon [icon]="searchIcon"></fa-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+  </table>
+</div>

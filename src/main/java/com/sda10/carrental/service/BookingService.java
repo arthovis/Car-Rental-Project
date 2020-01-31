@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -39,6 +40,10 @@ public class BookingService {
 
     public Booking findBookingById(Long id) {
         return bookingRepository.getOne(id);
+    }
+
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
     }
 
     public Booking updateBooking(Long id, Booking booking) {

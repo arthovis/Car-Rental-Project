@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,6 +39,10 @@ public class CustomerService {
         Customer customerToDelete = customerRepository.findById(id).get();
 
         customerRepository.delete(customerToDelete);
+    }
+
+    public List<Customer> getAllCustomers() {
+        return customerRepository.findAll();
     }
 
 }
