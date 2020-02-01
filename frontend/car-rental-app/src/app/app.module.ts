@@ -1,3 +1,4 @@
+import { CustomerModule } from './features/customer/customer.module';
 import { MaterialModule } from './shared/material/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -28,7 +29,7 @@ import { RentalOfficesModule } from './features/rental-offices/rental-offices.mo
     AppComponent,
     HomeComponent,
     PageNotFoundComponent,
-    SuccessSnackComponent
+    SuccessSnackComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +39,7 @@ import { RentalOfficesModule } from './features/rental-offices/rental-offices.mo
     BookingsModule,
     RentalOfficesModule,
     BranchesModule,
+    CustomerModule,
     CarsModule,
     RentalsModule,
     ReturnsModule,

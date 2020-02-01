@@ -1,0 +1,23 @@
+<form class="customer-form">
+  <mat-form-field class="customer-full-width">
+    <input [(ngModel)]="firstName" matInput name="firstName" placeholder="First Name" required>
+  </mat-form-field>
+
+  <mat-form-field class="customer-full-width">
+    <input [(ngModel)]="lastName" matInput name="lastName" placeholder="Last Name" required>
+  </mat-form-field>
+
+  <mat-form-field class="customer-full-width">
+    <input [(ngModel)]="email" matInput name="email" placeholder="E-mail" required>
+  </mat-form-field>
+
+  <mat-form-field class="customer-full-width">
+    <input [(ngModel)]="address" matInput name="address" placeholder="Address" required>
+  </mat-form-field>
+
+  <div>
+    <button (click)="createCustomer()" color="primary" mat-raised-button>Create</button>
+    <button (click)="goToCustomers()" mat-raised-button>Close</button>
+  </div>
+
+</form>
