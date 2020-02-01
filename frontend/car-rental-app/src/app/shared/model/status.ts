@@ -1,5 +1,5 @@
 export enum Status {
-    RENTED,
-    AVAILABLE,
-    UNAVAILABLE
+    rented = 'RENTED',
+    available = 'AVAILABLE',
+    unavailable = 'UNAVAILABLE'
 }

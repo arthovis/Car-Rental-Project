@@ -27,7 +27,7 @@ export class CustomerUpdateComponent implements OnInit {
     );
   }
 
-  changeCar() {
+  changeCustomer() {
     this.customerService.updateCustomer(this.getIdFromRoute(), this.customerToUpdate)
       .subscribe(result => {
         this.snackBar.openFromComponent(SuccessSnackComponent, {
@@ -42,7 +42,7 @@ export class CustomerUpdateComponent implements OnInit {
   }
 
   goToCustomerDetails() {
-    this.router.navigate(['/customer', this.getIdFromRoute(), 'details']);
+    this.router.navigate(['/customers', this.getIdFromRoute(), 'details']);
   }
 
 }

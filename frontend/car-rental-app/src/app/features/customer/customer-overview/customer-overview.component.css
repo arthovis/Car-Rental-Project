@@ -1,15 +1,15 @@
 mat-grid-tile {
-    background: lightblue;
-  }
-  
-  .customer-overview {
-    width: 800px;
-  }
-  
-  .customer-overview table {
-    width: 100%;
-  }
-  
-  button {
-    margin: 16px 8px;
-  }
+  background: lightblue;
+}
+
+.customer-overview {
+  width: 800px;
+}
+
+.customer-overview table {
+  width: 100%;
+}
+
+button {
+  margin: 16px 8px;
+}

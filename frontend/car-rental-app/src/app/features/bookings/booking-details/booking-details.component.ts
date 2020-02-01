@@ -43,7 +43,7 @@ export class BookingDetailsComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/rentals']);
+    this.router.navigate(['/bookings']);
   }
 
 }
