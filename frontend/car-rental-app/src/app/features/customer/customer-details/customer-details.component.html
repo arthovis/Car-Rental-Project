@@ -3,7 +3,7 @@
   <button (click)="goBack()" mat-raised-button>Close</button>
   <h3>CUSTOMER DETAILS</h3>
 
-  <table [dataSource]='customer | async' class="mat-elevation-z8" mat-table>
+  <table [dataSource]='customers | async' class="mat-elevation-z8" mat-table>
 
     <ng-container matColumnDef="id">
       <th *matHeaderCellDef mat-header-cell>Id</th>
@@ -22,7 +22,7 @@
 
     <ng-container matColumnDef="email">
       <th *matHeaderCellDef mat-header-cell>E-mail</th>
-      <td *matCellDef="let element" mat-cell>{{element.bodyType}}</td>
+      <td *matCellDef="let element" mat-cell>{{element.email}}</td>
     </ng-container>
 
     <ng-container matColumnDef="address">

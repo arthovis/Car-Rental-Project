@@ -1,7 +1,7 @@
 <div class="customer-overview">
 
   <button mat-raised-button routerLink="/customers/new">New customer</button>
-  <table [dataSource]='cars | async' class="mat-elevation-z8" mat-table>
+  <table [dataSource]='customers | async' class="mat-elevation-z8" mat-table>
 
     <ng-container matColumnDef="id">
       <th *matHeaderCellDef mat-header-cell>Id</th>
@@ -35,3 +35,4 @@
 
   </table>
 </div>
+
