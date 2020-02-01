@@ -25,7 +25,7 @@ export class CustomerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.loadCustomerDetails();
-    this.displayedColumns = ['id', 'firstName', 'lastName', 'email', 'address'];
+    this.displayedColumns = ['id', 'firstName', 'lastName', 'email', 'address', 'actions'];
   }
 
   loadCustomerDetails() {
