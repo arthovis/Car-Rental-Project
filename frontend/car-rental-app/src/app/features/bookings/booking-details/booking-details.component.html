@@ -1,1 +1,104 @@
-<p>booking-details works!</p>
+<div class="booking-details">
+  <button (click)="goBack()" mat-raised-button>Close</button>
+  <h3>BOOKING DETAILS</h3>
+  <table [dataSource]='bookings | async' class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="customerDto">
+      <th *matHeaderCellDef mat-header-cell>Customer name</th>
+      <td *matCellDef="let element" mat-cell>{{element.customerDto.firstName}} {{element.customerDto.lastName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateOfBooking">
+      <th *matHeaderCellDef mat-header-cell>Booking date</th>
+      <td *matCellDef="let element" mat-cell>{{element.dateOfBooking}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateFrom">
+      <th *matHeaderCellDef mat-header-cell>Date From</th>
+      <td *matCellDef="let element" mat-cell>{{element.dateFrom}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateTo">
+      <th *matHeaderCellDef mat-header-cell>Date To</th>
+      <td *matCellDef="let element" mat-cell>{{element.dateTo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="rentalBranchDto">
+      <th *matHeaderCellDef mat-header-cell>Rental branch</th>
+      <td *matCellDef="let element" mat-cell>{{element.rentalBranchDto.address}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="returnBranchDto">
+      <th *matHeaderCellDef mat-header-cell>Return branch</th>
+      <td *matCellDef="let element" mat-cell>{{element.returnBranchDto.address}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="carDto">
+      <th *matHeaderCellDef mat-header-cell>Car model</th>
+      <td *matCellDef="let element" mat-cell>{{element.carDto.model}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="rentalDto">
+      <th *matHeaderCellDef mat-header-cell>Rental ID</th>
+      <td *matCellDef="let element" mat-cell>{{element.rentalDto.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="carReturnDto">
+      <th *matHeaderCellDef mat-header-cell>Return ID</th>
+      <td *matCellDef="let element" mat-cell>{{element.carReturnDto.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th *matHeaderCellDef mat-header-cell>Amount</th>
+      <td *matCellDef="let element" mat-cell>{{element.amount}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="bookingStatus">
+      <th *matHeaderCellDef mat-header-cell>Status</th>
+      <td *matCellDef="let element" mat-cell>{{element.bookingStatus}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell>Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="listBranchEmployees(element.branchDto.id);view1=true" mat-raised-button>
+          Add employee
+        </button>
+        <button (click)="deleteEmployee();" mat-raised-button>
+          Delete employee
+        </button>
+        <button mat-raised-button routerLink="/rentals/{{element.id}}/update">
+          Update comment
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+  </table>
+
+</div>
+
+<div class="blank_row"></div>
+<div [hidden]="!view1">
+  <button (click)="view1=false" mat-raised-button>Close list</button>
+  <h3>Branch employees list:</h3>
+  <div class="list">
+    <ul class="details">
+      <li *ngFor="let employee of employees">
+        <span class="badge">{{employee.id}}</span>{{employee.nameAndSurname}}
+        <button (click)="addEmployee(employee);view1=false" mat-raised-button
+                style="position: absolute; right: 0; bottom: 0px;">
+          Add
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="blank_row"></div>

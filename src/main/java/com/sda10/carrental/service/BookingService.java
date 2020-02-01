@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -43,7 +44,9 @@ public class BookingService {
     }
 
     public List<Booking> getAllBookings() {
-        return bookingRepository.findAll();
+        return bookingRepository.findAll().stream()
+                .map(booking -> verifyStatus(booking))
+                .collect(Collectors.toList());
     }
 
     public Booking updateBooking(Long id, Booking booking) {
@@ -61,6 +64,14 @@ public class BookingService {
         Booking bookingToDelete = bookingRepository.findById(id).get();
 
         bookingRepository.delete(bookingToDelete);
+    }
+
+    private Booking verifyStatus(Booking booking) {
+        if (LocalDate.now().isAfter(booking.getDateTo()) && booking.getBookingStatus() == BookingStatus.OPEN) {
+            booking.setBookingStatus(BookingStatus.COMPLETED);
+            updateBooking(booking.getId(), booking);
+        }
+        return booking;
     }
 
     public Booking buildBooking(Customer client, Car desiredCar, LocalDate rentalDate, LocalDate returnDate, Branch rentalBranch, Branch returnBranch) {
