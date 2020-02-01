@@ -27,7 +27,7 @@ export class CarDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.loadCarDetails();
-    this.displayedColumns = ['id', 'make', 'model', 'bodyType', 'yearOfProduction', 'color', 'mileage', 'status', 'amount', 'actions']
+    this.displayedColumns = ['id', 'make', 'model', 'bodyType', 'yearOfProduction', 'color', 'mileage', 'status', 'amount', 'actions'];
   }
 
   loadCarDetails() {

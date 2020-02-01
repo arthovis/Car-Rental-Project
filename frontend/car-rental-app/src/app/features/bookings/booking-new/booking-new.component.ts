@@ -10,7 +10,7 @@ import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/s
 import { Booking } from 'src/app/shared/model/booking';
 import { Observable } from 'rxjs';
 import { Car } from 'src/app/shared/model/car';
-import { CustomerService } from '../customer.service';
+import { CustomerService } from '../../customer/customer.service';
 
 @Component({
   selector: 'app-booking-new',

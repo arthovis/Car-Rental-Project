@@ -29,11 +29,11 @@ import { BookingNewComponent } from './booking-new/booking-new.component';
     FontAwesomeModule,
     MatAutocompleteModule,
     MatDatepickerModule,
-    MatMomentDateModule, // fixeaza problema data cu o zi in urma
+    MatMomentDateModule, // fixeaza problema datei cu o zi in urma
     BookingsRoutingModule
   ],
 
-  // fixeaza problema data cu o zi in urma
+  // fixeaza problema datei cu o zi in urma
   providers: [
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
   ]

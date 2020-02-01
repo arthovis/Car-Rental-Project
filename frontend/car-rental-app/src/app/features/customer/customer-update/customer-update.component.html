@@ -1,0 +1,23 @@
+<form class="customer-form">
+  <mat-form-field class="customer-full-width">
+    <input [(ngModel)]="customerToUpdate.firstName" matInput name="firstName" placeholder="First Name">
+  </mat-form-field>
+
+  <mat-form-field class="customer-full-width">
+    <input [(ngModel)]="customerToUpdate.lastName" matInput name="lastName" placeholder="Last Name">
+  </mat-form-field>
+
+  <mat-form-field class="customer-full-width">
+    <input [(ngModel)]="customerToUpdate.email" matInput name="email" placeholder="E-mail">
+  </mat-form-field>
+
+  <mat-form-field class="customer-full-width">
+    <input [(ngModel)]="customerToUpdate.address" matInput name="address" placeholder="Address">
+  </mat-form-field>
+
+  <div>
+    <button (click)="changeCustomer()" color="primary" mat-raised-button>Change</button>
+    <button (click)="goToCustomerDetails()" mat-raised-button>Close</button>
+  </div>
+
+</form>

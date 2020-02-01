@@ -1,0 +1,48 @@
+<div class="customer-details">
+
+  <button (click)="goBack()" mat-raised-button>Close</button>
+  <h3>CUSTOMER DETAILS</h3>
+
+  <table [dataSource]='customers | async' class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <th *matHeaderCellDef mat-header-cell>First Name</th>
+      <td *matCellDef="let element" mat-cell>{{element.firstName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th *matHeaderCellDef mat-header-cell>Last Name</th>
+      <td *matCellDef="let element" mat-cell>{{element.lastName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th *matHeaderCellDef mat-header-cell>E-mail</th>
+      <td *matCellDef="let element" mat-cell>{{element.email}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <th *matHeaderCellDef mat-header-cell>Address</th>
+      <td *matCellDef="let element" mat-cell>{{element.address}}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell>Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button mat-raised-button routerLink="/customers/{{element.id}}/update">
+          Update car
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+  </table>
+
+</div>
