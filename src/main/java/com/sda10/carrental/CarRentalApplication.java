@@ -10,7 +10,7 @@ public class CarRentalApplication {
         SpringApplication.run(CarRentalApplication.class, args);
     }
 
-    /*
+/*
         @Autowired
         CustomerRepository customerRepository;
 
@@ -126,6 +126,6 @@ public class CarRentalApplication {
         CommandLineRunner filterData() {
             return args -> buildDataBase();
         }
-    */
+*/
 
 }
