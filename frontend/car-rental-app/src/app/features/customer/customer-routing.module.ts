@@ -1,15 +1,16 @@
-import { CustomerOverviewComponent } from './../customer-overview/customer-overview.component';
-import { CustomerModule } from './../customer.module';
+import { CustomerComponent } from './customer.component';
+import { CustomerOverviewComponent } from './customer-overview/customer-overview.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CustomerUpdateComponent } from '../customer-update/customer-update.component';
-import { CustomerDetailsComponent } from '../customer-details/customer-details.component';
+import { CustomerUpdateComponent } from './customer-update/customer-update.component';
+import { CustomerDetailsComponent } from './customer-details/customer-details.component';
+import { CustomerNewComponent } from './customer-new/customer-new.component';
 
 
 const routes: Routes = [
   {
     path: 'customers',
-    component: CustomerModule,
+    component: CustomerComponent,
     children: [
       {
       path: '',
@@ -19,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'customers/new',
-    component: CustomerOverviewComponent
+    component: CustomerNewComponent
   },
   {
     path: 'customers/:id/update',
@@ -35,4 +36,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CustomerRoutingRoutingModule { }
+export class CustomerRoutingModule { }

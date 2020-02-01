@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CustomerRoutingRoutingModule } from './customer-routing/customer-routing-routing.module';
+import { CustomerRoutingModule } from './customer-routing.module';
 
 @NgModule({
     declarations: [
@@ -25,7 +25,7 @@ import { CustomerRoutingRoutingModule } from './customer-routing/customer-routin
         FormsModule,
         MaterialModule,
         FontAwesomeModule,
-        CustomerRoutingRoutingModule
+        CustomerRoutingModule
     ],
 })
 
