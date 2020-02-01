@@ -1,14 +1,13 @@
 import { BranchesService } from './../../branches/branches.service';
-import { Branch } from 'src/app/shared/model/branch';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Rental } from 'src/app/shared/model/rental';
 import { Employee } from 'src/app/shared/model/employee';
 import { RentalsService } from '../rentals.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
 import { map, flatMap } from 'rxjs/operators';
 import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/success-snack.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-rentals-details',

@@ -29,4 +29,8 @@ export class BookingsService {
     return this.httpClient.delete<Booking> (this.BOOKING_API + `/${id}`);
   }
 
+  updateBooking(id: number, booking: Booking): Observable<Booking> {
+    return this.httpClient.put<Booking> (this.BOOKING_API + `/${id}`, booking);
+  }
+
 }
