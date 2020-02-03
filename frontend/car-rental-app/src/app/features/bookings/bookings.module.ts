@@ -10,8 +10,8 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/m
 import { BookingsRoutingModule } from './bookings-routing.module';
 import { BookingOverviewComponent } from './booking-overview/booking-overview.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
-import { BookingCancelationComponent } from './booking-cancelation/booking-cancelation.component';
 import { BookingNewComponent } from './booking-new/booking-new.component';
+import { BookingCancellationComponent } from './booking-cancellation/booking-cancellation.component';
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import { BookingNewComponent } from './booking-new/booking-new.component';
     BookingsComponent,
     BookingOverviewComponent,
     BookingDetailsComponent,
-    BookingCancelationComponent,
+    BookingCancellationComponent,
     BookingNewComponent
   ],
   imports: [

@@ -111,13 +111,15 @@ public class BookingService {
 
         Integer daysUntilPickup = (int) DAYS.between(cancellationDate, bookingToUpdate.getDateFrom());
 
-        bookingToUpdate.setBookingStatus(BookingStatus.CANCELLED);
+        if (bookingToUpdate.getBookingStatus() == BookingStatus.OPEN && cancellationDate.isBefore(bookingToUpdate.getDateFrom())) {
 
-        if (daysUntilPickup <= 2) {
-            bookingToUpdate.setAmount(bookingToUpdate.getAmount() * 0.2);
-        } else {
-            bookingToUpdate.setAmount(0D);
+            bookingToUpdate.setBookingStatus(BookingStatus.CANCELLED);
 
+            if (daysUntilPickup <= 2) {
+                bookingToUpdate.setAmount(bookingToUpdate.getAmount() * 0.2);
+            } else {
+                bookingToUpdate.setAmount(0D);
+            }
         }
         return bookingRepository.save(bookingToUpdate);
     }
