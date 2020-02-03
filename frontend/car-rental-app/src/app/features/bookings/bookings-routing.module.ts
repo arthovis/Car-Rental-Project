@@ -4,7 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { BookingOverviewComponent } from './booking-overview/booking-overview.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { BookingNewComponent } from './booking-new/booking-new.component';
-import { BookingCancelationComponent } from './booking-cancelation/booking-cancelation.component';
+import { BookingCancellationComponent } from './booking-cancellation/booking-cancellation.component';
+import { BookingCancellationResolverService } from './booking-cancellation-resolver.service';
 
 
 const routes: Routes = [
@@ -14,19 +15,22 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: BookingOverviewComponent
+        component: BookingOverviewComponent,
+        children: [
+          {
+            path: ':id/cancellations',
+            component: BookingCancellationComponent,
+            resolve: {
+              booking: BookingCancellationResolverService
+            }
+          },
+        ]
       },
     ]
   },
   {
     path: 'bookings/:id/details',
     component: BookingDetailsComponent,
-    children: [
-      {
-        path: 'bookings/:id/cancelation',
-        component: BookingCancelationComponent
-      },
-    ]
   },
   {
     path: 'bookings/new',

@@ -5,7 +5,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SuccessSnackComponent } from './shared/components/success-snack/success-snack.component';
-import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { ImpossibleSnackComponent } from './shared/components/impossible-snack/impossible-snack.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,12 +25,13 @@ import { RentalOfficesModule } from './features/rental-offices/rental-offices.mo
 
 @NgModule({
   entryComponents:
-  [SuccessSnackComponent],
+    [SuccessSnackComponent, ImpossibleSnackComponent],
   declarations: [
     AppComponent,
     HomeComponent,
     PageNotFoundComponent,
     SuccessSnackComponent,
+    ImpossibleSnackComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@ mat-grid-tile {
 }
 
 .booking-overview {
-  width: 800px;
+  width: 1200px;
 }
 
 .booking-overview table {
@@ -12,4 +12,9 @@ mat-grid-tile {
 
 button {
   margin: 16px 8px;
+}
+
+.blank_row {
+  height: 40px;
+  background-color: #ffffff;
 }

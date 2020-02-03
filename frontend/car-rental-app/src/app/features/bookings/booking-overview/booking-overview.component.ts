@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Booking } from 'src/app/shared/model/booking';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-booking-overview',
@@ -18,7 +20,9 @@ export class BookingOverviewComponent implements OnInit {
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
 
-  constructor(private bookingService: BookingsService) { }
+  constructor(private bookingService: BookingsService,
+              private route: ActivatedRoute
+              ) { }
 
   ngOnInit() {
     this.loadBookings();
@@ -26,7 +30,11 @@ export class BookingOverviewComponent implements OnInit {
   }
 
   loadBookings() {
-    this.bookings = this.bookingService.getAllBookings();
+    this.bookings = this.route.paramMap.pipe(
+      switchMap(params => {
+        return this.bookingService.getAllBookings();
+      })
+    );
   }
 
   delete(id: number) {

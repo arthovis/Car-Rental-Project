@@ -18,19 +18,23 @@ export class BookingsService {
   }
 
   getAllBookings(): Observable<Booking[]> {
-    return this.httpClient.get<Booking[]> (this.BOOKING_API);
+    return this.httpClient.get<Booking[]>(this.BOOKING_API);
   }
 
   getBookingById(id: number): Observable<Booking> {
-    return this.httpClient.get<Booking> (this.BOOKING_API + `/${id}`);
+    return this.httpClient.get<Booking>(this.BOOKING_API + `/${id}`);
   }
 
   deleteBooking(id: number): Observable<Booking> {
-    return this.httpClient.delete<Booking> (this.BOOKING_API + `/${id}`);
+    return this.httpClient.delete<Booking>(this.BOOKING_API + `/${id}`);
   }
 
   updateBooking(id: number, booking: Booking): Observable<Booking> {
-    return this.httpClient.put<Booking> (this.BOOKING_API + `/${id}`, booking);
+    return this.httpClient.put<Booking>(this.BOOKING_API + `/${id}`, booking);
+  }
+
+  cancelBooking(id: number): Observable<Booking> {
+    return this.httpClient.get<Booking>(this.BOOKING_API + `/${id}` + '/cancellations');
   }
 
 }

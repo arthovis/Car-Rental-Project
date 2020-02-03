@@ -70,12 +70,14 @@ public class BookingController {
         }
     }
 
-    @PostMapping(value = "/bookings/{id}/cancellations")
-    private BookingDto cancelBooking(@PathVariable Long id) {
+    @GetMapping(value = "/bookings/{id}/cancellations")
+    private ResponseEntity<BookingDto> cancelBooking(@PathVariable Long id) {
 
         Booking booking = bookingService.cancelBooking(id);
 
-        return bookingMapper.toDto(booking);
+        BookingDto response = bookingMapper.toDto(booking);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
 

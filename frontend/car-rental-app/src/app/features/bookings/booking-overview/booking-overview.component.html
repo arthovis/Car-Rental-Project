@@ -1,7 +1,10 @@
 <div class="booking-overview">
 
+  <div class="blank_row"></div>
+  <router-outlet></router-outlet>
+  <div class="blank_row"></div>
+
   <button mat-raised-button routerLink="/bookings/new">New booking</button>
-  <button mat-raised-button routerLink="/revenue">Revenue</button>
 
   <table [dataSource]='bookings | async' class="mat-elevation-z8" mat-table>
 
@@ -49,7 +52,9 @@
         <button mat-raised-button routerLink="/bookings/{{element.id}}/details">
           <fa-icon [icon]="searchIcon"></fa-icon>
         </button>
-      </td>
+        <button color="warn" mat-raised-button routerLink="/bookings/{{element.id}}/cancellations">
+          Cancellation
+        </button>
     </ng-container>
 
     <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>

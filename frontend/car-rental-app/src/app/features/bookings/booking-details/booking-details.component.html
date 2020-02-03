@@ -1,6 +1,7 @@
 <div class="booking-details">
   <button (click)="goBack()" mat-raised-button>Close</button>
   <h3>BOOKING DETAILS</h3>
+
   <table [dataSource]='bookings | async' class="mat-elevation-z8" mat-table>
 
     <ng-container matColumnDef="id">
@@ -61,15 +62,6 @@
     <ng-container matColumnDef="bookingStatus">
       <th *matHeaderCellDef mat-header-cell>Status</th>
       <td *matCellDef="let element" mat-cell>{{element.bookingStatus}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th *matHeaderCellDef mat-header-cell>Actions</th>
-      <td *matCellDef="let element" mat-cell>
-        <button mat-raised-button routerLink="/bookings/{{element.id}}/cancellations">
-          Cancellation
-        </button>
-      </td>
     </ng-container>
 
     <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
