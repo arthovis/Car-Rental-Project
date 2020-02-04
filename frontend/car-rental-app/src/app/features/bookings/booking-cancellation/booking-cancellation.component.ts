@@ -52,8 +52,7 @@ export class BookingCancellationComponent implements OnInit {
   }
 
   goBack() {
-    const bookingId = this.booking ? this.booking.id : null;
-    this.router.navigate(['../../', { id: bookingId}], { relativeTo: this.route });
+    this.router.navigate(['../../', { id: this.booking.id}], { relativeTo: this.route });
   }
 
   getIdFromRoute(): number {

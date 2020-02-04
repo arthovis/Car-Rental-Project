@@ -1,33 +1,20 @@
 import { BookingsService } from './bookings.service';
 import { Injectable } from '@angular/core';
 import { Booking } from 'src/app/shared/model/booking';
-import { Resolve, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable, EMPTY, of } from 'rxjs';
-import { take, mergeMap } from 'rxjs/operators';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingCancellationResolverService implements Resolve<Booking> {
 
-  constructor(private bookinkService: BookingsService,
-              private router: Router
-              ) { }
+  constructor(private bookinkService: BookingsService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Booking> | Observable<never> {
+  resolve(route: ActivatedRouteSnapshot): Observable<Booking> {
     const id = +route.paramMap.get('id');
 
-    return this.bookinkService.getBookingById(id).pipe(
-      take(1),
-      mergeMap(booking => {
-        if (booking) {
-          return of(booking);
-        } else { // id not found
-          this.router.navigate(['/bookings']);
-          return EMPTY;
-        }
-      })
-    );
+    return this.bookinkService.getBookingById(id);
   }
 
 }

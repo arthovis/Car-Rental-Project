@@ -1,4 +1,3 @@
-import { CustomerModule } from './features/customer/customer.module';
 import { MaterialModule } from './shared/material/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -19,6 +18,8 @@ import { RentalsModule } from './features/rentals/rentals.module';
 import { BookingsModule } from './features/bookings/bookings.module';
 import { EmployeeModule } from './features/employees/employee.module';
 import { ReturnsModule } from './features/returns/returns.module';
+import { RevenuesModule } from './features/revenues/revenues.module';
+import { CustomerModule } from './features/customer/customer.module';
 import { RentalOfficesModule } from './features/rental-offices/rental-offices.module';
 
 
@@ -46,6 +47,7 @@ import { RentalOfficesModule } from './features/rental-offices/rental-offices.mo
     RentalsModule,
     ReturnsModule,
     EmployeeModule,
+    RevenuesModule,
     AppRoutingModule,
     MaterialModule,
     FontAwesomeModule
