@@ -1,0 +1,11 @@
+mat-grid-tile {
+  background: lightblue;
+}
+
+.rental-branch-list {
+  width: 800px;
+}
+
+.rental-branch-list table {
+  width: 100%;
+}

@@ -19,6 +19,13 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="additionalPayment">
+      <th *matHeaderCellDef mat-header-cell>Additional Payment</th>
+      <td *matCellDef="let element" mat-cell>
+        <div *ngIf="element.additionalPayment != null">{{element.additionalPayment}}</div>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell>Actions</th>
       <td *matCellDef="let element" mat-cell>

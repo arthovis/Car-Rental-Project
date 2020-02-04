@@ -23,7 +23,7 @@ export class ReturnsOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.loadReturns();
-    this.displayedColumns = ['id', 'dateOfReturn', 'employeeDto', 'actions'];
+    this.displayedColumns = ['id', 'dateOfReturn', 'employeeDto', 'additionalPayment', 'actions'];
   }
 
   private loadReturns() {
