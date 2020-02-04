@@ -1,4 +1,4 @@
-<form class="customer-form">
+<form #customForm="ngForm" class="customer-form">
   <mat-form-field class="customer-full-width">
     <input [(ngModel)]="firstName" matInput name="firstName" placeholder="First Name" required>
   </mat-form-field>
@@ -8,7 +8,8 @@
   </mat-form-field>
 
   <mat-form-field class="customer-full-width">
-    <input [(ngModel)]="email" matInput name="email" placeholder="E-mail" required>
+    <input [formControl]="emailForm" matInput placeholder="Enter your email" required>
+    <mat-error *ngIf="emailForm.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="customer-full-width">

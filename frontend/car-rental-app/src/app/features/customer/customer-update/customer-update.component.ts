@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/success-snack.component';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-update',
@@ -13,7 +14,9 @@ import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/s
 })
 export class CustomerUpdateComponent implements OnInit {
 
-  customerToUpdate = new Customer(null, null, null, null, null);
+  emailForm = new FormControl('', [Validators.required, Validators.email]);
+
+  customerToUpdate = new Customer(null, null, null, this.emailForm.value, null);
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -43,6 +46,12 @@ export class CustomerUpdateComponent implements OnInit {
 
   goToCustomerDetails() {
     this.router.navigate(['/customers', this.getIdFromRoute(), 'details']);
+  }
+
+  getErrorMessage() {
+    return this.emailForm.hasError('required') ? 'You must enter a value' :
+        this.emailForm.hasError('email') ? 'Not a valid email' :
+            '';
   }
 
 }
