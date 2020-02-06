@@ -1,10 +1,11 @@
-<form class="branch-form">
+<form #branchForm="ngForm" (ngSubmit)="changeBranch()" class="branch-form">
 
   <mat-form-field class="branch-full-width">
-    <input [(ngModel)]="branchToUpdate.address" matInput name="address" placeholder="Address" required>
+    <input #addr="ngModel" [(ngModel)]="branchToUpdate.address" matInput name="address" placeholder="Address" required>
+    <mat-error *ngIf="addr.invalid || addr.pristine">Address is required</mat-error>
   </mat-form-field>
 
-  <button (click)="changeBranch()" color="primary" mat-raised-button>Change</button>
-  <button (click)="goToBranchDetails()" mat-raised-button>Close</button>
+  <button [disabled]="!branchForm.form.valid" class="action" mat-raised-button type="submit">Update</button>
+  <button (click)="goToBranchDetails()" class="default" mat-raised-button>Close</button>
 
 </form>

@@ -1,64 +1,68 @@
-<form class="booking-form">
+<form #bookingForm="ngForm" (ngSubmit)="createBooking()" class="booking-form">
 
   <mat-form-field class="booking-full-width">
-    <input [(ngModel)]="customerDto" [matAutocomplete]="auto1" matInput name="customerDto"
+    <input #customer="ngModel" [(ngModel)]="customerDto" [matAutocomplete]="auto1" matInput name="customerDto"
            placeholder="Customer name" required>
     <mat-autocomplete #auto1="matAutocomplete" [displayWith]="displayFn1">
       <mat-option *ngFor="let customer of customers" [value]="customer">
         {{customer.firstName}} {{customer.lastName}}
       </mat-option>
     </mat-autocomplete>
+    <mat-error *ngIf="customer.invalid || customer.pristine">Name is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="booking-full-width">
     <input [(ngModel)]="rentalBranchDto" [matAutocomplete]="auto2" matInput name="rentalBranchDto"
-           placeholder="Rental branch" required>
+           #rentalBranch="ngModel" placeholder="Rental branch" required>
     <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn2">
       <mat-option *ngFor="let branch of branches" [value]="branch">
         {{branch.address}}
       </mat-option>
     </mat-autocomplete>
+    <mat-error *ngIf="rentalBranch.invalid || rentalBranch.pristine">Branch is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="booking-full-width">
     <input [(ngModel)]="returnBranchDto" [matAutocomplete]="auto3" matInput name="returnBranchDto"
-           placeholder="Return branch" required>
+           #returnBranch="ngModel" placeholder="Return branch" required>
     <mat-autocomplete #auto3="matAutocomplete" [displayWith]="displayFn2">
       <mat-option *ngFor="let branch of branches" [value]="branch">
         {{branch.address}}
       </mat-option>
     </mat-autocomplete>
+    <mat-error *ngIf="returnBranch.invalid || returnBranch.pristine">Branch is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="booking-full-width">
-    <input [(ngModel)]="carDto" [matAutocomplete]="auto4" matInput name="carDto"
-           placeholder="Car model" required>
+    <input #car="ngModel" [(ngModel)]="carDto" [matAutocomplete]="auto4" matInput name="carDto" placeholder="Car model"
+           required>
     <mat-autocomplete #auto4="matAutocomplete" [displayWith]="displayFn3">
       <mat-option *ngFor="let car of cars" [value]="car">
         {{car.model}}
       </mat-option>
     </mat-autocomplete>
+    <mat-error *ngIf="car.invalid || car.pristine">Car is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="booking-full-width">
     <input #picker1Model="ngModel" [(ngModel)]="dateFrom" [matDatepickerFilter]="dateFilter1" [matDatepicker]="picker1"
-           matInput
-           name="dateFrom" placeholder="Date From" required>
+           #date_from="ngModel" matInput name="dateFrom" placeholder="Date From" required>
     <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #picker1></mat-datepicker>
+    <mat-error *ngIf="date_from.invalid || date_from.pristine">Date is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="booking-full-width">
     <input #picker2Model="ngModel" [(ngModel)]="dateTo" [matDatepickerFilter]="dateFilter2" [matDatepicker]="picker2"
-           matInput
-           name="dateTo" placeholder="Date To" required>
+           #date_to="ngModel" matInput name="dateTo" placeholder="Date To" required>
     <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #picker2></mat-datepicker>
+    <mat-error *ngIf="date_to.invalid || date_to.pristine">Date is required</mat-error>
   </mat-form-field>
 
   <div>
-    <button (click)="createBooking()" color="primary" mat-raised-button>Create</button>
-    <button (click)="goToBookings()" mat-raised-button>Close</button>
+    <button [disabled]="!bookingForm.form.valid" class="action" mat-raised-button type="submit">Create</button>
+    <button (click)="goToBookings()" class="default" mat-raised-button>Close</button>
   </div>
 
 </form>

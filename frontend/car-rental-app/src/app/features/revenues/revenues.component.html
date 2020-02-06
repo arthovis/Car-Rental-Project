@@ -1,3 +1,8 @@
+<span style="color:rgb(33, 142, 146);">
 <h3>Revenue by branch: {{ revenue.totalRevenue }} Euro</h3><span></span>
+</span>
+
+<button (click)="clear()" class="action" mat-raised-button>Clear</button>
+
 <div class="blank_row"></div>
 <app-rental-branches-list (sendId)="receiveId($event)"></app-rental-branches-list>

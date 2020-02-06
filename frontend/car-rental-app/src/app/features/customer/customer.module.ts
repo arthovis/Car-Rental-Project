@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { CustomerNewComponent } from './customer-new/customer-new.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CustomerRoutingModule } from './customer-routing.module';
@@ -23,6 +23,7 @@ import { CustomerRoutingModule } from './customer-routing.module';
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         MaterialModule,
         FontAwesomeModule,
         CustomerRoutingModule

@@ -1,9 +1,44 @@
-.car-rental-form {
+.rental-office-form {
   min-width: 150px;
   max-width: 500px;
   width: 100%;
 }
 
-.car-rental-full-width {
+.rental-office-full-width {
   width: 100%;
+}
+
+.info {
+  background-color: #009933;
+  color: #ffffff;
+}
+
+.info:hover {
+  background-color: #00cc44;
+}
+
+.action {
+  background-color: #6600cc;
+  color: #ffffff;
+}
+.action:hover {
+  background: #8080ff;
+}
+
+.danger {
+  background-color: #ff3333;
+  color: #ffffff;
+}
+
+.danger:hover {
+  background: #ff8080;
+}
+
+.default {
+  background-color: #ffffff;
+  color: black;
+}
+
+.default:hover {
+  background: #ddd;
 }

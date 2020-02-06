@@ -1,5 +1,5 @@
 <div class="car-details">
-  <button (click)="goBack()" mat-raised-button>Close</button>
+  <button (click)="goBack()" class="default" mat-raised-button>Close</button>
   <h3>CAR DETAILS</h3>
   <table [dataSource]='cars | async' class="mat-elevation-z8" mat-table>
 
@@ -52,13 +52,13 @@
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell>Actions</th>
       <td *matCellDef="let element" mat-cell>
-        <button mat-raised-button routerLink="/cars/{{element.id}}/update">
+        <button class="action" mat-raised-button routerLink="/cars/{{element.id}}/update">
           Update car
         </button>
       </td>
     </ng-container>
 
-    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row style="background-color: cornflowerblue;"></tr>
     <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
 
   </table>

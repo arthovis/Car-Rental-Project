@@ -20,4 +20,8 @@ export class RevenuesComponent implements OnInit {
     this.revenueService.getRevenue(id).subscribe(revenue => this.revenue = revenue);
   }
 
+  clear() {
+    this.revenue.totalRevenue = 0;
+  }
+
 }

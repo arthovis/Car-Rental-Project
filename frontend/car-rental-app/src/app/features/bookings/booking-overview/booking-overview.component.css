@@ -3,7 +3,7 @@ mat-grid-tile {
 }
 
 .booking-overview {
-  width: 1200px;
+  width: 1000px;
 }
 
 .booking-overview table {
@@ -17,4 +17,40 @@ button {
 .blank_row {
   height: 40px;
   background-color: #ffffff;
+}
+
+.info {
+  background-color: #009933;
+  color: #ffffff;
+}
+
+.info:hover {
+  background-color: #00cc44;
+}
+
+.action {
+  background-color: #6600cc;
+  color: #ffffff;
+
+}
+.action:hover {
+  background: #8080ff;
+}
+
+.danger {
+  background-color: #ff3333;
+  color: #ffffff;
+}
+
+.danger:hover {
+  background: #ff8080;
+}
+
+.default {
+  background-color: #ffffff;
+  color: black;
+}
+
+.default:hover {
+  background: #ddd;
 }

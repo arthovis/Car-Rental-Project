@@ -1,23 +1,28 @@
-<form class="customer-form">
+<form (ngSubmit)="createCustomer(customerForm.value)" [formGroup]="customerForm" class="customer-form">
+
   <mat-form-field class="customer-full-width">
-    <input [(ngModel)]="firstName" matInput name="firstName" placeholder="First Name" required>
+    <input formControlName="firstNameForm" matInput placeholder="First Name" required>
+    <mat-error *ngIf="customerFirstName.invalid">{{getErrorFirstNameMessage()}}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="customer-full-width">
-    <input [(ngModel)]="lastName" matInput name="lastName" placeholder="Last Name" required>
+    <input formControlName="lastNameForm" matInput placeholder="Last Name" required>
+    <mat-error *ngIf="customerLastName.invalid">{{getErrorLastNameMessage()}}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="customer-full-width">
-    <input [(ngModel)]="email" matInput name="email" placeholder="E-mail" required>
+    <input formControlName="emailForm" matInput placeholder="Enter your email" required>
+    <mat-error *ngIf="customerEmail.invalid">{{getErrorEmailMessage()}}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="customer-full-width">
-    <input [(ngModel)]="address" matInput name="address" placeholder="Address" required>
+    <input formControlName="addressForm" matInput placeholder="Address" required>
+    <mat-error *ngIf="customerAdress.invalid">{{getErrorAdressMessage()}}</mat-error>
   </mat-form-field>
 
   <div>
-    <button (click)="createCustomer()" color="primary" mat-raised-button>Create</button>
-    <button (click)="goToCustomers()" mat-raised-button>Close</button>
+    <button [disabled]="!customerForm.valid" class="action" mat-raised-button type="submit">Create</button>
+    <button (click)="goToCustomers()" class="default" mat-raised-button>Close</button>
   </div>
 
 </form>

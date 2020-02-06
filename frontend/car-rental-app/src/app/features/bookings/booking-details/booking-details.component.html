@@ -1,5 +1,5 @@
 <div class="booking-details">
-  <button (click)="goBack()" mat-raised-button>Close</button>
+  <button (click)="goBack()" class="default" mat-raised-button>Close</button>
   <h3>BOOKING DETAILS</h3>
 
   <table [dataSource]='bookings | async' class="mat-elevation-z8" mat-table>
@@ -64,7 +64,7 @@
       <td *matCellDef="let element" mat-cell>{{element.bookingStatus}}</td>
     </ng-container>
 
-    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row style="background-color: cornflowerblue;"></tr>
     <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
 
   </table>

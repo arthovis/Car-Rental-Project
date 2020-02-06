@@ -63,3 +63,42 @@ mat-grid-tile {
 .tab {
   float: right;
 }
+
+button {
+  margin: 16px 8px;
+}
+
+.info {
+  background-color: #009933;
+  color: #ffffff;
+}
+
+.info:hover {
+  background-color: #00cc44;
+}
+
+.action {
+  background-color: #6600cc;
+  color: #ffffff;
+}
+.action:hover {
+  background: #8080ff;
+}
+
+.danger {
+  background-color: #ff3333;
+  color: #ffffff;
+}
+
+.danger:hover {
+  background: #ff8080;
+}
+
+.default {
+  background-color: #ffffff;
+  color: black;
+}
+
+.default:hover {
+  background: #ddd;
+}

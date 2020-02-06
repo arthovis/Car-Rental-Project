@@ -1,23 +1,28 @@
-<form class="customer-form">
+<form (ngSubmit)="changeCustomer(customerForm.value)" [formGroup]="customerForm" class="customer-form">
+
   <mat-form-field class="customer-full-width">
-    <input [(ngModel)]="customerToUpdate.firstName" matInput name="firstName" placeholder="First Name">
+    <input formControlName="firstNameForm" matInput placeholder="First Name" required>
+    <mat-error *ngIf="customerFirstName.invalid">{{getErrorFirstNameMessage()}}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="customer-full-width">
-    <input [(ngModel)]="customerToUpdate.lastName" matInput name="lastName" placeholder="Last Name">
+    <input formControlName="lastNameForm" matInput placeholder="Last Name" required>
+    <mat-error *ngIf="customerLastName.invalid">{{getErrorLastNameMessage()}}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="customer-full-width">
-    <input [(ngModel)]="customerToUpdate.email" matInput name="email" placeholder="E-mail">
+    <input formControlName="emailForm" matInput placeholder="Enter your email" required>
+    <mat-error *ngIf="customerEmail.invalid">{{getErrorEmailMessage()}}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="customer-full-width">
-    <input [(ngModel)]="customerToUpdate.address" matInput name="address" placeholder="Address">
+    <input formControlName="addressForm" matInput placeholder="Address" required>
+    <mat-error *ngIf="customerAdress.invalid">{{getErrorAdressMessage()}}</mat-error>
   </mat-form-field>
 
   <div>
-    <button (click)="changeCustomer()" color="primary" mat-raised-button>Change</button>
-    <button (click)="goToCustomerDetails()" mat-raised-button>Close</button>
+    <button [disabled]="!customerForm.valid" class="action" mat-raised-button type="submit">Change</button>
+    <button (click)="goToCustomerDetails()" class="default" mat-raised-button>Close</button>
   </div>
 
 </form>

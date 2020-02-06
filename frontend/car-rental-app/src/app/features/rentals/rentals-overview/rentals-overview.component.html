@@ -22,14 +22,20 @@
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell>Actions</th>
       <td *matCellDef="let element" mat-cell>
-        <button mat-raised-button routerLink="/rentals/{{element.id}}/details">
+        <button class="info" mat-raised-button routerLink="/rentals/{{element.id}}/details">
           <fa-icon [icon]="searchIcon"></fa-icon>
         </button>
       </td>
     </ng-container>
 
-    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row style="background-color: cornflowerblue;"></tr>
     <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
 
   </table>
+
+  <br/>
+
+  <mat-paginator [length]="100" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10">
+  </mat-paginator>
+
 </div>
