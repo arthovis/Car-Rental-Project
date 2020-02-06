@@ -1,10 +1,11 @@
-<form class="branch-form">
+<form #branchForm="ngForm" (ngSubmit)="createBranch()" class="branch-form">
 
   <mat-form-field class="branch-full-width">
-    <input [(ngModel)]="address" matInput name="address" placeholder="Address" required>
+    <input #addr="ngModel" [(ngModel)]="address" matInput name="address" placeholder="Address" required>
+    <mat-error *ngIf="addr.invalid || addr.pristine">Address is required</mat-error>
   </mat-form-field>
 
-  <button (click)="createBranch()" color="primary" mat-raised-button>Create</button>
-  <button (click)="goToBranches()" mat-raised-button>Close</button>
+  <button [disabled]="!branchForm.form.valid" class="action" mat-raised-button type="submit">Create</button>
+  <button (click)="goToBranches()" class="default" mat-raised-button>Close</button>
 
 </form>

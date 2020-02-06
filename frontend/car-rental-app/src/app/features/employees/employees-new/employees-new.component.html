@@ -1,18 +1,23 @@
-<form class="employee-form">
+<form #employeeForm="ngForm" (ngSubmit)="createEmployee()" class="employee-form">
+
   <mat-form-field class="employee-full-width">
-    <input [(ngModel)]="nameAndSurname" matInput name="nameAndSurname" placeholder="Name and Surname" required>
+    <input #name="ngModel" [(ngModel)]="nameAndSurname" matInput name="nameAndSurname" placeholder="Name and Surname"
+           required>
+    <mat-error *ngIf="name.invalid || name.pristine">Name and surname is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select [(ngModel)]="jobPosition" matInput name="jobPosition" placeholder="Job Position" required>
+    <mat-select #position="ngModel" [(ngModel)]="jobPosition" matInput name="jobPosition" placeholder="Job Position"
+                required>
       <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>
       <mat-option value="MANAGER">MANAGER</mat-option>
     </mat-select>
+    <mat-error *ngIf="position.invalid || position.pristine">Job position is required</mat-error>
   </mat-form-field>
 
   <div>
-    <button (click)="createEmployee()" color="primary" mat-raised-button>Create</button>
-    <button (click)="goToEmployees()" mat-raised-button>Close</button>
+    <button [disabled]="!employeeForm.form.valid" class="action" mat-raised-button type="submit">Create</button>
+    <button (click)="goToEmployees()" class="default" mat-raised-button>Close</button>
   </div>
 
 </form>

@@ -1,5 +1,5 @@
 <div class="rental-offices-details">
-  <button (click)="goBack()" mat-raised-button>Close</button>
+  <button (click)="goBack()" class="default" mat-raised-button>Close</button>
   <h3>RENTAL OFFICE DETAILS</h3>
   <table [dataSource]='rentalOffices | async' class="mat-elevation-z8" mat-table>
 
@@ -41,17 +41,17 @@
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell>Actions</th>
       <td *matCellDef="let element" mat-cell>
-        <button (click)="view=true" mat-raised-button>Branches list</button>
-        <button [routerLink]="['/rental-offices', element.id, 'branches-list']" mat-raised-button>
+        <button (click)="view=true" class="info" mat-raised-button>Branches list</button>
+        <button [routerLink]="['/rental-offices', element.id, 'branches-list']" class="action" mat-raised-button>
           Add new branch
         </button>
-        <button mat-raised-button routerLink="/rental-offices/{{element.id}}/update">
+        <button class="action" mat-raised-button routerLink="/rental-offices/{{element.id}}/update">
           Update rental office
         </button>
       </td>
     </ng-container>
 
-    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row style="background-color: cornflowerblue;"></tr>
     <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
 
   </table>
@@ -60,17 +60,24 @@
 
 <div class="blank_row"></div>
 <div [hidden]="!view">
-  <button (click)="view=false" mat-raised-button>Close list</button>
+  <button (click)="view=false" class="default" mat-raised-button>Close list</button>
   <h3>Rental office branches list:</h3>
   <div class="list">
     <ul class="branches">
       <li *ngFor="let branch of branches">
         <span class="badge">{{branch.id}}</span>{{branch.address}}
-        <button (click)=deleteBranch(branch) mat-raised-button style="position: absolute; right: 0; bottom: 0px;">
+        <button (click)=deleteBranch(branch) class="danger" mat-raised-button
+                style="position: absolute; right: 0; bottom: -16px;">
           Delete
         </button>
       </li>
     </ul>
   </div>
+
+  <br/>
+
+  <mat-paginator [length]="100" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10">
+  </mat-paginator>
+
 </div>
 <div class="blank_row"></div>

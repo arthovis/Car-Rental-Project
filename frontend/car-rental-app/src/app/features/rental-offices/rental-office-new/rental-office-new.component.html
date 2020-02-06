@@ -1,25 +1,32 @@
-<form class="car-rental-form">
+<form #officeForm="ngForm" (ngSubmit)="createRentalOffice()" class="rental-office-form">
 
-  <mat-form-field class="car-rental-full-width">
-    <input [(ngModel)]="name" matInput name="name" placeholder="Name" required>
+  <mat-form-field class="rental-office-full-width">
+    <input #nm="ngModel" [(ngModel)]="name" matInput name="name" placeholder="Name" required>
+    <mat-error *ngIf="nm.invalid || nm.pristine">Name is required</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="car-rental-full-width">
-    <input [(ngModel)]="internetDomain" matInput name="internetDomain" placeholder="Internet Domain" required>
+  <mat-form-field class="rental-office-full-width">
+    <input #domain="ngModel" [(ngModel)]="internetDomain" matInput name="internetDomain" placeholder="Internet Domain"
+           required>
+    <mat-error *ngIf="domain.invalid || domain.pristine">Internet domain is required</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="car-rental-full-width">
-    <input [(ngModel)]="contactAddress" matInput name="contactAddress" placeholder="Contact Address" required>
+  <mat-form-field class="rental-office-full-width">
+    <input #addr="ngModel" [(ngModel)]="contactAddress" matInput name="contactAddress" placeholder="Contact Address"
+           required>
+    <mat-error *ngIf="addr.invalid || addr.pristine">Contact address is required</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="car-rental-full-width">
-    <input [(ngModel)]="owner" matInput name="owner" placeholder="Owner" required>
+  <mat-form-field class="rental-office-full-width">
+    <input #own="ngModel" [(ngModel)]="owner" matInput name="owner" placeholder="Owner" required>
+    <mat-error *ngIf="own.invalid || own.pristine">Owner is required</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="car-rental-full-width">
-    <input [(ngModel)]="logoType" matInput name="logoType" placeholder="Logo Type" required>
+  <mat-form-field class="rental-office-full-width">
+    <input #logo="ngModel" [(ngModel)]="logoType" matInput name="logoType" placeholder="Logo Type" required>
+    <mat-error *ngIf="logo.invalid || logo.pristine">Logo type is required</mat-error>
   </mat-form-field>
 
-  <button (click)="createRentalOffice()" color="primary" mat-raised-button>Create</button>
-  <button (click)="goToRentalOffices()" mat-raised-button>Close</button>
+  <button [disabled]="!officeForm.form.valid" class="action" mat-raised-button type="submit">Create</button>
+  <button (click)="goToRentalOffices()" class="default" mat-raised-button>Close</button>
 </form>

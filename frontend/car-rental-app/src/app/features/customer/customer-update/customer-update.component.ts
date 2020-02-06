@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/success-snack.component';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-update',
@@ -14,9 +14,15 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class CustomerUpdateComponent implements OnInit {
 
-  emailForm = new FormControl('', [Validators.required, Validators.email]);
+  customerForm = new FormGroup({
+    firstNameForm: new FormControl('', Validators.required),
+    lastNameForm: new FormControl('', Validators.required),
+    emailForm: new FormControl('', [Validators.required, Validators.email]),
+    addressForm: new FormControl('', Validators.required)
+  });
 
-  customerToUpdate = new Customer(null, null, null, this.emailForm.value, null);
+  customerToUpdate = new Customer(null, this.customerFirstName.value, this.customerLastName.value,
+    this.customerEmail.value, this.customerAdress.value);
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -48,10 +54,41 @@ export class CustomerUpdateComponent implements OnInit {
     this.router.navigate(['/customers', this.getIdFromRoute(), 'details']);
   }
 
-  getErrorMessage() {
-    return this.emailForm.hasError('required') ? 'You must enter a value' :
-        this.emailForm.hasError('email') ? 'Not a valid email' :
-            '';
+  get customerFirstName() {
+    return this.customerForm.get('firstNameForm');
+  }
+
+  get customerLastName() {
+    return this.customerForm.get('lastNameForm');
+  }
+
+  get customerEmail() {
+    return this.customerForm.get('emailForm');
+  }
+
+  get customerAdress() {
+    return this.customerForm.get('addressForm');
+  }
+
+  getErrorFirstNameMessage() {
+    return this.customerFirstName.hasError('required') ? 'You must enter a name' :
+      '';
+  }
+
+  getErrorLastNameMessage() {
+    return this.customerLastName.hasError('required') ? 'You must enter a name' :
+      '';
+  }
+
+  getErrorEmailMessage() {
+    return this.customerEmail.hasError('required') ? 'You must enter a email' :
+      this.customerEmail.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+
+  getErrorAdressMessage() {
+    return this.customerAdress.hasError('required') ? 'You must enter an adress' :
+      '';
   }
 
 }

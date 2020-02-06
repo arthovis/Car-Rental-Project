@@ -1,44 +1,53 @@
-<form class="car-form">
+<form #carForm="ngForm" (ngSubmit)="createCar()" class="car-form">
 
   <mat-form-field class="car-full-width">
-    <input [(ngModel)]="model" matInput name="model" placeholder="Model" required>
+    <input #mod="ngModel" [(ngModel)]="model" matInput name="model" placeholder="Model" required>
+    <mat-error *ngIf="mod.invalid || mod.pristine">Model is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="car-full-width">
-    <input [(ngModel)]="amount" matInput name="amount" placeholder="Amount" required>
+    <input #am="ngModel" [(ngModel)]="amount" matInput name="amount" placeholder="Amount" required>
+    <mat-error *ngIf="am.invalid || am.pristine">Amount is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="car-full-width">
-    <input [(ngModel)]="bodyType" matInput name="bodyType" placeholder="Body Type" required>
+    <input #bod="ngModel" [(ngModel)]="bodyType" matInput name="bodyType" placeholder="Body Type" required>
+    <mat-error *ngIf="bod.invalid || bod.pristine">Body type is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="car-full-width">
-    <input [(ngModel)]="make" matInput name="make" placeholder="Make" required>
+    <input #mk="ngModel" [(ngModel)]="make" matInput name="make" placeholder="Make" required>
+    <mat-error *ngIf="mk.invalid || mk.pristine">Make is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="car-full-width">
-    <input [(ngModel)]="yearOfProduction" matInput name="yearOfProduction" placeholder="Year of Production" required>
+    <input #year="ngModel" [(ngModel)]="yearOfProduction" matInput name="yearOfProduction"
+           placeholder="Year of Production" required>
+    <mat-error *ngIf="year.invalid || year.pristine">Year of Production is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="car-full-width">
-    <input [(ngModel)]="color" matInput name="color" placeholder="Color" required>
+    <input #col="ngModel" [(ngModel)]="color" matInput name="color" placeholder="Color" required>
+    <mat-error *ngIf="col.invalid || col.pristine">Color is required</mat-error>
   </mat-form-field>
 
   <mat-form-field class="car-full-width">
-    <input [(ngModel)]="mileage" matInput name="mileage" placeholder="Mileage" required>
+    <input #ml="ngModel" [(ngModel)]="mileage" matInput name="mileage" placeholder="Mileage" required>
+    <mat-error *ngIf="ml.invalid || ml.pristine">Mileage is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select [(ngModel)]="status" matInput name="status" placeholder="Status" required>
+    <mat-select #stat="ngModel" [(ngModel)]="status" matInput name="status" placeholder="Status" required>
       <mat-option value="RENTED">RENTED</mat-option>
       <mat-option value="AVAILABLE">AVAILABLE</mat-option>
       <mat-option value="UNAVAILABLE">UNAVAILABLE</mat-option>
     </mat-select>
+    <mat-error *ngIf="stat.invalid || stat.pristine">Status is required</mat-error>
   </mat-form-field>
 
   <div>
-    <button (click)="createCar()" color="primary" mat-raised-button>Create</button>
-    <button (click)="goToCars()" mat-raised-button>Close</button>
+    <button [disabled]="!carForm.form.valid" class="action" mat-raised-button type="submit">Create</button>
+    <button (click)="goToCars()" class="default" mat-raised-button>Close</button>
   </div>
 
 </form>
