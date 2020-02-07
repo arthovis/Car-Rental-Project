@@ -38,13 +38,17 @@ public class BookingController {
     }
 
     @GetMapping(value = "/bookings")
-    public List<BookingDto> findAllBookings() {
+    public ResponseEntity<List<BookingDto>> getBookingPage(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "5") Integer pageSize) {
 
-        List<Booking> bookings = bookingService.getAllBookings();
-        return bookings
+        List<Booking> bookings = bookingService.getAllBookings(pageIndex, pageSize);
+        List<BookingDto> response = bookings
                 .stream()
                 .map(bookingMapper::toDto)
                 .collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping(value = "/bookings/{id}")
