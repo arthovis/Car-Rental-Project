@@ -64,7 +64,7 @@
 
   <br/>
 
-  <mat-paginator #paginator (page)="getBookings($event)" [length]="length" [pageSizeOptions]="pageSizeOptions"
+  <mat-paginator (page)="getBookings($event)" [length]="length" [pageSizeOptions]="pageSizeOptions"
                  [pageSize]="pageSize">
   </mat-paginator>
 
