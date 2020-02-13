@@ -17,8 +17,8 @@ export class BookingsService {
     return this.httpClient.post<Booking>(this.BOOKING_API, booking);
   }
 
-  getAllBookings(): Observable<Booking[]> {
-    return this.httpClient.get<Booking[]>(this.BOOKING_API);
+  getAllBookings(pageIndex: number, pageSize: number): Observable<Booking[]> {
+    return this.httpClient.get<Booking[]>(this.BOOKING_API + `/?pageIndex=${pageIndex}&pageSize=${pageSize}`);
   }
 
   getBookingById(id: number): Observable<Booking> {

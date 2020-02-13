@@ -5,13 +5,17 @@ import com.sda10.carrental.repository.BookingRepository;
 import com.sda10.carrental.repository.CarRepository;
 import com.sda10.carrental.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -43,10 +47,16 @@ public class BookingService {
         return bookingRepository.getOne(id);
     }
 
-    public List<Booking> getAllBookings() {
-        return bookingRepository.findAll().stream()
-                .map(booking -> verifyStatus(booking))
-                .collect(Collectors.toList());
+    public List<Booking> getAllBookings(Integer pageIndex, Integer pageSize) {
+        Pageable paging = PageRequest.of(pageIndex, pageSize);
+
+        Page<Booking> pagedResult = bookingRepository.findAll(paging);
+
+        if (pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public Booking updateBooking(Long id, Booking booking) {
@@ -66,12 +76,18 @@ public class BookingService {
         bookingRepository.delete(bookingToDelete);
     }
 
-    private Booking verifyStatus(Booking booking) {
+    private void verifyStatus(Booking booking) {
         if (LocalDate.now().isAfter(booking.getDateTo()) && booking.getBookingStatus() == BookingStatus.OPEN) {
             booking.setBookingStatus(BookingStatus.COMPLETED);
             updateBooking(booking.getId(), booking);
         }
-        return booking;
+    }
+
+    @Scheduled(cron = "0 52 14 * * ?")
+    protected void scheduleCheckStatus() {
+        List<Booking> bookingList = bookingRepository.findAll();
+        bookingList.stream()
+                .forEach(booking -> verifyStatus(booking));
     }
 
     public Booking buildBooking(Customer client, Car desiredCar, LocalDate rentalDate, LocalDate returnDate, Branch rentalBranch, Branch returnBranch) {
