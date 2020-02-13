@@ -17,8 +17,12 @@ export class CarsService {
     return this.httpClient.get<Car>(this.CAR_API + `/${id}`);
   }
 
-  getAllCars(): Observable<Car[]> {
-    return this.httpClient.get<Car[]>(this.CAR_API);
+  getAllCars(pageIndex: number, pageSize: number): Observable<Car[]> {
+    return this.httpClient.get<Car[]>(this.CAR_API + `/?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+  }
+
+  getCars(): Observable<Car[]> {
+    return this.httpClient.get<Car[]>(`${environment.serverApiUrl}/cars-list`);
   }
 
   saveCar(car: Car): Observable<Car> {

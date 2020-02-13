@@ -5,9 +5,13 @@ import com.sda10.carrental.exception.NotFoundException;
 import com.sda10.carrental.model.Car;
 import com.sda10.carrental.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -99,4 +103,17 @@ public class CarService {
         return filteredCars.collect(Collectors.toList());
 
     }
+
+    public List<Car> getAllCars(Integer pageIndex, Integer pageSize) {
+        Pageable paging = PageRequest.of(pageIndex, pageSize);
+
+        Page<Car> pagedResult = carRepository.findAll(paging);
+
+        if (pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
 }

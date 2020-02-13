@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Rental } from 'src/app/shared/model/rental';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-rentals-overview',
@@ -18,15 +19,24 @@ export class RentalsOverviewComponent implements OnInit {
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
 
+  length = 100;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
   constructor(private rentalService: RentalsService) { }
 
   ngOnInit() {
-    this.loadRentals();
+    this.loadFirstPage();
     this.displayedColumns = ['id', 'rentalDate', 'employeeDto', 'actions'];
   }
 
-  private loadRentals() {
-    this.rentals = this.rentalService.getAllRentals();
+  private loadFirstPage() {
+    this.rentals = this.rentalService.getAllRentals(this.pageIndex, this.pageSize);
+  }
+
+  public getRentals(event: PageEvent) {
+    this.rentals = this.rentalService.getAllRentals(event.pageIndex, event.pageSize);
   }
 
 }

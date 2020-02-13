@@ -38,7 +38,7 @@ public class CustomerController {
         return customerMapper.toDto(customerById);
     }
 
-    @GetMapping(value = "/customers")
+    @GetMapping(value = "/customers-list")
     public List<CustomerDto> findAllCustomers() {
 
         List<Customer> customers = customerService.getAllCustomers();
@@ -46,6 +46,20 @@ public class CustomerController {
                 .stream()
                 .map(customerMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/customers")
+    public ResponseEntity<List<CustomerDto>> findAllCustomers(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "5") Integer pageSize) {
+
+        List<Customer> customers = customerService.getAllCustomers(pageIndex, pageSize);
+        List<CustomerDto> response = customers
+                .stream()
+                .map(customerMapper::toDto)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping(value = "/customers/{id}")

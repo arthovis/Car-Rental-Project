@@ -13,8 +13,12 @@ export class CustomerService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllCustomers(): Observable<Customer[]> {
-    return this.httpClient.get<Customer[]>(this.CUSTOMERG_API);
+  getAllCustomers(pageIndex: number, pageSize: number): Observable<Customer[]> {
+    return this.httpClient.get<Customer[]>(this.CUSTOMERG_API + `/?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+  }
+
+  getCustomers(): Observable<Customer[]> {
+    return this.httpClient.get<Customer[]>(`${environment.serverApiUrl}/customers-list`);
   }
 
   getCustomerById(id: number): Observable<Customer> {

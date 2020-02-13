@@ -1,10 +1,10 @@
 import { ReturnsService } from './../returns.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Rental } from 'src/app/shared/model/rental';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 import { Return } from 'src/app/shared/model/return';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-returns-overview',
@@ -19,15 +19,24 @@ export class ReturnsOverviewComponent implements OnInit {
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
 
+  length = 100;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
   constructor(private returnService: ReturnsService) { }
 
   ngOnInit() {
-    this.loadReturns();
+    this.loadFirstPage();
     this.displayedColumns = ['id', 'dateOfReturn', 'employeeDto', 'additionalPayment', 'actions'];
   }
 
-  private loadReturns() {
-    this.returns = this.returnService.getAllReturns();
+  private loadFirstPage() {
+    this.returns = this.returnService.getAllReturns(this.pageIndex, this.pageSize);
+  }
+
+  public getReturns(event: PageEvent) {
+    this.returns = this.returnService.getAllReturns(event.pageIndex, event.pageSize);
   }
 
 }

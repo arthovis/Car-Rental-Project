@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RentalOffice } from 'src/app/shared/model/rentalOffice';
 import { faTrash, IconDefinition, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 import { RentalOfficesService } from '../rental-offices.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-rental-office-overview',
@@ -12,30 +13,40 @@ import { RentalOfficesService } from '../rental-offices.service';
 export class RentalOfficeOverviewComponent implements OnInit {
 
   rentalOffices: Observable<RentalOffice[]>;
-  rentalOfficeById: Observable<RentalOffice>;
 
   displayedColumns: string[];
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
 
-  constructor(private rentalOfficeService: RentalOfficesService) {
-  }
+  length = 100;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  pageEvent: PageEvent;
+
+  constructor(private rentalOfficeService: RentalOfficesService) { }
 
   ngOnInit() {
-    this.loadRentalOffices();
+    this.loadFirstPage();
     this.displayedColumns = ['id', 'name', 'actions'];
   }
 
-  private loadRentalOffices() {
-    this.rentalOffices = this.rentalOfficeService.getAllRentalOffices();
+  private loadFirstPage() {
+    this.rentalOffices = this.rentalOfficeService.getAllRentalOffices(this.pageIndex, this.pageSize);
   }
 
   delete(id: number) {
     this.rentalOfficeService.deleteRentalOffice(id).subscribe(
       data => {
-        this.loadRentalOffices();
+        this.getRentalOffices(this.pageEvent);
       },
       error => console.log(error));
+  }
+
+  public getRentalOffices(event: PageEvent) {
+    this.pageEvent = event;
+    this.rentalOffices = this.rentalOfficeService.getAllRentalOffices(event.pageIndex, event.pageSize);
   }
 
 }

@@ -19,8 +19,8 @@ export class RentalOfficesService {
     return this.httpClient.post<RentalOffice>(this.RENTAL_OFFICE_API, rentalOffice);
   }
 
-  getAllRentalOffices(): Observable<RentalOffice[]> {
-    return this.httpClient.get<RentalOffice[]> (this.RENTAL_OFFICE_API);
+  getAllRentalOffices(pageIndex: number, pageSize: number): Observable<RentalOffice[]> {
+    return this.httpClient.get<RentalOffice[]> (this.RENTAL_OFFICE_API + `/?pageIndex=${pageIndex}&pageSize=${pageSize}`);
   }
 
   getCarRentalOfficeById(id: number): Observable<RentalOffice> {

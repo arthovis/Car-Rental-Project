@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/success-snack.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-employees-list',
@@ -17,11 +18,15 @@ import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/s
 export class EmployeesListComponent implements OnInit {
 
   employees: Observable<Employee[]>;
-  employeeById: Employee;
 
   displayedColumns: string[];
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
+
+  length = 100;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
 
   constructor(private employeeService: EmployeesService,
               private branchService: BranchesService,
@@ -31,19 +36,22 @@ export class EmployeesListComponent implements OnInit {
               ) { }
 
   ngOnInit() {
-    this.loadEmployees();
+    this.loadFirstPage();
     this.displayedColumns = ['id', 'nameAndSurname', 'actions'];
   }
 
-  loadEmployees() {
-    this.employees = this.employeeService.getAllEmployees();
+  loadFirstPage() {
+    this.employees = this.employeeService.getAllEmployees(this.pageIndex, this.pageSize);
+  }
+
+  public getEmployees(event: PageEvent) {
+    this.employees = this.employeeService.getAllEmployees(event.pageIndex, event.pageSize);
   }
 
   addEmployee(id: number): void {
     this.employeeService.getEmployeeById(id)
       .subscribe(employee => {
-        this.employeeById = employee;
-        this.branchService.addEmployee(this.getIdFromRoute(), this.employeeById).subscribe();
+        this.branchService.addEmployee(this.getIdFromRoute(), employee).subscribe();
         this.snackBar.openFromComponent(SuccessSnackComponent, {
           duration: 2000,
           verticalPosition: 'top'

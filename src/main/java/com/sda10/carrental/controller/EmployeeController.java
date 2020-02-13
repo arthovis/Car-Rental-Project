@@ -36,7 +36,7 @@ public class EmployeeController {
         return employeeMapper.toDto(employeeById);
     }
 
-    @GetMapping(value = "/employees")
+    @GetMapping(value = "/employees-list")
     public List<EmployeeDto> findAllEmployees() {
 
         List<Employee> employees = employeeService.getAllEmployees();
@@ -44,6 +44,20 @@ public class EmployeeController {
                 .stream()
                 .map(employeeMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/employees")
+    public ResponseEntity<List<EmployeeDto>> findAllEmployees(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "5") Integer pageSize) {
+
+        List<Employee> employees = employeeService.getAllEmployees(pageIndex, pageSize);
+        List<EmployeeDto> response = employees
+                .stream()
+                .map(employeeMapper::toDto)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping(value = "/employees/{id}")

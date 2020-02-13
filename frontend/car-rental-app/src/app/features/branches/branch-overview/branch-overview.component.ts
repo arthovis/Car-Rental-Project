@@ -1,3 +1,4 @@
+import { PageEvent } from '@angular/material/paginator';
 import { Component, OnInit } from '@angular/core';
 import { Branch } from 'src/app/shared/model/branch';
 import { IconDefinition, faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
@@ -12,29 +13,40 @@ import { BranchesService } from '../branches.service';
 export class BranchOverviewComponent implements OnInit {
 
   branches: Observable<Branch[]>;
-  branchById: Observable<Branch>;
 
   displayedColumns: string[];
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
 
+  length = 100;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  pageEvent: PageEvent;
+
   constructor(private branchService: BranchesService) { }
 
   ngOnInit() {
-    this.loadBranches();
+    this.loadFirstPage();
     this.displayedColumns = ['id', 'address', 'actions'];
   }
 
-  private loadBranches() {
-    this.branches = this.branchService.getAllBranches();
+  private loadFirstPage() {
+    this.branches = this.branchService.getAllBranches(this.pageIndex, this.pageSize);
   }
 
   delete(id: number) {
     this.branchService.deleteBranch(id).subscribe(
       data => {
-        this.loadBranches();
+        this.getBranches(this.pageEvent);
       },
       error => console.log(error));
+  }
+
+  public getBranches(event: PageEvent) {
+    this.pageEvent = event;
+    this.branches = this.branchService.getAllBranches(event.pageIndex, event.pageSize);
   }
 
 }
