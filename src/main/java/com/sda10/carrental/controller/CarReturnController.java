@@ -41,14 +41,18 @@ public class CarReturnController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/car-return")
-    public List<CarReturnDto> getAllCarReturns() {
+    @GetMapping(value = "/car-return")
+    public ResponseEntity<List<CarReturnDto>> getAllCarReturns(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "5") Integer pageSize) {
 
-        List<CarReturn> carReturns = carReturnService.findAllCarReturn();
-
-        return carReturns.stream()
-                .map(carReturn -> carReturnMapper.toDto(carReturn))
+        List<CarReturn> carReturns = carReturnService.findAllCarReturn(pageIndex, pageSize);
+        List<CarReturnDto> response = carReturns
+                .stream()
+                .map(carReturnMapper::toDto)
                 .collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/car-return/{id}")

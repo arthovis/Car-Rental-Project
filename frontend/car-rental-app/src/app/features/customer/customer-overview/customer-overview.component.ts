@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Customer } from 'src/app/shared/model/customer';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-customer-overview',
@@ -13,29 +14,40 @@ import { faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 export class CustomerOverviewComponent implements OnInit {
 
   customers: Observable<Customer[]>;
-  customer: Observable<Customer>;
 
   displayedColumns: string[];
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
 
+  length = 100;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  pageEvent: PageEvent;
+
   constructor(private customerService: CustomerService) { }
 
   ngOnInit() {
-    this.loadCustomers();
+    this.loadFirstPage();
     this.displayedColumns = ['id', 'firstName', 'lastName', 'actions'];
   }
 
-  private loadCustomers() {
-    this.customers = this.customerService.getAllCustomers();
+  private loadFirstPage() {
+    this.customers = this.customerService.getAllCustomers(this.pageIndex, this.pageSize);
   }
 
   delete(id: number) {
     this.customerService.deleteCustomer(id).subscribe(
       data => {
-        this.loadCustomers();
+        this.getCustomers(this.pageEvent);
       },
       error => console.log(console.error()));
+  }
+
+  public getCustomers(event: PageEvent) {
+    this.pageEvent = event;
+    this.customers = this.customerService.getAllCustomers(event.pageIndex, event.pageSize);
   }
 
 }

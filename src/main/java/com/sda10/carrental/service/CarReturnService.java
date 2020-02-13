@@ -5,8 +5,12 @@ import com.sda10.carrental.model.CarReturn;
 import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.repository.CarReturnRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,8 +28,16 @@ public class CarReturnService {
         return carReturnRepository.save(newCarReturn);
     }
 
-    public List<CarReturn> findAllCarReturn() {
-        return carReturnRepository.findAll();
+    public List<CarReturn> findAllCarReturn(Integer pageIndex, Integer pageSize) {
+        Pageable paging = PageRequest.of(pageIndex, pageSize);
+
+        Page<CarReturn> pagedResult = carReturnRepository.findAll(paging);
+
+        if (pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public CarReturn findCarReturnById(Long id) {

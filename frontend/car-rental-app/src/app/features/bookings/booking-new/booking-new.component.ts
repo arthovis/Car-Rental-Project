@@ -57,15 +57,15 @@ export class BookingNewComponent implements OnInit {
   }
 
   getCustomers() {
-    this.customerService.getAllCustomers().subscribe((customers: Customer[]) => this.customers = customers);
+    this.customerService.getCustomers().subscribe((customers: Customer[]) => this.customers = customers);
   }
 
   getBranches() {
-    this.branchService.getAllBranches().subscribe((branches: Branch[]) => this.branches = branches);
+    this.branchService.getBranches().subscribe((branches: Branch[]) => this.branches = branches);
   }
 
   getCars() {
-    this.carService.getAllCars().subscribe((cars: Car[]) => this.cars = cars.filter(car => {
+    this.carService.getCars().subscribe((cars: Car[]) => this.cars = cars.filter(car => {
       return car.status === Status.available;
     }));
   }

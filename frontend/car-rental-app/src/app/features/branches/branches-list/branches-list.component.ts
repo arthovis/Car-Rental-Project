@@ -1,3 +1,4 @@
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -16,11 +17,15 @@ import { RentalOfficesService } from '../../rental-offices/rental-offices.servic
 export class BranchesListComponent implements OnInit {
 
   branches: Observable<Branch[]>;
-  branchById: Branch;
 
   displayedColumns: string[];
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
+
+  length = 100;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
 
   constructor(
     private branchService: BranchesService,
@@ -31,19 +36,22 @@ export class BranchesListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadBranches();
+    this.loadFirstPage();
     this.displayedColumns = ['id', 'address', 'actions'];
   }
 
-  loadBranches() {
-    this.branches = this.branchService.getAllBranches();
+  private loadFirstPage() {
+    this.branches = this.branchService.getAllBranches(this.pageIndex, this.pageSize);
+  }
+
+  public getBranches(event: PageEvent) {
+    this.branches = this.branchService.getAllBranches(event.pageIndex, event.pageSize);
   }
 
   addBranch(id: number): void {
     this.branchService.getBranchById(id)
       .subscribe(branch => {
-        this.branchById = branch;
-        this.rentalOfficeService.addBranch(this.getIdFromRoute(), this.branchById).subscribe();
+        this.rentalOfficeService.addBranch(this.getIdFromRoute(), branch).subscribe();
         this.snackBar.openFromComponent(SuccessSnackComponent, {
           duration: 2000,
           verticalPosition: 'top'

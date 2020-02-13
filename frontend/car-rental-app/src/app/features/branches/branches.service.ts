@@ -15,8 +15,12 @@ export class BranchesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllBranches(): Observable<Branch[]> {
-    return this.httpClient.get<Branch[]>(this.BRANCH_API);
+  getAllBranches(pageIndex: number, pageSize: number): Observable<Branch[]> {
+    return this.httpClient.get<Branch[]>(this.BRANCH_API + `/?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+  }
+
+  getBranches(): Observable<Branch[]> {
+    return this.httpClient.get<Branch[]>(`${environment.serverApiUrl}/branches-list`);
   }
 
   saveBranch(branch: Branch): Observable<Branch> {

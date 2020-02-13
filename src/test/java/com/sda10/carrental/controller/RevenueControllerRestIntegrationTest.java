@@ -139,11 +139,11 @@ public class RevenueControllerRestIntegrationTest extends RestIntegrationTest {
         carRentalOffice.setContactAddress(address);
         carRentalOffice.setInternetDomain(internetDomain);
         carRentalOffice.setName(name);
-		carRentalOffice.setOwner(owner);
-		carRentalOffice.setLogoType(logo);
-		carRentalOffice.setBranches(list);
+        carRentalOffice.setOwner(owner);
+        carRentalOffice.setLogoType(logo);
+        carRentalOffice.setBranches(list);
 
-		return carRentalOffice;
-	}
+        return carRentalOffice;
+    }
 
 }

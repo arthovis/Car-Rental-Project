@@ -4,9 +4,13 @@ import com.sda10.carrental.model.Employee;
 import com.sda10.carrental.model.Rental;
 import com.sda10.carrental.repository.RentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,8 +59,16 @@ public class RentalService {
         }
     }
 
-    public List<Rental> getAllRentals() {
-        return rentalRepository.findAll();
+    public List<Rental> getAllRentals(Integer pageIndex, Integer pageSize) {
+        Pageable paging = PageRequest.of(pageIndex, pageSize);
+
+        Page<Rental> pagedResult = rentalRepository.findAll(paging);
+
+        if (pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
 }

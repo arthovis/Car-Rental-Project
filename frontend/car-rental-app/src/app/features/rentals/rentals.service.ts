@@ -14,8 +14,8 @@ export class RentalsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllRentals(): Observable<Rental[]> {
-    return this.httpClient.get<Rental[]>(this.RENTAL_API);
+  getAllRentals(pageIndex: number, pageSize: number): Observable<Rental[]> {
+    return this.httpClient.get<Rental[]>(this.RENTAL_API  + `/?pageIndex=${pageIndex}&pageSize=${pageSize}`);
   }
 
   getRentalById(id: number): Observable<Rental> {

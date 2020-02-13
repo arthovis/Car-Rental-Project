@@ -62,7 +62,7 @@ public class CarController {
         return new ResponseEntity((HttpStatus.OK));
     }
 
-    @GetMapping(value = "/cars")
+    @GetMapping(value = "/cars-list")
     public List<CarDto> filterCars(@RequestParam(required = false) String make, @RequestParam(required = false) String model,
                                    @RequestParam(required = false) String bodyType, @RequestParam(required = false) Integer yearOfProduction,
                                    @RequestParam(required = false) String color, @RequestParam(required = false) Long mileage,
@@ -81,4 +81,19 @@ public class CarController {
 
         return filteredCar.stream().map(carMapper::toDto).collect(Collectors.toList());
     }
+
+    @GetMapping(value = "/cars")
+    public ResponseEntity<List<CarDto>> findAllCars(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "5") Integer pageSize) {
+
+        List<Car> cars = carService.getAllCars(pageIndex, pageSize);
+        List<CarDto> response = cars
+                .stream()
+                .map(carMapper::toDto)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

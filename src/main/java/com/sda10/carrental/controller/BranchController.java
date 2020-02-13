@@ -47,7 +47,7 @@ public class BranchController {
 
     }
 
-    @GetMapping(value = "/branch")
+    @GetMapping(value = "/branches-list")
     public List<BranchDto> findAllBranches() {
 
         List<Branch> branches = branchService.getAllBranches();
@@ -55,6 +55,20 @@ public class BranchController {
                 .stream()
                 .map(branchMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/branch")
+    public ResponseEntity<List<BranchDto>> findAllBranches(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "5") Integer pageSize) {
+
+        List<Branch> branches = branchService.getAllBranches(pageIndex, pageSize);
+        List<BranchDto> response = branches
+                .stream()
+                .map(branchMapper::toDto)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping(value = "/branch/{id}")

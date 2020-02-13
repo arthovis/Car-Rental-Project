@@ -8,9 +8,13 @@ import com.sda10.carrental.repository.BranchRepository;
 import com.sda10.carrental.repository.CarRepository;
 import com.sda10.carrental.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +68,18 @@ public class BranchService {
 
     public List<Branch> getAllBranches() {
         return branchRepository.findAll();
+    }
+
+    public List<Branch> getAllBranches(Integer pageIndex, Integer pageSize) {
+        Pageable paging = PageRequest.of(pageIndex, pageSize);
+
+        Page<Branch> pagedResult = branchRepository.findAll(paging);
+
+        if (pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public Branch updateBranchWithEmployee(Long id, Employee employee) {

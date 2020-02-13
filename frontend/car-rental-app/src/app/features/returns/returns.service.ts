@@ -14,8 +14,8 @@ export class ReturnsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllReturns(): Observable<Return[]> {
-    return this.httpClient.get<Return[]>(this.RETURN_API);
+  getAllReturns(pageIndex: number, pageSize: number): Observable<Return[]> {
+    return this.httpClient.get<Return[]>(this.RETURN_API + `/?pageIndex=${pageIndex}&pageSize=${pageSize}`);
   }
 
   getReturnById(id: number): Observable<Return> {

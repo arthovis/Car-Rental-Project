@@ -18,8 +18,12 @@ export class EmployeesService {
     return this.httpClient.get<Employee>(this.EMPLOYEE_API + `/${id}`);
   }
 
-  getAllEmployees(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(this.EMPLOYEE_API);
+  getAllEmployees(pageIndex: number, pageSize: number): Observable<Employee[]> {
+    return this.httpClient.get<Employee[]>(this.EMPLOYEE_API + `/?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+  }
+
+  getEmployees(): Observable<Employee[]> {
+    return this.httpClient.get<Employee[]>(`${environment.serverApiUrl}/employees-list`);
   }
 
   saveEmployee(employee: Employee): Observable<Employee> {

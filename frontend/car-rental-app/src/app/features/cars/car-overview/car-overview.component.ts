@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Car } from 'src/app/shared/model/car';
 import { faSearchPlus, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { PageEvent } from '@angular/material/paginator';
 
 
 @Component({
@@ -13,28 +14,40 @@ import { faSearchPlus, faTrash, IconDefinition } from '@fortawesome/free-solid-s
 export class CarOverviewComponent implements OnInit {
 
   cars: Observable<Car[]>;
-  carById: Observable<Car>;
 
   displayedColumns: string[];
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
 
-  constructor(private carsService: CarsService) { }
+  length = 100;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  pageEvent: PageEvent;
+
+  constructor(private carService: CarsService) { }
 
   ngOnInit() {
-    this.loadCars();
+    this.loadFirstPage();
     this.displayedColumns = ['id', 'model', 'actions'];
   }
 
-  private loadCars() {
-    this.cars = this.carsService.getAllCars();
+  private loadFirstPage() {
+    this.cars = this.carService.getAllCars(this.pageIndex, this.pageSize);
   }
 
   delete(id: number) {
-    this.carsService.deleteCar(id).subscribe(
+    this.carService.deleteCar(id).subscribe(
       data => {
-        this.loadCars();
+        this.getCars(this.pageEvent);
       },
       error => console.log(console.error()));
   }
+
+  public getCars(event: PageEvent) {
+    this.pageEvent = event;
+    this.cars = this.carService.getAllCars(event.pageIndex, event.pageSize);
+  }
+
 }

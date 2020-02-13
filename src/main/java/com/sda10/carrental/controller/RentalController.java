@@ -37,13 +37,17 @@ public class RentalController {
     }
 
     @GetMapping(value = "/rental")
-    public List<RentalDto> findAllRentals() {
+    public ResponseEntity<List<RentalDto>> findAllRentals(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "5") Integer pageSize) {
 
-        List<Rental> rentals = rentalService.getAllRentals();
-        return rentals
+        List<Rental> rentals = rentalService.getAllRentals(pageIndex, pageSize);
+        List<RentalDto> response = rentals
                 .stream()
                 .map(rentalMapper::toDto)
                 .collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping(value = "/rental/{id}")

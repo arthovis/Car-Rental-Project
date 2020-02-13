@@ -8,6 +8,7 @@ import { BranchesService } from '../../branches/branches.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/success-snack.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-cars-list',
@@ -17,11 +18,15 @@ import { SuccessSnackComponent } from 'src/app/shared/components/success-snack/s
 export class CarsListComponent implements OnInit {
 
   cars: Observable<Car[]>;
-  carById: Car;
 
   displayedColumns: string[];
   trashIcon: IconDefinition = faTrash;
   searchIcon: IconDefinition = faSearchPlus;
+
+  length = 100;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
 
   constructor(private carService: CarsService,
               private branchService: BranchesService,
@@ -31,19 +36,22 @@ export class CarsListComponent implements OnInit {
               ) { }
 
   ngOnInit() {
-    this.loadCars();
+    this.loadFirstPage();
     this.displayedColumns = ['id', 'model', 'actions'];
   }
 
-  loadCars() {
-    this.cars = this.carService.getAllCars();
+  private loadFirstPage() {
+    this.cars = this.carService.getAllCars(this.pageIndex, this.pageSize);
+  }
+
+  public getCars(event: PageEvent) {
+    this.cars = this.carService.getAllCars(event.pageIndex, event.pageSize);
   }
 
   addCar(id: number): void {
     this.carService.getCarById(id)
       .subscribe(car => {
-        this.carById = car;
-        this.branchService.addCar(this.getIdFromRoute(), this.carById).subscribe();
+        this.branchService.addCar(this.getIdFromRoute(), car).subscribe();
         this.snackBar.openFromComponent(SuccessSnackComponent, {
           duration: 2000,
           verticalPosition: 'top'

@@ -4,9 +4,13 @@ import com.sda10.carrental.model.Branch;
 import com.sda10.carrental.model.CarRentalOffice;
 import com.sda10.carrental.repository.CarRentalOfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,8 +47,16 @@ public class CarRentalOfficeService {
         carRentalOfficeRepository.delete(existingCarRentalOffice);
     }
 
-    public List<CarRentalOffice> getAllCarRentalOffices() {
-        return carRentalOfficeRepository.findAll();
+    public List<CarRentalOffice> getAllCarRentalOffices(Integer pageIndex, Integer pageSize) {
+        Pageable paging = PageRequest.of(pageIndex, pageSize);
+
+        Page<CarRentalOffice> pagedResult = carRentalOfficeRepository.findAll(paging);
+
+        if (pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public CarRentalOffice updateCarRentalOfficeWithBranch(Long id, Branch branch) {

@@ -47,13 +47,17 @@ public class CarRentalOfficeController {
     }
 
     @GetMapping(value = "/car-rental-offices")
-    public List<CarRentalOfficeDto> findAllCarRentalOffice() {
+    public ResponseEntity<List<CarRentalOfficeDto>> findAllCarRentalOffice(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "5") Integer pageSize) {
 
-        List<CarRentalOffice> carAllRentalOffice = carRentalOfficeService.getAllCarRentalOffices();
-        return carAllRentalOffice
+        List<CarRentalOffice> carAllRentalOffices = carRentalOfficeService.getAllCarRentalOffices(pageIndex, pageSize);
+        List<CarRentalOfficeDto> response = carAllRentalOffices
                 .stream()
                 .map(carRentalOfficeMapper::toDto)
                 .collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping(value = "/car-rental-offices/{id}")

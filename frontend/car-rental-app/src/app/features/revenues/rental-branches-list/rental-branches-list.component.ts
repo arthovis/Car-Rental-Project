@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Branch } from 'src/app/shared/model/branch';
 import { BranchesService } from '../../branches/branches.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-rental-branches-list',
@@ -18,18 +19,27 @@ export class RentalBranchesListComponent implements OnInit {
 
   displayedColumns: string[];
 
+  length = 100;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
   constructor(
     private branchService: BranchesService,
     private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.loadBranches();
+    this.loadFirstPage();
     this.displayedColumns = ['id', 'address', 'actions'];
   }
 
-  loadBranches() {
-    this.branches = this.branchService.getAllBranches();
+  loadFirstPage() {
+    this.branches = this.branchService.getAllBranches(this.pageIndex, this.pageSize);
+  }
+
+  public getBranches(event: PageEvent) {
+    this.branches = this.branchService.getAllBranches(event.pageIndex, event.pageSize);
   }
 
   getIdFromRoute(): number {
